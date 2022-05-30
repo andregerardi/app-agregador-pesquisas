@@ -3,6 +3,8 @@ import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
 from PIL import Image
+import openpyxl
+
 
 
 st.set_page_config(page_title='Agregador de pesquisas eleitorais por religião', layout='wide')
