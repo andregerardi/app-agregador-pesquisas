@@ -99,11 +99,9 @@ if relig == 'Católica':
 
     st.pyplot(plt)
     
-    
+    st.write('**Comentários:**')
     st.write(f"Em 2022, a intenção de voto _geral_ de Bolsonaro foi de {round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}% em média, e no segmento _católico_ de {round(df[df['ano']==2022].bolsonaro_cat.mean(),0)}%.")
-    
     st.write(f"Lula, no mesmo período, obteve intenção de voto _geral_ de {round(df[df['ano']==2022].lula_geral.mean(),0)}% em média, e no segmento _católico_ {round(df[df['ano']==2022].lula_cat.mean(),0)}%.")
-    
     st.write(f"A diferença das intenções de voto entre Lula e Bolsonaro foram as seguintes:") 
     st.write(f"Geral = > {round(df[df['ano']==2022].lula_geral.mean(),0) -round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}%")
     st.write(f"Católicos = > {round(df[df['ano']==2022].lula_cat.mean(),0) -round(df[df['ano']==2022].bolsonaro_cat.mean(),0)}%")
@@ -138,10 +136,9 @@ if relig == 'Evangélica':
     plt.rcParams['axes.facecolor'] = 'white' 
     st.pyplot(plt)
     
+    st.write('**Comentários:**')
     st.write(f"Em 2022, a intenção de voto _geral_ de Bolsonaro foi de {round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}% em média, e no segmento _evangélico_ de {round(df[df['ano']==2022].bolsonaro_ev.mean(),0)}%.")
-    
     st.write(f"Lula, no mesmo período, obteve intenção de voto _geral_ de {round(df[df['ano']==2022].lula_geral.mean(),0)}% em média, e no segmento evangélico {round(df[df['ano']==2022].lula_ev.mean(),0)}%.")
-    
     st.write(f"A diferença das intenções de voto entre Lula e Bolsonaro foram as seguintes:") 
     st.write(f"Geral = > {round(df[df['ano']==2022].lula_geral.mean(),0) -round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}%")
     st.write(f"Evangélicos = > {round(df[df['ano']==2022].lula_ev.mean(),0) -round(df[df['ano']==2022].bolsonaro_ev.mean(),0)}%")
