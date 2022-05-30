@@ -71,7 +71,7 @@ with st.container():
     
 if relig == 'Católica':
     plt.figure(figsize=(17,8)) 
-    plt.title(f"Intenção de voto de '{relig}' para presidente" + "\n", fontdict={'fontsize':15})
+    plt.title(f"Intenção de voto de 'católicos' para presidente" + "\n", fontdict={'fontsize':15})
     plt.plot(df.lula_cat, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=1,alpha=0.6, label="Lula_cat")
     plt.plot(df.lula_geral, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral")
 
@@ -109,7 +109,7 @@ if relig == 'Católica':
 
 if relig == 'Evangélica':
     plt.figure(figsize=(17,8)) 
-    plt.title(f"Intenção de voto de '{relig}' para presidente" + "\n", fontdict={'fontsize':15})
+    plt.title(f"Intenção de voto de 'evangélicos' para presidente" + "\n", fontdict={'fontsize':15})
     plt.plot(df.lula_ev, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_ev")
     plt.plot(df.lula_geral, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral")
 
@@ -228,7 +228,4 @@ expander2 = st.expander("Como citar o agregador")
 expander2.write("""
      descrever.
  """)
-
-
-
 
