@@ -62,16 +62,15 @@ with st.container():
         col1.metric(label="Católicos", value=f"{round(df[df['ano']==2022].bolsonaro_cat_1t.mean(),0)}%")
         col2.metric(label="Evangélicos", value=f"{round(df[df['ano']==2022].bolsonaro_ev_1t.mean(),0)}%")
 
+st.markdown("---")
+
 ############ 
 ## container - gráfico geral católicos e evangélicos - modelo 1
 ############ 
 with st.container():
-    st.write("##### Selecione as informações para visualização dos gráficos:")
+    st.write("##### **_Gráfico com as intenções de voto por religião_**:")
 
-    st.write("""
-        \n
-     """)
-    relig = st.selectbox('Religião:',options=['','Católica', 'Evangélica'])
+    relig = st.selectbox('Selecione a religião:',options=['','Católica', 'Evangélica'])
     
 if relig == 'Católica':
     plt.figure(figsize=(17,8)) 
@@ -157,11 +156,13 @@ institutos = list(set(df['nome_instituto']))
 institutos.insert(0, '')
 
 with st.container():
+    st.write("##### **_Gráfico por instituto de pesquisa e religião_**:")
+
     col, col1 = st.columns(2)
     with col:
-        inst = st.selectbox('Instituto de pesquisa:',options=institutos)
+        inst = st.selectbox('Selecione o instituto de pesquisa:',options=institutos)
     with col1:
-        rel = st.selectbox('Religiao:',options=['','Católica', 'Evangélica'])
+        rel = st.selectbox('Escolha a religião:',options=['','Católica', 'Evangélica'])
 
 if rel == 'Católica':
     
