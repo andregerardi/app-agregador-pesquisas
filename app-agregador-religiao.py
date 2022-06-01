@@ -20,21 +20,27 @@ df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
 df.sigla = df.sigla.astype(str)
 df.set_index('sigla',inplace = True)
 
-### diferença
-df['dif_cat'] = pd.DataFrame(df['lula_cat'] - df['bolsonaro_cat'])
-df['dif_ev'] = pd.DataFrame(df['bolsonaro_ev'] - df['lula_ev'])
+### diferença 1o turno
+df['dif_cat_1t'] = pd.DataFrame(df['lula_cat_1t'] - df['bolsonaro_cat_1t'])
+df['dif_ev_1t'] = pd.DataFrame(df['bolsonaro_ev_1t'] - df['lula_ev_1t'])
+
+### diferença 2o turno
+df['dif_cat_2t'] = pd.DataFrame(df['lula_cat_2t'] - df['bolsonaro_cat_2t'])
+df['dif_ev_2t'] = pd.DataFrame(df['bolsonaro_ev_2t'] - df['lula_ev_2t'])
 
 st.markdown("---")
 
 ############ 
-### métricas da média de intenção de votos nos candidatos
+### métricas da média de intenção de votos nos candidatos - priemeiro turno
 ############
 
-### barra lateral
+########################
+### primeiro turno #####
+########################
 
 with st.container():
-    st.write('##### Para visualizar a média da intenção de votos dos candidatos selecione as opções:')
-    # st.sidebar.markdown('---')
+    st.write('### **Dados do Primeiro Turno**:')
+    st.write('##### **_Média da intenção de voto_**')
 
     int_vot_lula = st.checkbox('Lula')
 
@@ -42,9 +48,9 @@ with st.container():
         lul = Image.open('lula-oculos.jpg')
         col0, col, col1, col2 = st.columns(4)
         col0.image(lul,width=85)
-        col.metric(label="Geral", value=f"{round(df[df['ano']==2022].lula_geral.mean(),0)}%")
-        col1.metric(label="Católicos", value=f"{round(df[df['ano']==2022].lula_cat.mean(),0)}%")
-        col2.metric(label="Evangélicos", value=f"{round(df[df['ano']==2022].lula_ev.mean(),0)}%")
+        col.metric(label="Geral", value=f"{round(df[df['ano']==2022].lula_geral_1t.mean(),0)}%")
+        col1.metric(label="Católicos", value=f"{round(df[df['ano']==2022].lula_cat_1t.mean(),0)}%")
+        col2.metric(label="Evangélicos", value=f"{round(df[df['ano']==2022].lula_ev_1t.mean(),0)}%")
 
     int_vot_bolsonaro = st.checkbox('Bolsonaro')
 
@@ -52,13 +58,12 @@ with st.container():
         bol = Image.open('bolsonaro_capacete.jpg')
         col0,col, col1, col2 = st.columns(4)
         col0.image(bol,width=90)
-        col.metric(label="Geral", value=f"{round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}%")
-        col1.metric(label="Católicos", value=f"{round(df[df['ano']==2022].bolsonaro_cat.mean(),0)}%")
-        col2.metric(label="Evangélicos", value=f"{round(df[df['ano']==2022].bolsonaro_ev.mean(),0)}%")
-st.markdown("---")
+        col.metric(label="Geral", value=f"{round(df[df['ano']==2022].bolsonaro_geral_1t.mean(),0)}%")
+        col1.metric(label="Católicos", value=f"{round(df[df['ano']==2022].bolsonaro_cat_1t.mean(),0)}%")
+        col2.metric(label="Evangélicos", value=f"{round(df[df['ano']==2022].bolsonaro_ev_1t.mean(),0)}%")
 
 ############ 
-## container gráfico geral católicos e evangélicos - modelo 1
+## container - gráfico geral católicos e evangélicos - modelo 1
 ############ 
 with st.container():
     st.write("##### Selecione as informações para visualização dos gráficos:")
@@ -71,11 +76,11 @@ with st.container():
 if relig == 'Católica':
     plt.figure(figsize=(17,8)) 
     plt.title("Intenção de voto de 'católicos' para presidente" + "\n", fontdict={'fontsize':18})
-    plt.plot(df.lula_cat, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_cat")
-    plt.plot(df.lula_geral, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral")
+    plt.plot(df.lula_cat_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_cat_1t")
+    plt.plot(df.lula_geral_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral_1t")
 
-    plt.plot(df.bolsonaro_cat, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_cat")
-    plt.plot(df.bolsonaro_geral, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=5, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral")
+    plt.plot(df.bolsonaro_cat_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_cat_1t")
+    plt.plot(df.bolsonaro_geral_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=5, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral_1t")
 
     plt.style.use('ggplot')
     plt.xlabel('mês/ano e instituto de pesquisa')
@@ -84,11 +89,11 @@ if relig == 'Católica':
     plt.legend(fontsize=9, facecolor='w')
 
     #Lula
-    plt.axhline(round(df['lula_cat'].mean(),0), color='firebrick', linestyle='dashed', linewidth=.5)
-    plt.text(35.5,round(df['lula_cat'].mean(),0)+.5, f"média_lula_cat={round(df['lula_cat'].mean(),0)}%")
+    plt.axhline(round(df['lula_cat_1t'].mean(),0), color='firebrick', linestyle='dashed', linewidth=.5)
+    plt.text(35.5,round(df['lula_cat_1t'].mean(),0)+.5, f"média_lula_cat_1t={round(df['lula_cat_1t'].mean(),0)}%")
     #Bolsonaro
-    plt.axhline(round(df['bolsonaro_cat'].mean(),0), color='skyblue', linestyle='dashed', linewidth=.5)
-    plt.text(35.5,round(df['bolsonaro_cat'].mean(),0)+.5, f"média_bolsonaro_cat={round(df['bolsonaro_cat'].mean(),0)}%")
+    plt.axhline(round(df['bolsonaro_cat_1t'].mean(),0), color='skyblue', linestyle='dashed', linewidth=.5)
+    plt.text(35.5,round(df['bolsonaro_cat_1t'].mean(),0)+.5, f"média_bolsonaro_cat_1t={round(df['bolsonaro_cat_1t'].mean(),0)}%")
 
 
     plt.axvspan('fev/21_ipec', 'dez/21_quaest', facecolor="#929591", alpha=0.1)
@@ -99,21 +104,21 @@ if relig == 'Católica':
     st.pyplot(plt)
     
     st.write('**Comentários:**')
-    st.write(f"Em 2022, a intenção de voto _geral_ de Bolsonaro foi de {round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}% em média, e no segmento _católico_ de {round(df[df['ano']==2022].bolsonaro_cat.mean(),0)}%.")
-    st.write(f"Lula, no mesmo período, obteve intenção de voto _geral_ de {round(df[df['ano']==2022].lula_geral.mean(),0)}% em média, e no segmento _católico_ {round(df[df['ano']==2022].lula_cat.mean(),0)}%.")
+    st.write(f"Em 2022, a intenção de voto _geral_1t_ de Bolsonaro foi de {round(df[df['ano']==2022].bolsonaro_geral_1t.mean(),0)}% em média, e no segmento _cat_1tólico_ de {round(df[df['ano']==2022].bolsonaro_cat_1t.mean(),0)}%.")
+    st.write(f"Lula, no mesmo período, obteve intenção de voto _geral_1t_ de {round(df[df['ano']==2022].lula_geral_1t.mean(),0)}% em média, e no segmento _cat_1tólico_ {round(df[df['ano']==2022].lula_cat_1t.mean(),0)}%.")
     st.write(f"A diferença das intenções de voto entre Lula e Bolsonaro foram as seguintes:") 
-    st.write(f"Geral = > {round(df[df['ano']==2022].lula_geral.mean(),0) -round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}%.")
-    st.write(f"Católicos = > {round(df[df['ano']==2022].lula_cat.mean(),0) -round(df[df['ano']==2022].bolsonaro_cat.mean(),0)}%.")
+    st.write(f"Geral = > {round(df[df['ano']==2022].lula_geral_1t.mean(),0) -round(df[df['ano']==2022].bolsonaro_geral_1t.mean(),0)}%.")
+    st.write(f"Católicos = > {round(df[df['ano']==2022].lula_cat_1t.mean(),0) -round(df[df['ano']==2022].bolsonaro_cat_1t.mean(),0)}%.")
     
 
 if relig == 'Evangélica':
     plt.figure(figsize=(17,8)) 
     plt.title("Intenção de voto de 'evangélicos' para presidente" + "\n", fontdict={'fontsize':18})
-    plt.plot(df.lula_ev, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_ev")
-    plt.plot(df.lula_geral, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral")
+    plt.plot(df.lula_ev_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_ev_1t")
+    plt.plot(df.lula_geral_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral_1t")
 
-    plt.plot(df.bolsonaro_ev, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_ev")
-    plt.plot(df.bolsonaro_geral, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=5, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral")
+    plt.plot(df.bolsonaro_ev_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_ev_1t")
+    plt.plot(df.bolsonaro_geral_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=5, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral_1t")
 
     plt.style.use('ggplot')
     plt.xlabel('mês/ano e instituto de pesquisa')
@@ -122,11 +127,11 @@ if relig == 'Evangélica':
     plt.legend(fontsize=9, facecolor='w')
 
     #Lula
-    plt.axhline(round(df['lula_ev'].mean(),0), color='firebrick', linestyle='dashed', linewidth=.5)
-    plt.text(35.5,round(df['lula_ev'].mean(),0)+.5, f"média_lula_ev={round(df['lula_ev'].mean(),0)}%")
+    plt.axhline(round(df['lula_ev_1t'].mean(),0), color='firebrick', linestyle='dashed', linewidth=.5)
+    plt.text(35.5,round(df['lula_ev_1t'].mean(),0)+.5, f"média_lula_ev_1t={round(df['lula_ev_1t'].mean(),0)}%")
     #Bolsonaro
-    plt.axhline(round(df['bolsonaro_ev'].mean(),0), color='skyblue', linestyle='dashed', linewidth=.5)
-    plt.text(35.5,round(df['bolsonaro_ev'].mean(),0)+.5, f"média_bolsonaro_ev={round(df['bolsonaro_ev'].mean(),0)}%")
+    plt.axhline(round(df['bolsonaro_ev_1t'].mean(),0), color='skyblue', linestyle='dashed', linewidth=.5)
+    plt.text(35.5,round(df['bolsonaro_ev_1t'].mean(),0)+.5, f"média_bolsonaro_ev_1t={round(df['bolsonaro_ev_1t'].mean(),0)}%")
 
 
     plt.axvspan('fev/21_ipec', 'dez/21_quaest', facecolor="#929591", alpha=0.1)
@@ -136,11 +141,11 @@ if relig == 'Evangélica':
     st.pyplot(plt)
     
     st.write('**Comentários:**')
-    st.write(f"Em 2022, a intenção de voto _geral_ de Bolsonaro foi de {round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}% em média, e no segmento _evangélico_ de {round(df[df['ano']==2022].bolsonaro_ev.mean(),0)}%.")
-    st.write(f"Lula, no mesmo período, obteve intenção de voto _geral_ de {round(df[df['ano']==2022].lula_geral.mean(),0)}% em média, e no segmento evangélico {round(df[df['ano']==2022].lula_ev.mean(),0)}%.")
+    st.write(f"Em 2022, a intenção de voto _geral_1t_ de Bolsonaro foi de {round(df[df['ano']==2022].bolsonaro_geral_1t.mean(),0)}% em média, e no segmento _ev_1tangélico_ de {round(df[df['ano']==2022].bolsonaro_ev_1t.mean(),0)}%.")
+    st.write(f"Lula, no mesmo período, obteve intenção de voto _geral_1t_ de {round(df[df['ano']==2022].lula_geral_1t.mean(),0)}% em média, e no segmento evangélico {round(df[df['ano']==2022].lula_ev_1t.mean(),0)}%.")
     st.write(f"A diferença das intenções de voto entre Lula e Bolsonaro foram as seguintes:") 
-    st.write(f"Geral = > {round(df[df['ano']==2022].lula_geral.mean(),0) -round(df[df['ano']==2022].bolsonaro_geral.mean(),0)}%.")
-    st.write(f"Evangélicos = > {round(df[df['ano']==2022].lula_ev.mean(),0) -round(df[df['ano']==2022].bolsonaro_ev.mean(),0)}%.")
+    st.write(f"Geral = > {round(df[df['ano']==2022].lula_geral_1t.mean(),0) -round(df[df['ano']==2022].bolsonaro_geral_1t.mean(),0)}%.")
+    st.write(f"Evangélicos = > {round(df[df['ano']==2022].lula_ev_1t.mean(),0) -round(df[df['ano']==2022].bolsonaro_ev_1t.mean(),0)}%.")
     
 st.markdown("---")
 
@@ -162,11 +167,11 @@ if rel == 'Católica':
     
     plt.figure(figsize=(17,4)) 
     plt.title(f"Intenção de voto de 'católicos' para presidente - '{inst}'" + "\n", fontdict={'fontsize':18})
-    plt.plot(df[df['nome_instituto']==inst].lula_cat, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_cat")
-    plt.plot(df[df['nome_instituto']==inst].lula_geral, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral")
+    plt.plot(df[df['nome_instituto']==inst].lula_cat_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_cat_1t")
+    plt.plot(df[df['nome_instituto']==inst].lula_geral_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral_1t")
 
-    plt.plot(df[df['nome_instituto']==inst].bolsonaro_cat, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_cat")
-    plt.plot(df[df['nome_instituto']==inst].bolsonaro_geral, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral")
+    plt.plot(df[df['nome_instituto']==inst].bolsonaro_cat_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_cat_1t")
+    plt.plot(df[df['nome_instituto']==inst].bolsonaro_geral_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral_1t")
 
     plt.style.use('ggplot')
     plt.xlabel('mês/ano e instituto de pesquisa')
@@ -182,11 +187,11 @@ if rel == 'Evangélica':
     
     plt.figure(figsize=(17,4)) 
     plt.title(f"Intenção de voto de 'evangélicos' para presidente - '{inst}'" + "\n", fontdict={'fontsize':18})
-    plt.plot(df[df['nome_instituto']==inst].lula_ev, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_ev")
-    plt.plot(df[df['nome_instituto']==inst].lula_geral, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral")
+    plt.plot(df[df['nome_instituto']==inst].lula_ev_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=2,alpha=0.6, label="Lula_ev_1t")
+    plt.plot(df[df['nome_instituto']==inst].lula_geral_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="Lula_intenção_voto_geral_1t")
 
-    plt.plot(df[df['nome_instituto']==inst].bolsonaro_ev, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_ev")
-    plt.plot(df[df['nome_instituto']==inst].bolsonaro_geral, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral")
+    plt.plot(df[df['nome_instituto']==inst].bolsonaro_ev_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=2, label="Bolsonaro_ev_1t")
+    plt.plot(df[df['nome_instituto']==inst].bolsonaro_geral_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="Bolsonaro_intenção_voto_geral_1t")
 
     plt.style.use('ggplot')
     plt.xlabel('mês/ano e instituto de pesquisa')
@@ -198,7 +203,38 @@ if rel == 'Evangélica':
 
     st.pyplot(plt)
 
-st.markdown("---")   
+st.markdown("---") 
+
+########################
+### segundo turno ######
+########################
+
+### intenção de voto média
+with st.container():
+    st.write('### **Dados do Segundo Turno**:')
+    st.write('##### **_Média da intenção de voto_**')
+
+    int_vot_lula = st.checkbox('Lula ')
+
+    if int_vot_lula:
+        lul = Image.open('lula-malhando2.jpg')
+        col0, col, col1, col2 = st.columns(4)
+        col0.image(lul,width=100)
+        col.metric(label="Geral", value=f"{round(df[df['ano']==2022].lula_geral_2t.mean(),0)}%")
+        col1.metric(label="Católicos", value=f"{round(df[df['ano']==2022].lula_cat_2t.mean(),0)}%")
+        col2.metric(label="Evangélicos", value=f"{round(df[df['ano']==2022].lula_ev_2t.mean(),0)}%")
+
+    int_vot_bolsonaro = st.checkbox('Bolsonaro ')
+
+    if int_vot_bolsonaro:
+        bol = Image.open('bolsonaro_boxe.jpg')
+        col0,col, col1, col2 = st.columns(4)
+        col0.image(bol,width=90)
+        col.metric(label="Geral", value=f"{round(df[df['ano']==2022].bolsonaro_geral_2t.mean(),0)}%")
+        col1.metric(label="Católicos", value=f"{round(df[df['ano']==2022].bolsonaro_cat_2t.mean(),0)}%")
+        col2.metric(label="Evangélicos", value=f"{round(df[df['ano']==2022].bolsonaro_ev_2t.mean(),0)}%")
+st.markdown("---")
+
 
 
 ### Pesquisas utilizadas pelo agregador
