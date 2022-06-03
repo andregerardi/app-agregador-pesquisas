@@ -7,7 +7,6 @@ import openpyxl
 import plotly.graph_objects as go
 
 
-
 st.set_page_config(page_title='Agregador de pesquisas eleitorais por religião', layout='wide')
 
 st.header('**Agregador de pesquisas**')
