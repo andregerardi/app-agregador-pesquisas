@@ -5,3 +5,5 @@ matplotlib==3.4.3
 pip
 openpyxl
 plotly
+datetime
+plotly
