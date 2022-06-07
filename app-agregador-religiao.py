@@ -53,13 +53,64 @@ start_date = dt.datetime(2022,1,1) # data de oito meses atras
 df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
 df.sigla = df.sigla.astype(str)
 
-## total de pesquisas utilizadas pelo agregador
-st.text("""
+###############################################################################
+## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
+################################################################################
+st.markdown("---")
+st.write("###### Informações sobre o agregador:")
+st.write("""
+\n
 \n
 \n
  """)
-st.markdown(f"**Institutos de pesquisa analisados** - _{ ', '.join(set(df['nome_instituto'].T)).title()}_")
-st.markdown(f'**Contador de pesquisas eleitorais** -> {len(df)}')
+
+with st.container():
+    col, col1, col2 = st.columns(3)
+    
+    with col:
+        expander3 = st.expander("Pesquisas eleitorais utilizadas")
+        expander3.write("""#### Lista de pesquisas""")
+        lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
+        expander3.dataframe(lista)
+
+        @st.cache
+        def convert_df(df):
+            # IMPORTANT: Cache the conversion to prevent computation on every rerun
+            return df.to_csv().encode('utf-8-sig')
+
+        csv = convert_df(lista)
+
+        expander3.download_button(
+            label="Baixe a lista em CSV",
+            data=csv,
+            file_name='lista.csv',
+            mime='text/csv',
+        )
+        expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
+
+
+### Metodologia utilizada pelo agregador ###
+    with col1:
+        expander = st.expander("Metodologia")
+        expander.caption(f"""
+        **_Explicação:_**
+        1. O banco de dados é composto por informações de {len(df)} institutos de pesquisa;
+        2. Os institutos consultados são: _{ ', '.join(set(df['nome_instituto'].T)).title()}_;
+        3. Para o levantamento consideramos a intenção de voto estimulada de Lula, Bolsonaro e Ciro Gomes. Selecionamos a intenção de voto geral e a partir o recorte religioso, ateus e sem religião;
+        4. No levantamento de dados do agregador, em relação as pesquisas, consideramos a última data em que os entrevistadores colheram as respostas e não a data da divulgação da pesquisa.
+        5. Partindo da data das pequisas calculou-se o média móvel de diversas variáveis corresponendo à {m_m} dias. 
+        6. Para obter a média móvel usamos dados de uma série temporal e aplicamos seguinte código Python `rolling().mean()`. Uma explicação detalhada da utilização deste código pode ser [vista aqui](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html).
+        7. Ao calcular a média móvel os {m_m} primeiros resultados não são exibidos nos gráficos.
+        8. O resumo das médias moveis considera o último valor obtido para cada candidato. O dado será atualizado à media que novas informações forem inseridas no banco de dados.
+        8. Os institutos de pesquisa, por motívos internos, não incluem em todas as ondas pequisadas dados do recorte religioso, de ateus e sem religião. Por esse motivo, alguns gráficos não exibem as informações selecionadas.
+        """)
+
+### Como citar o agregador ####
+    with col2:
+        expander2 = st.expander("Como citar")
+        expander2.markdown(f"""
+            **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
+        """)
 
 st.markdown("---")
 
@@ -68,8 +119,8 @@ st.markdown("---")
 ########################################################################
 
 with st.container():
-    st.write("##### **Selecione o turno:**")
-    options_turn = st.selectbox('Opções',options=['','Primeiro Turno', 'Segundo Turno'])
+    st.write("##### **Selecione o turno da eleição:**")
+    options_turn = st.selectbox('',options=['selecione o turno','Primeiro Turno', 'Segundo Turno'])
     st.markdown("---")
 
 ########################
@@ -86,7 +137,7 @@ if options_turn == 'Primeiro Turno':
         st.write("##### **Gráfico - Intenção de voto geral**:")
         st.caption(f'Método utilizado no cálculo: média móvel de {m_m} dias.')
 
-        int_vote_med_move = st.checkbox('1º Turno')
+        int_vote_med_move = st.checkbox('Clique para visualizar')
 
         if int_vote_med_move:
             fig = go.Figure()
@@ -159,7 +210,7 @@ if options_turn == 'Primeiro Turno':
     ############################################
 
     with st.container():
-        st.write('##### **Resumo - intenção de voto por candidato no 1º turno**:')
+        st.write('##### **Resumo - intenção de voto por candidato**:')
         st.caption(f'Método utilizado: média móvel de {m_m} dias.')
         st.caption(f"Os dados informam a média da última pesquisa registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
 
@@ -240,7 +291,7 @@ if options_turn == 'Primeiro Turno':
     ################################################################## 
     
     with st.container():
-        st.write("##### **Gráfico - intenção de voto por religião no 1º turno**:")
+        st.write("##### **Gráfico - intenção de voto por religião, ateus e sem religião**:")
         st.caption(f'Método utilizado: média móvel de {m_m} dias.')
 
         relig = st.selectbox('Selecione a religião:',options=['','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
@@ -687,7 +738,7 @@ if options_turn == 'Primeiro Turno':
     institutos.insert(0, '')
 
     with st.container():
-        st.write("##### **Gráfico - intenção de voto por instituto de pesquisa e religião**:")
+        st.write("##### **Gráfico - intenção de voto por instituto de pesquisa e religião, ateus e sem religião**:")
 
         col, col1 = st.columns(2)
         with col:
@@ -992,10 +1043,10 @@ if options_turn == 'Segundo Turno':
     ################################
 
     with st.container():
-        st.write("##### **Gráfico - Intenções de voto gerais**:")
+        st.write("##### **Gráfico - Intenções de voto geral**:")
         st.caption(f'Método utilizado no cálculo: média móvel de {m_m} dias.')
 
-        int_vote_med_move_2t = st.checkbox('2º Turno')
+        int_vote_med_move_2t = st.checkbox('Clique paa visualizar')
 
         if int_vote_med_move_2t:
 
@@ -1054,7 +1105,7 @@ if options_turn == 'Segundo Turno':
 ############################
 
     with st.container():
-        st.write('##### **Resumo - intenção de voto por candidato ao 2º turno**:')
+        st.write('##### **Resumo - intenção de voto por candidato**:')
         st.caption(f'Método utilizado: média móvel de {m_m} dias.')
         st.caption(f"Os dados informam a média da última pesquisa registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
 
@@ -1109,7 +1160,7 @@ if options_turn == 'Segundo Turno':
     #########################################
 
     with st.container():
-        st.write("##### **Gráfico - intenção de voto por religião ao 2º turno**:")
+        st.write("##### **Gráfico - intenção de voto por religião, ateus e sem religião**:")
         st.caption(f'Método utilizado: média móvel de {m_m} dias.')
 
         relig2t = st.selectbox('Selecione a religião:',options=['','Católica ', 'Evangélica ', 'Espírita ', 'Umbanda/Candomblé ', 'Ateu ', 'Sem Religião ', 'Outras Religiosidades '])
@@ -1445,7 +1496,7 @@ if options_turn == 'Segundo Turno':
     institutos.insert(0, '')
 
     with st.container():
-        st.write("##### **Gráfico - intenção de voto por instituto de pesquisa e religião**:")
+        st.write("##### **Gráfico - intenção de voto por instituto de pesquisa e religião, ateus e sem religião**:")
 
         col, col1 = st.columns(2)
         with col:
@@ -1733,52 +1784,13 @@ st.write("""
 \n
  """)
 
-
-###############################################################################
-## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
-################################################################################
-
-expander3 = st.expander("Pesquisas eleitorais utilizadas pelo agregador")
-expander3.write("""#### Lista de pesquisas""")
-lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
-expander3.dataframe(lista)
-
-@st.cache
-def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode('utf-8-sig')
-
-csv = convert_df(lista)
-
-expander3.download_button(
-     label="Baixe a lista em CSV",
-     data=csv,
-     file_name='lista.csv',
-     mime='text/csv',
- )
-expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
-
-
-### Metodologia utilizada pelo agregador ###
-
-expander = st.expander("Entenda a metodologia utilizada")
-expander.caption(f"""
-**_Explicação:_**
-1. O banco de dados é composto por informações de {len(df)} institutos de pesquisa;
-2. Os institutos consultados são: _{ ', '.join(set(df['nome_instituto'].T)).title()}_;
-3. Para o levantamento consideramos a intenção de voto estimulada de Lula, Bolsonaro e Ciro Gomes. Selecionamos a intenção de voto geral e a partir o recorte religioso, ateus e sem religião;
-4. No levantamento de dados do agregador, em relação as pesquisas, consideramos a última data em que os entrevistadores colheram as respostas e não a data da divulgação da pesquisa.
-5. Partindo da data das pequisas calculou-se o média móvel de diversas variáveis corresponendo à {m_m} dias. 
-6. Para obter a média móvel usamos dados de uma série temporal e aplicamos seguinte código Python `rolling().mean()`. Uma explicação detalhada da utilização deste código pode ser [vista aqui](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html).
-7. Ao calcular a média móvel os {m_m} primeiros resultados não são exibidos nos gráficos.
-8. O resumo das médias moveis considera o último valor obtido para cada candidato. O dado será atualizado à media que novas informações forem inseridas no banco de dados.
-8. Os institutos de pesquisa, por motívos internos, não incluem em todas as ondas pequisadas dados do recorte religioso, de ateus e sem religião.
+## total de pesquisas utilizadas pelo agregador
+st.text("""
+\n
+\n
  """)
 
-### Como citar o agregador ####
-
-expander2 = st.expander("Como citar o agregador")
-expander2.markdown(f"""
-     **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
- """)
+ ## insere o total de pesquisas eleitorais
+st.markdown(f'**Contador de pesquisas eleitorais** -> {len(df)}')
+st.markdown(f"**Institutos analisados** -> _{', '.join(set(df['nome_instituto'].T)).title()}_.")
 
