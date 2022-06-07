@@ -72,13 +72,11 @@ with st.container():
     options_turn = st.selectbox('Opções',options=['','Primeiro Turno', 'Segundo Turno'])
     st.markdown("---")
 
-if options_turn == 'Primeiro Turno':
-
-
 ########################
 ### primeiro turno #####
 ########################
 
+if options_turn == 'Primeiro Turno':
 
     ########################################
     ## gráfico média movel primeiro turno###
@@ -163,7 +161,7 @@ if options_turn == 'Primeiro Turno':
     with st.container():
         st.write('##### **Resumo - intenção de voto por candidato no 1º turno**:')
         st.caption(f'Método utilizado: média móvel de {m_m} dias.')
-        st.caption(f"Os dados informam a média da última pesquisa mapeada: instituto _{list(df.nome_instituto)[-1]}_ do dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
+        st.caption(f"Os dados informam a média da última pesquisa registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
 
 
         int_vot_lula = st.checkbox('Lula')
@@ -678,7 +676,7 @@ if options_turn == 'Primeiro Turno':
         st.plotly_chart(fig)
     
     ## info
-    st.caption('*Obs.: Utilizando métodos estatíticos variados, os institutos de pesquisa definem as categorias religiosas, de ateus e sem religião. \n  Portanto, a ausência de informações nos gráficos indica ')
+    st.caption('Obs.: Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
     st.markdown("---")
 
     #####################################
@@ -723,7 +721,7 @@ if options_turn == 'Primeiro Turno':
                 plt.rcParams.update({'axes.facecolor':'white'})
 
                 plt.grid(color='black', linestyle='-', linewidth=.08)
-                plt.legend(fontsize=12, loc='best',ncol=3, borderaxespad=0.)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
@@ -763,7 +761,7 @@ if options_turn == 'Primeiro Turno':
                 plt.rcParams.update({'axes.facecolor':'white'})
 
                 plt.grid(color='black', linestyle='-', linewidth=.08)
-                plt.legend(fontsize=12, loc='best',ncol=3, borderaxespad=0.)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
@@ -803,7 +801,7 @@ if options_turn == 'Primeiro Turno':
                 plt.rcParams.update({'axes.facecolor':'white'})
 
                 plt.grid(color='black', linestyle='-', linewidth=.08)
-                plt.legend(fontsize=12, loc='best',ncol=3, borderaxespad=0.)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
@@ -843,7 +841,7 @@ if options_turn == 'Primeiro Turno':
                 plt.rcParams.update({'axes.facecolor':'white'})
 
                 plt.grid(color='black', linestyle='-', linewidth=.08)
-                plt.legend(fontsize=12, loc='best',ncol=3, borderaxespad=0.)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
@@ -883,7 +881,7 @@ if options_turn == 'Primeiro Turno':
                 plt.rcParams.update({'axes.facecolor':'white'})
 
                 plt.grid(color='black', linestyle='-', linewidth=.08)
-                plt.legend(fontsize=12, loc='best',ncol=3, borderaxespad=0.)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
@@ -923,7 +921,7 @@ if options_turn == 'Primeiro Turno':
                 plt.rcParams.update({'axes.facecolor':'white'})
 
                 plt.grid(color='black', linestyle='-', linewidth=.08)
-                plt.legend(fontsize=12, loc='best',ncol=3, borderaxespad=0.)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
@@ -963,7 +961,7 @@ if options_turn == 'Primeiro Turno':
                 plt.rcParams.update({'axes.facecolor':'white'})
 
                 plt.grid(color='black', linestyle='-', linewidth=.08)
-                plt.legend(fontsize=12, loc='best',ncol=3, borderaxespad=0.)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
@@ -1058,7 +1056,7 @@ if options_turn == 'Segundo Turno':
     with st.container():
         st.write('##### **Resumo - intenção de voto por candidato ao 2º turno**:')
         st.caption(f'Método utilizado: média móvel de {m_m} dias.')
-        st.caption(f"Os dados informam a média da última pesquisa mapeada: instituto _{list(df.nome_instituto)[-1]}_ do dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
+        st.caption(f"Os dados informam a média da última pesquisa registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
 
         int_vot_lula = st.checkbox('Lula ')
 
@@ -1439,6 +1437,286 @@ if options_turn == 'Segundo Turno':
     st.markdown("---")
 
 
+    #####################################
+    ### dados por instituto de pesquisa##    
+    #####################################
+
+    institutos = list(set(df['nome_instituto']))
+    institutos.insert(0, '')
+
+    with st.container():
+        st.write("##### **Gráfico - intenção de voto por instituto de pesquisa e religião**:")
+
+        col, col1 = st.columns(2)
+        with col:
+            inst2 = st.selectbox('Selecione o instituto de pesquisa:',options=institutos)
+        with col1:
+            rel2 = st.selectbox('Escolha a religião:',options=['','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
+
+        col1, col2, col3 = st.columns([.5,3,.5])
+
+        with col2:
+            if rel2 == 'Católica':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Intenção de voto de 'católicos' para presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_cat_2t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_cat")
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ger_2t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_cat_2t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_cat_2t")
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ger_2t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Intenção de voto em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=2, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )
+
+            if rel2 == 'Evangélica':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Intenção de voto de 'evangélicos' para presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ev_2t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ev")
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ger_2t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ev_2t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ev_2t")
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ger_2t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Intenção de voto em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=2, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )
+
+            if rel2 == 'Espírita':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Intenção de voto de 'espírita/kradecista' para presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_espi_2t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_espi")
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ger_2t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_espi_2t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_espi_2t")
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ger_2t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Intenção de voto em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=2, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )
+
+            if rel2 == 'Umbanda/Candomblé':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Intenção de voto de 'umbandistas e candonblecistas' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_umb_can_2t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_umb_can")
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ger_2t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_umb_can_2t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_umb_can")
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ger_2t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Intenção de voto em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=2, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )              
+
+            if rel2 == 'Ateu':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Intenção de voto de 'ateus' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ateu_2t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ateu")
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ger_2t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ateu_2t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ateu")
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ger_2t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Intenção de voto em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=2, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )              
+
+            if rel2 == 'Sem Religião':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Intenção de voto de 'sem religião' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_non_2t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_non")
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ger_2t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_non_2t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_non")
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ger_2t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Intenção de voto em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=2, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )              
+
+            if rel2 == 'Outras Religiosidades':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Intenção de voto de 'outras religiosidades' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_out_2t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_outras")
+                plt.plot(df[(df['nome_instituto']==inst2)].lul_ger_2t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_out_2t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_outras")
+                plt.plot(df[(df['nome_instituto']==inst2)].bol_ger_2t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Intenção de voto em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=2, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )              
+
+    st.markdown("---") 
+
 st.write("""
 \n
 \n
@@ -1455,32 +1733,52 @@ st.write("""
 \n
  """)
 
-### Pesquisas utilizadas pelo agregador
 
-## importa a lista de pesquisas utilizadas pelo agregador
-lista_pesquisas = pd.read_excel('lista pesquisas.xlsx', header=0)[0:10]
-## filtra dados
-lista_pesquisas = lista_pesquisas.fillna(0)
-## plota o quadro
+###############################################################################
+## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
+################################################################################
+
 expander3 = st.expander("Pesquisas eleitorais utilizadas pelo agregador")
 expander3.write("""#### Lista de pesquisas""")
-expander3.dataframe(lista_pesquisas)
-expander3.caption('*Fonte*: TSE')
+lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
+expander3.dataframe(lista)
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8-sig')
+
+csv = convert_df(lista)
+
+expander3.download_button(
+     label="Baixe a lista em CSV",
+     data=csv,
+     file_name='lista.csv',
+     mime='text/csv',
+ )
+expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
 
 
-### Metodologia utilizada pelo agregador
+### Metodologia utilizada pelo agregador ###
+
 expander = st.expander("Entenda a metodologia utilizada")
-expander.caption("""
+expander.caption(f"""
 **_Explicação:_**
-1. No levantamento de dados para o agregador, consideramos a última da em que os entrevistadores colheram as respostas e não a data de divulgação da pesquisa.
+1. O banco de dados é composto por informações de {len(df)} institutos de pesquisa;
+2. Os institutos consultados são: _{ ', '.join(set(df['nome_instituto'].T)).title()}_;
+3. Para o levantamento consideramos a intenção de voto estimulada de Lula, Bolsonaro e Ciro Gomes. Selecionamos a intenção de voto geral e a partir o recorte religioso, ateus e sem religião;
+4. No levantamento de dados do agregador, em relação as pesquisas, consideramos a última data em que os entrevistadores colheram as respostas e não a data da divulgação da pesquisa.
+5. Partindo da data das pequisas calculou-se o média móvel de diversas variáveis corresponendo à {m_m} dias. 
+6. Para obter a média móvel usamos dados de uma série temporal e aplicamos seguinte código Python `rolling().mean()`. Uma explicação detalhada da utilização deste código pode ser [vista aqui](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html).
+7. Ao calcular a média móvel os {m_m} primeiros resultados não são exibidos nos gráficos.
+8. O resumo das médias moveis considera o último valor obtido para cada candidato. O dado será atualizado à media que novas informações forem inseridas no banco de dados.
+8. Os institutos de pesquisa, por motívos internos, não incluem em todas as ondas pequisadas dados do recorte religioso, de ateus e sem religião.
  """)
 
-### Como citar o agregador
+### Como citar o agregador ####
+
 expander2 = st.expander("Como citar o agregador")
-expander2.write("""
-     descrever.
+expander2.markdown(f"""
+     **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
  """)
-
-
-
 
