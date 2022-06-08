@@ -53,74 +53,29 @@ start_date = dt.datetime(2022,1,1) # data de oito meses atras
 df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
 df.sigla = df.sigla.astype(str)
 
-###############################################################################
-## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
-################################################################################
-st.markdown("---")
-st.write("###### Informações sobre o agregador:")
-st.write("""
-\n
-\n
-\n
- """)
-
-with st.container():
-    col, col1, col2 = st.columns(3)
-    
-    with col:
-        expander3 = st.expander("Pesquisas eleitorais utilizadas")
-        expander3.write("""#### Lista de pesquisas""")
-        lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
-        expander3.dataframe(lista)
-
-        @st.cache
-        def convert_df(df):
-            # IMPORTANT: Cache the conversion to prevent computation on every rerun
-            return df.to_csv().encode('utf-8-sig')
-
-        csv = convert_df(lista)
-
-        expander3.download_button(
-            label="Baixe a lista em CSV",
-            data=csv,
-            file_name='lista.csv',
-            mime='text/csv',
-        )
-        expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
-
-
-### Metodologia utilizada pelo agregador ###
-    with col1:
-        expander = st.expander("Metodologia")
-        expander.caption(f"""
-        **_Explicação:_**
-        1. O banco de dados é composto por informações de {len(df)} institutos de pesquisa;
-        2. Os institutos consultados são: _{ ', '.join(set(df['nome_instituto'].T)).title()}_;
-        3. Para o levantamento consideramos a intenção de voto estimulada de Lula, Bolsonaro e Ciro Gomes. Selecionamos a intenção de voto geral e a partir o recorte religioso, ateus e sem religião;
-        4. No levantamento de dados do agregador, em relação as pesquisas, consideramos a última data em que os entrevistadores colheram as respostas e não a data da divulgação da pesquisa.
-        5. Partindo da data das pequisas calculou-se o média móvel de diversas variáveis corresponendo à {m_m} dias. 
-        6. Para obter a média móvel usamos dados de uma série temporal e aplicamos seguinte código Python `rolling().mean()`. Uma explicação detalhada da utilização deste código pode ser [vista aqui](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html).
-        7. Ao calcular a média móvel os {m_m} primeiros resultados não são exibidos nos gráficos.
-        8. O resumo das médias moveis considera o último valor obtido para cada candidato. O dado será atualizado à media que novas informações forem inseridas no banco de dados.
-        8. Os institutos de pesquisa, por motívos internos, não incluem em todas as ondas pequisadas dados do recorte religioso, de ateus e sem religião. Por esse motivo, alguns gráficos não exibem as informações selecionadas.
-        """)
-
-### Como citar o agregador ####
-    with col2:
-        expander2 = st.expander("Como citar")
-        expander2.markdown(f"""
-            **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
-        """)
-
+## insere o total de pesquisas eleitorais
+st.markdown(f'**Contador de pesquisas eleitorais** -> {len(df)}')
+st.markdown(f"**Institutos analisados** -> _{', '.join(set(df['nome_instituto'].T)).title()}_.")
 st.markdown("---")
 
 ########################################################################
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
 ########################################################################
 
+
+st.write("""
+\n
+\n
+\n
+ """)
+st.text("""
+\n
+\n
+ """)
+
 with st.container():
     st.write("##### **Selecione o turno da eleição:**")
-    options_turn = st.selectbox('',options=['selecione o turno','Primeiro Turno', 'Segundo Turno'])
+    options_turn = st.selectbox('',options=['clique e selecione o turno','Primeiro Turno', 'Segundo Turno'])
     st.markdown("---")
 
 ########################
@@ -135,7 +90,6 @@ if options_turn == 'Primeiro Turno':
 
     with st.container():
         st.write("##### **Gráfico - Intenção de voto geral**:")
-        st.caption(f'Método utilizado no cálculo: média móvel de {m_m} dias.')
 
         int_vote_med_move = st.checkbox('Clique para visualizar')
 
@@ -202,7 +156,9 @@ if options_turn == 'Primeiro Turno':
             fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
 
             st.plotly_chart(fig)
-
+            
+        st.caption(f'**Método utilizado no cálculo**: média móvel de {m_m} dias.')
+        st.caption(f'Os valores indicados no gráfico correspondem à última média da série temporal.')
     st.markdown("---")
 
     ############################################
@@ -211,21 +167,18 @@ if options_turn == 'Primeiro Turno':
 
     with st.container():
         st.write('##### **Resumo - intenção de voto por candidato**:')
-        st.caption(f'Método utilizado: média móvel de {m_m} dias.')
-        st.caption(f"Os dados informam a média da última pesquisa registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
-
 
         int_vot_lula = st.checkbox('Lula')
 
         if int_vot_lula:
 
             ## coluna 1
-            lul = Image.open('lula-oculos.jpg')
+            lul = Image.open('lula_perfil.jpg')
             col0, col, col1, col2, col3 = st.columns(5)
             col0.image(lul,width=100)
-            col.metric(label="Geral", value=f"{round(list(df.lul_ger_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df.lul_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df.bol_ger_1t.rolling(m_m).mean())[-1],1)}%")
-            col1.metric(label="Católicos", value=f"{round(list(df.lul_cat_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df.lul_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df.bol_cat_1t.rolling(m_m).mean())[-1],1)}")
-            col2.metric(label="Evangélicos", value=f"{round(list(df.lul_ev_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df.lul_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df.bol_ev_1t.rolling(m_m).mean())[-1],1),1)}") 
+            col.metric(label="Geral", value=f"{round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1),1)}%")
+            col1.metric(label="Católicos", value=f"{round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1)}")
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1),1)}") 
             col3.metric(label="Espíritas", value=f"{round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1)-round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1),1)}")
             ## coluna 2
             col4, col5, col6, col7, col8 = st.columns(5)
@@ -243,12 +196,12 @@ if options_turn == 'Primeiro Turno':
         if int_vot_bolsonaro:
 
             ## coluna 1
-            bol = Image.open('bolsonaro_capacete.jpg')
+            bol = Image.open('bolso_image.jpeg')
             col0,col, col1, col2, col3 = st.columns(5)
             col0.image(bol,width=100)
-            col.metric(label="Geral", value=f"{round(list(df.bol_ger_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df.bol_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df.lul_ger_1t.rolling(m_m).mean())[-1],1)}%")
-            col1.metric(label="Católicos", value=f"{round(list(df.bol_cat_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df.bol_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df.lul_cat_1t.rolling(m_m).mean())[-1],1)}%")
-            col2.metric(label="Evangélicos", value=f"{round(list(df.bol_ev_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df.bol_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df.lul_ev_1t.rolling(m_m).mean())[-1],1),1)}")
+            col.metric(label="Geral", value=f"{round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1),1)}%")
+            col1.metric(label="Católicos", value=f"{round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1)}%")
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1),1)}")
             col3.metric(label="Espíritas", value=f"{round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1),1)}")
             ## coluna 2
             col4, col5, col6, col7, col8 = st.columns(5)
@@ -266,22 +219,25 @@ if options_turn == 'Primeiro Turno':
         if int_vot_ciro:
 
             ## coluna 1
-            ciro = Image.open('ciro_oculos.jpg')
+            ciro = Image.open('ciro_perfil.jpg')
             col0,col, col1, col2, col3 = st.columns(5)
             col0.image(ciro,width=100)
-            col.metric(label="Geral", value=f"{round(list(df.ciro_ger_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df.ciro_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df.bol_ger_1t.rolling(m_m).mean())[-1],1)}%")
-            col1.metric(label="Católicos", value=f"{round(list(df.ciro_cat_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df.ciro_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df.bol_cat_1t.rolling(m_m).mean())[-1],1)}%")
-            col2.metric(label="Evangélicos", value=f"{round(list(df.ciro_ev_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df.ciro_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df.bol_ev_1t.rolling(m_m).mean())[-1],1),1)}")
+            col.metric(label="Geral", value=f"{round(list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1),1)}%")
+            col1.metric(label="Católicos", value=f"{round(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1)}%")
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1),1)}")
             col3.metric(label="Espíritas", value=f"{round(list(df[df['ciro_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1),1)}")
             ## coluna 2
             col4, col5, col6, col7, col8 = st.columns(5)
             col4.metric(label="",value="")
             col5.metric(label="Umbanda/Candomblé", value=f"{round(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1],1),1)}")
-            col6.metric(label="Ateu", value=f"{round(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1],1),1)}")
+            col6.metric(label="Ateu", value=f"{round(list(df[df['ciro_ateu_1t']>=1].ciro_ateu_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1],1),1)}")
             col7.metric(label="Sem Religião", value=f"{round(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1],1),1)}")
             col8.metric(label="Outros", value=f"{round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
             ## info
             st.caption('* Dados na cor verde indicam a vantagem de Ciro em relação a Bolsonaro, e vermelho, desvantagem.')
+
+        st.caption(f'**Método utilizado:** média móvel de {m_m} dias.')
+        st.caption(f"Os dados informam a última média da série temporal registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
 
     st.markdown("---")
 
@@ -292,9 +248,8 @@ if options_turn == 'Primeiro Turno':
     
     with st.container():
         st.write("##### **Gráfico - intenção de voto por religião, ateus e sem religião**:")
-        st.caption(f'Método utilizado: média móvel de {m_m} dias.')
 
-        relig = st.selectbox('Selecione a religião:',options=['','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
+        relig = st.selectbox('Selecione a religião:',options=['Escolha a opção','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
         
     if relig == 'Católica':
 
@@ -727,7 +682,8 @@ if options_turn == 'Primeiro Turno':
         st.plotly_chart(fig)
     
     ## info
-    st.caption('Obs.: Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
+    st.caption(f'**Método utilizado:** média móvel de {m_m} dias.')
+    st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
     st.markdown("---")
 
     #####################################
@@ -1113,9 +1069,9 @@ if options_turn == 'Segundo Turno':
 
         if int_vot_lula:
             ## coluna 1
-            lul = Image.open('lula-malhando2.jpg')
+            lul = Image.open('lula_perfil.jpg')
             col0, col, col1, col2, col3 = st.columns(5)
-            col0.image(lul,width=100)
+            col0.image(lul,width=105,channels="B")
             col.metric(label="Geral", value=f"{round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1],1),1)}")
             col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1),1)}") 
@@ -1135,7 +1091,7 @@ if options_turn == 'Segundo Turno':
 
         if int_vot_bolsonaro:
             ## coluna 1
-            bol = Image.open('bolsonaro_boxe.jpg')
+            bol = Image.open('bolso_image.jpeg')
             col0, col, col1, col2, col3 = st.columns(5)
             col0.image(bol,width=100)
             col.metric(label="Geral", value=f"{round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1),1)}%")
@@ -1768,29 +1724,64 @@ if options_turn == 'Segundo Turno':
 
     st.markdown("---") 
 
-st.write("""
-\n
-\n
-\n
- """)
-st.write("""
-\n
-\n
-\n
- """)
+###############################################################################
+## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
+################################################################################
+st.write("##### Informações sobre o agregador:")
 st.write("""
 \n
 \n
 \n
  """)
 
-## total de pesquisas utilizadas pelo agregador
-st.text("""
-\n
-\n
- """)
+with st.container():
+    col, col1, col2 = st.columns(3)
+    
+    with col:
+        expander3 = st.expander("Pesquisas eleitorais utilizadas")
+        expander3.write("""#### Lista de pesquisas""")
+        lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
+        expander3.dataframe(lista)
 
- ## insere o total de pesquisas eleitorais
-st.markdown(f'**Contador de pesquisas eleitorais** -> {len(df)}')
-st.markdown(f"**Institutos analisados** -> _{', '.join(set(df['nome_instituto'].T)).title()}_.")
+        @st.cache
+        def convert_df(df):
+            # IMPORTANT: Cache the conversion to prevent computation on every rerun
+            return df.to_csv().encode('utf-8-sig')
+
+        csv = convert_df(lista)
+
+        expander3.download_button(
+            label="Baixe a lista em CSV",
+            data=csv,
+            file_name='lista.csv',
+            mime='text/csv',
+        )
+        expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
+
+
+### Metodologia utilizada pelo agregador ###
+    with col1:
+        expander = st.expander("Metodologia")
+        expander.caption(f"""
+        **_Explicação:_**
+        1. O banco de dados é composto por informações de {len(df)} institutos de pesquisa;
+        2. Os institutos consultados são: _{ ', '.join(set(df['nome_instituto'].T)).title()}_;
+        3. Para o levantamento consideramos a intenção de voto estimulada de Lula, Bolsonaro e Ciro Gomes. Selecionamos a intenção de voto geral e a partir o recorte religioso, ateus e sem religião;
+        4. No levantamento de dados do agregador, em relação as pesquisas, consideramos a última data em que os entrevistadores colheram as respostas e não a data da divulgação da pesquisa.
+        5. Partindo da data das pequisas calculou-se o média móvel de diversas variáveis corresponendo à {m_m} dias. 
+        6. Para obter a média móvel usamos dados de uma série temporal e aplicamos seguinte código Python `rolling().mean()`. Uma explicação detalhada da utilização deste código pode ser [vista aqui](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html).
+        7. Ao calcular a média móvel os {m_m} primeiros resultados não são exibidos nos gráficos, e o objetivo principal é minimizar as oscilações dexando os gráficos mais limpos.
+        8. O resumo das médias moveis considera o último valor obtido para cada candidato. O dado será atualizado à media que novas informações forem inseridas no banco de dados.
+        8. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso, de ateus e sem religião, em todas as ondas pequisadas. Por esse motivo, em alguns casos, os gráficos por instituto de pesquisa não exibem as informações selecionadas.
+        9. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel.
+        """)
+
+### Como citar o agregador ####
+    with col2:
+        expander2 = st.expander("Como citar")
+        expander2.markdown(f"""
+            **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
+        """)
+
+st.markdown("---")
 
