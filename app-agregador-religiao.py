@@ -157,8 +157,8 @@ if options_turn == 'Primeiro Turno':
 
             st.plotly_chart(fig)
             
-        st.caption(f'**Método utilizado no cálculo**: média móvel de {m_m} dias.')
-        st.caption(f'Os valores indicados no gráfico correspondem à última média da série temporal.')
+            st.caption(f'**Método utilizado no cálculo**: média móvel de {m_m} dias.')
+            st.caption(f"Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
     st.markdown("---")
 
     ############################################
@@ -237,7 +237,7 @@ if options_turn == 'Primeiro Turno':
             st.caption('* Dados na cor verde indicam a vantagem de Ciro em relação a Bolsonaro, e vermelho, desvantagem.')
 
         st.caption(f'**Método utilizado:** média móvel de {m_m} dias.')
-        st.caption(f"Os dados informam a última média da série temporal registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
+        st.caption(f"Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
 
     st.markdown("---")
 
@@ -691,7 +691,7 @@ if options_turn == 'Primeiro Turno':
     #####################################
 
     institutos = list(set(df['nome_instituto']))
-    institutos.insert(0, '')
+    institutos.insert(0, 'Escolha a opção')
 
     with st.container():
         st.write("##### **Gráfico - intenção de voto por instituto de pesquisa e religião, ateus e sem religião**:")
@@ -700,7 +700,7 @@ if options_turn == 'Primeiro Turno':
         with col:
             inst = st.selectbox('Selecione o instituto de pesquisa:',options=institutos)
         with col1:
-            rel = st.selectbox('Escolha a religião:',options=['','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
+            rel = st.selectbox('Escolha a religião:',options=['Escolha a opção','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
 
         col1, col2, col3 = st.columns([.5,3,.5])
 
@@ -985,7 +985,7 @@ if options_turn == 'Primeiro Turno':
                             mime="image/png"
                             )              
     
-    
+        st.caption(f'Os gráficos exibem os dados brutos divulgados pelos institutos de pesquisa.')
     st.markdown("---") 
 
 ########################
@@ -1000,9 +1000,7 @@ if options_turn == 'Segundo Turno':
 
     with st.container():
         st.write("##### **Gráfico - Intenções de voto geral**:")
-        st.caption(f'Método utilizado no cálculo: média móvel de {m_m} dias.')
-
-        int_vote_med_move_2t = st.checkbox('Clique paa visualizar')
+        int_vote_med_move_2t = st.checkbox('Clique para visualizar')
 
         if int_vote_med_move_2t:
 
@@ -1053,6 +1051,8 @@ if options_turn == 'Segundo Turno':
             fig.update_yaxes(range=[0,70])
 
             st.plotly_chart(fig)
+            st.caption(f'**Método utilizado:** média móvel de {m_m} dias.')
+            st.caption(f"Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
 
     st.markdown("---")
 
@@ -1119,7 +1119,7 @@ if options_turn == 'Segundo Turno':
         st.write("##### **Gráfico - intenção de voto por religião, ateus e sem religião**:")
         st.caption(f'Método utilizado: média móvel de {m_m} dias.')
 
-        relig2t = st.selectbox('Selecione a religião:',options=['','Católica ', 'Evangélica ', 'Espírita ', 'Umbanda/Candomblé ', 'Ateu ', 'Sem Religião ', 'Outras Religiosidades '])
+        relig2t = st.selectbox('Selecione a religião:',options=['Escolha a opção','Católica ', 'Evangélica ', 'Espírita ', 'Umbanda/Candomblé ', 'Ateu ', 'Sem Religião ', 'Outras Religiosidades '])
         
     if relig2t == 'Católica ':
 
@@ -1440,7 +1440,8 @@ if options_turn == 'Segundo Turno':
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
         st.plotly_chart(fig)
-            
+        
+        st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
     st.markdown("---")
 
 
@@ -1449,7 +1450,7 @@ if options_turn == 'Segundo Turno':
     #####################################
 
     institutos = list(set(df['nome_instituto']))
-    institutos.insert(0, '')
+    institutos.insert(0, 'Escolha a opção')
 
     with st.container():
         st.write("##### **Gráfico - intenção de voto por instituto de pesquisa e religião, ateus e sem religião**:")
@@ -1458,7 +1459,7 @@ if options_turn == 'Segundo Turno':
         with col:
             inst2 = st.selectbox('Selecione o instituto de pesquisa:',options=institutos)
         with col1:
-            rel2 = st.selectbox('Escolha a religião:',options=['','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
+            rel2 = st.selectbox('Escolha a religião:',options=['Escolha a opção','Católica', 'Evangélica', 'Espírita', 'Umbanda/Candomblé', 'Ateu', 'Sem Religião', 'Outras Religiosidades'])
 
         col1, col2, col3 = st.columns([.5,3,.5])
 
@@ -1721,6 +1722,7 @@ if options_turn == 'Segundo Turno':
                             file_name="grafico.png",
                             mime="image/png"
                             )              
+        st.caption(f'Os gráficos exibem os dados brutos divulgados pelos institutos de pesquisa.')
 
     st.markdown("---") 
 
