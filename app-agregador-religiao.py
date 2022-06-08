@@ -1766,9 +1766,9 @@ with st.container():
         expander = st.expander("Metodologia")
         expander.caption(f"""
         **_Explicação:_**
-        1. O banco de dados é composto por informações de {len(df)} institutos de pesquisa;
+        1. O banco de dados é composto com informações de {len(df)} institutos de pesquisa;
         2. Os institutos consultados são: _{ ', '.join(set(df['nome_instituto'].T)).title()}_;
-        3. Para o levantamento consideramos a intenção de voto estimulada de Lula, Bolsonaro e Ciro Gomes. Selecionamos a intenção de voto geral e a partir o recorte religioso, ateus e sem religião;
+        3. Para a composição do banco de dados consideramos apenas pesquisas nacionais, bem como informaçõse dos três principais candidatos do 1º turno das eleições: Lula, Bolsonaro e Ciro Gomes durante, e de Lula e Bolsonaro, no 2º turno. A partir destas pesquisas coletamos dados estatícos das pesquisas, as intenção de voto geral e a rejeição geral dos candidatos nos dois turnos, assim como a, as intenções de voto a partir o recorte religioso, de ateus e pessoas sem religião;
         4. No levantamento de dados do agregador, em relação as pesquisas, consideramos a última data em que os entrevistadores colheram as respostas e não a data da divulgação da pesquisa.
         5. Partindo da data das pequisas calculou-se o média móvel de diversas variáveis corresponendo à {m_m} dias. 
         6. Para obter a média móvel usamos dados de uma série temporal e aplicamos seguinte código Python `rolling().mean()`. Uma explicação detalhada da utilização deste código pode ser [vista aqui](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html).
@@ -1776,6 +1776,7 @@ with st.container():
         8. O resumo das médias moveis considera o último valor obtido para cada candidato. O dado será atualizado à media que novas informações forem inseridas no banco de dados.
         8. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso, de ateus e sem religião, em todas as ondas pequisadas. Por esse motivo, em alguns casos, os gráficos por instituto de pesquisa não exibem as informações selecionadas.
         9. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel.
+        10. As imagens dos candidatos utilizadas provém das seguintes fontes: [Ciro Gomes](https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520), [Lula](https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730), [Bolosonaro](https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/).
         """)
 
 ### Como citar o agregador ####
