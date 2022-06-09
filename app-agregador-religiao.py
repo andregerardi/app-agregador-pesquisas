@@ -177,7 +177,7 @@ if options_turn == 'Primeiro Turno':
         st.markdown(f"""
         <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Resumo - intenção de voto por candidato</h3> \n
         """, unsafe_allow_html=True)
-
+    
         int_vot_lula = st.checkbox('Lula')
 
         if int_vot_lula:
@@ -245,11 +245,9 @@ if options_turn == 'Primeiro Turno':
             #col8.metric(label="Outros", value=f"{round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
             #col3.metric(label="Espíritas", value=f"{round(list(df[df['ciro_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1),1)}")
 
-        st.write("""
-        \n\n
-        \n\n
-        """)
+     
         st.markdown(f"""
+        <br>
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7> \n
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>2) Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
         """, unsafe_allow_html=True)
@@ -331,7 +329,8 @@ if options_turn == 'Primeiro Turno':
             st.plotly_chart(fig)
             
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7> \n
+            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
+            <br>
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>2) Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
             """, unsafe_allow_html=True)
     st.markdown("---")
@@ -1104,10 +1103,10 @@ if options_turn == 'Segundo Turno':
 #################
 
     with st.container():
-        st.write('### **Resumo - intenção de voto por candidato**:')
-        st.caption(f'Método utilizado: média móvel de {m_m} dias.')
-        st.caption(f"Os dados informam a média da última pesquisa registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
-
+        st.markdown(f"""
+        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Resumo - intenção de voto por candidato</h3> \n
+        """, unsafe_allow_html=True)
+    
         int_vot_lula = st.checkbox('Lula ')
 
         if int_vot_lula:
@@ -1150,7 +1149,11 @@ if options_turn == 'Segundo Turno':
             # col3.metric(label="Espíritas", value=f"{round(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1],1)-round(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1],1),1)}")
             # ## info
             # st.caption('* Dados na cor verde indicam a vantagem de Bolsonaro em relação a Lula, e vermelho, desvantagem.')
-
+        st.markdown(f"""
+        <br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) Método utilizado: média móvel de {m_m} dias.</h7> \n
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>2) Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
+        """, unsafe_allow_html=True)
     st.markdown("---")
 
 
@@ -1159,7 +1162,10 @@ if options_turn == 'Segundo Turno':
     ################################
 
     with st.container():
-        st.write("### **Gráfico - Intenção de voto geral por candidato**:")
+        st.markdown(f"""
+        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - Intenção de voto geral</h3> \n
+        """, unsafe_allow_html=True)
+
         int_vote_med_move_2t = st.checkbox('Clique para visualizar')
 
         if int_vote_med_move_2t:
@@ -1211,9 +1217,11 @@ if options_turn == 'Segundo Turno':
             fig.update_yaxes(range=[0,70])
 
             st.plotly_chart(fig)
-            st.caption(f'**Método utilizado:** média móvel de {m_m} dias.')
-            st.caption(f"Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia _{list(df.data)[-1].strftime(format='%d-%m-%Y')}_.")
-
+            st.markdown(f"""
+            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
+            <br>
+            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>2) Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
+            """, unsafe_allow_html=True)
     st.markdown("---")
 
 ############################
@@ -1225,8 +1233,9 @@ if options_turn == 'Segundo Turno':
     #########################################
 
     with st.container():
-        st.write("### **Gráfico - intenção de voto por religião**:")
-        st.caption(f'Método utilizado: média móvel de {m_m} dias.')
+        st.markdown(f"""
+        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - intenção de voto por religião:</h3>
+        """, unsafe_allow_html=True)
         ## opçoes deletadas 'Espírita ', 'Umbanda/Candomblé ', 'Ateu ',
         relig2t = st.selectbox('Selecione a religião:',options=['--Escolha a opção--','Católica ', 'Evangélica ', 'Sem Religião ', 'Outras Religiosidades '])
         
@@ -1551,6 +1560,10 @@ if options_turn == 'Segundo Turno':
         st.plotly_chart(fig)
         
         st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
+    
+    st.markdown(f"""
+    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
+    """, unsafe_allow_html=True)
     st.markdown("---")
 
 
@@ -1562,7 +1575,9 @@ if options_turn == 'Segundo Turno':
     institutos.insert(0, '--Escolha a opção--')
 
     with st.container():
-        st.write("### **Gráfico - intenção de voto por instituto de pesquisa e religião**:")
+        st.markdown(f"""
+        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - intenção de voto por instituto de pesquisa e religião:</h3> \n
+        """, unsafe_allow_html=True)
 
         col, col1 = st.columns(2)
         with col:
