@@ -279,6 +279,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.lul_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.lul_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
+                        ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## Bolsonaro
@@ -294,6 +295,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bol_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bol_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
+                        ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## Ciro
@@ -309,12 +311,15 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
-                        arrowhead=1,
+                        arrowhead=1, 
+                        ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1000, height = 800, template = 'none',
+            fig.update_layout(width = 1000, height = 800, template = 'presentation',
+                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
                             legend=dict(
                 yanchor="auto",
                 y=1.1,
@@ -322,9 +327,10 @@ if options_turn == 'Primeiro Turno':
                 x=0.5, 
                 orientation="h"))
 
-            #fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro desistiu",showarrow=True,arrowhead=1,yanchor="bottom",font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
 
             st.plotly_chart(fig)
             
@@ -362,7 +368,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_cat_1t']>1].sigla)[-1], y=int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
@@ -377,7 +384,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_cat_1t']>1].sigla)[-1], y=int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                       ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Ciro
@@ -393,18 +401,21 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_cat_1t']>1].sigla)[-1], y=int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5, 
-            orientation="h"))
+        fig.update_layout(width = 1000, height = 800, template = 'presentation',
+                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5, 
+                orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
 
@@ -424,7 +435,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_ev_1t']>1].sigla)[-1], y=int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Bolsonaro
         fig.add_trace(go.Scatter(y=df[df['bol_ev_1t']>1].bol_ev_1t, x=df[df['bol_ev_1t']>1].sigla, mode='markers', name='int_vot_ev_bolsonaro',
@@ -438,7 +450,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_ev_1t']>1].sigla)[-1], y=int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Ciro
         fig.add_trace(go.Scatter(y=df[df['ciro_ev_1t']>1].ciro_ev_1t, x=df[df['ciro_ev_1t']>1].sigla, mode='markers', name='int_vot_ev_ciro',
@@ -452,18 +465,21 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_ev_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5, 
-            orientation="h"))
+        fig.update_layout(width = 1000, height = 800, template = 'presentation',
+                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5, 
+                orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
 
@@ -483,7 +499,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_espi_1t']>1].data)[-1], y=int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    #ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Bolsonaro
@@ -498,7 +515,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_espi_1t']>1].data)[-1], y=int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                        #ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Ciro
@@ -514,7 +532,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['ciro_espi_1t']>1].data)[-1], y=int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    #ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -546,7 +565,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_umb_can_1t']>1].data)[-1], y=int(list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Bolsonaro
@@ -561,7 +581,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_umb_can_1t']>1].data)[-1], y=int(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Ciro
@@ -577,7 +598,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['ciro_umb_can_1t']>1].data)[-1], y=int(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -607,7 +629,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_ateu_1t']>1].data)[-1], y=int(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                   #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Bolsonaro
@@ -622,7 +645,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_ateu_1t']>1].data)[-1], y=int(list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Ciro
@@ -638,7 +662,8 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['ciro_ateu_1t']>1].data)[-1], y=int(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                   #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))"""
 
     #     fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -668,7 +693,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_non_1t']>1].data)[-1], y=int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
@@ -683,7 +709,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_non_1t']>1].data)[-1], y=int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Ciro
@@ -699,18 +726,21 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_non_1t']>1].data)[-1], y=int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5, 
-            orientation="h"))
+        fig.update_layout(width = 1000, height = 800, template = 'presentation',
+                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5, 
+                orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
 
@@ -730,7 +760,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_out_1t']>1].sigla)[-1], y=int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
@@ -745,7 +776,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_out_1t']>1].sigla)[-1], y=int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Ciro
@@ -761,18 +793,21 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_out_1t']>1].sigla)[-1], y=int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
-
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5, 
-            orientation="h"))
+        
+        fig.update_layout(width = 1000, height = 800, template = 'presentation',
+                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5, 
+                orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
         st.plotly_chart(fig)
@@ -1183,7 +1218,8 @@ if options_turn == 'Segundo Turno':
 
             fig.add_annotation(x=list(df[df['lul_ger_2t']>1].sigla)[-1], y=int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
-                        arrowhead=1,
+                        arrowhead=1, 
+                    ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## Bolsonaro
@@ -1198,12 +1234,15 @@ if options_turn == 'Segundo Turno':
 
             fig.add_annotation(x=list(df[df['bol_ger_2t']>1].sigla)[-1], y=int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
-                        arrowhead=1,
+                        arrowhead=1, 
+                    ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1000, height = 800, template = 'none',
+            fig.update_layout(width = 1000, height = 800, template = 'presentation',
+                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
                             legend=dict(
                 yanchor="auto",
                 y=1.1,
@@ -1211,7 +1250,8 @@ if options_turn == 'Segundo Turno':
                 x=0.5, 
                 orientation="h"))
 
-            #fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro desistiu",showarrow=True,arrowhead=1,yanchor="bottom",font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_poderdata_3", y=32,text="Moro desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
             fig.update_yaxes(range=[0,70])
@@ -1254,7 +1294,8 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_cat_2t']>1].sigla)[-1], y=int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
@@ -1269,18 +1310,21 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_cat_2t']>1].sigla)[-1], y=int(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5, 
-            orientation="h"))
+        fig.update_layout(width = 1000, height = 800, template = 'presentation',
+                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5, 
+                orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
 
@@ -1300,7 +1344,8 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_ev_2t']>1].sigla)[-1], y=int(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Bolsonaro
         fig.add_trace(go.Scatter(y=df[df['bol_ev_2t']>1].bol_ev_2t, x=df[df['bol_ev_2t']>1].sigla, mode='markers', name='int_vot_ev_bolsonaro',
@@ -1314,7 +1359,8 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_ev_2t']>1].sigla)[-1], y=int(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -1345,7 +1391,8 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_espi_2t']>1].data)[-1], y=int(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                   #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Bolsonaro
@@ -1360,7 +1407,8 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_espi_2t']>1].data)[-1], y=int(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -1392,7 +1440,8 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_umb_can_2t']>1].data)[-1], y=int(list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                   #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Bolsonaro
@@ -1407,7 +1456,8 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_umb_can_2t']>1].data)[-1], y=int(list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -1437,7 +1487,8 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_ateu_2t']>1].data)[-1], y=int(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                    # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     ## Bolsonaro
@@ -1452,7 +1503,8 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_ateu_2t']>1].data)[-1], y=int(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1,
+    #                 arrowhead=1, 
+                   #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
     #     fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -1482,7 +1534,8 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_non_2t']>1].data)[-1], y=int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
@@ -1497,7 +1550,8 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_non_2t']>1].data)[-1], y=int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         fig.update_layout(width = 1000, height = 800, template = 'none',
@@ -1528,7 +1582,8 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_out_2t']>1].sigla)[-1], y=int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
@@ -1543,7 +1598,8 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_out_2t']>1].sigla)[-1], y=int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1,
+                    arrowhead=1, 
+                    ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
         fig.update_layout(width = 1000, height = 800, template = 'none',
