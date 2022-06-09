@@ -100,20 +100,20 @@ with st.container():
 
         <p>Explicação:</p>
 
-        <p>1. O banco de dados é composto com informações de {len(df)} pesquisas eleitorais;</p>
+        <p>1. O banco de dados é composto por informações de {len(df)} pesquisas eleitorais;</p>
         <p>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title()};</p>
-        <p>3. Para a composição do banco de dados considera-se apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Partindo de tais pesquisas coletamos as intenção de voto geral e a rejeição geral dos candidatos nos dois turnos, e as intenções de voto e a rejeição, levando em conta o recorte religioso;</p>
-        <p>4. Em relação as pesquisas, no levantamento de dados para o agregador, consideramos a última data em que os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas;</p>
-        <p>5. Partindo da data das pequisas calculou-se o média móvel de diversas variáveis corresponendo à {m_m} dias;</p>
-        <p>6. Para obter a média móvel usamos dados de uma série temporal e aplicamos seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
+        <p>3. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
+        <p>4. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
+        <p>5. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
+        <p>6. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
         <p>7. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas;</p>
-        <p>8. O resumo das médias móveis apresentada no primeiro e segundo turnos considera o último valor da média obtida para cada candidato. O dado e atualizado automaticamente à media que novas informações são inseridas no banco de dados;</p>
-        <p>9. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso em todas as ondas. Portanto, a coleta de tais informações é inconstante;</p>
-        <p>10. Devido a irregularidade na coleta, dados referentes aos espíritas, ateus, religiões afro-brasileiras, tais como umbanda e candomble, apresentam distorções estatísticas severas. Assim, decidiu-se incluir as religiões anteriores numa categoria outros;</p>
-        <p>11. é importante destacar que não há dados atualizados sobre tais religiões. Os intitutos utilizam critérios próprios para realiar a amostragem, conflitando, inclusive, com o dado do Censo de 2010;</p>
-        <p>12. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel;</p>
-        <p>13. As imagens dos candidatos que utilizamos provém das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
-        <p>14. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Portanto, não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos. 
+        <p>8. O resumo das médias móveis apresentado no primeiro e segundo turnos considera o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
+        <p>9. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
+        <p>10. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
+        <p>11. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Para termos uma noção do universo amostrado pelos institutos,  os católicos variam entre 48% a 52% da população brasileira; os evangélicos entre 28% a 32% e os sem religião entre 10% a 14%;</p>
+        <p>12. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Portanto, não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
+        <p>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas". 
+        <p>14. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
 
         </body>
         </html>
@@ -134,7 +134,7 @@ with st.sidebar.container():
     st.markdown(f"""
     <h2 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao Núcleo de Religiões no Mundo Contemporâneo</h2>
     <br>
-    <h3 style='text-align: center; color: #54595F;'>Coordenação:</h3><p style='text-align: center';>Dirceu André Gerardi (FGV/SP) - <a href="andregerardi3@gmail.com">email</a><br>Ronaldo Almeida (UNICAMP) - <a href="ronaldormalmeida@gmail.com">email</a></p></p>
+    <h3 style='text-align: center; color: #54595F;'>Coordenação:</h3><p style='text-align: center';>Dirceu André Gerardi (FGV/SP) - <a href="mailto: andregerardi3@gmail.com">email</a><br>Ronaldo Almeida (UNICAMP) - <a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
     <br>
     <hr style="width:30%,text-align: center;">
     <br>
