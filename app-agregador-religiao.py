@@ -65,66 +65,63 @@ df.sigla = df.sigla.astype(str)
 with st.container():
     st.markdown("""
     <br>
-    <h5 style='text-align: center; color: #004C99;'>Descubra aqui como o agregador foi construído</h5>
-    """, unsafe_allow_html=True)
-    col, col1, col2 = st.columns(3)
-        
-    with col:        
-        expander3 = st.expander("Pesquisas eleitorais utilizadas")
-        expander3.write("""#### Lista de pesquisas""")
-        lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
-        expander3.dataframe(lista)
+    <h5 style='text-align: center; color: #004C99;'>Informações sobre o agregador</h5>
+    """, unsafe_allow_html=True)        
+    
+    ### primeiro expander, da metodologia
+    expander = st.expander("Descubra aqui como o agregador foi construído")
+    expander.markdown(f"""
+    <!DOCTYPE html>
+    <html>
+    <body>
 
-        @st.cache
-        def convert_df(df):
-            # IMPORTANT: Cache the conversion to prevent computation on every rerun
-            return df.to_csv().encode('utf-8-sig')
+    <p>Explicação:</p>
 
-        csv = convert_df(lista)
+    <p>1. O banco de dados é atualizado constantemente e atualmente contém informações de {len(df)} pesquisas eleitorais;</p>
+    <p>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title()};</p>
+    <p>3. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
+    <p>4. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
+    <p>5. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
+    <p>6. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
+    <p>7. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas;</p>
+    <p>8. O resumo das médias móveis apresentado no primeiro e segundo turnos considera o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
+    <p>9. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
+    <p>10. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
+    <p>11. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Para termos uma noção do universo amostrado pelos institutos,  os católicos variam entre 48% a 52% da população brasileira; os evangélicos entre 28% a 32% e os sem religião entre 10% a 14%;</p>
+    <p>12. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Portanto, não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
+    <p>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas". 
+    <p>14. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
 
-        expander3.download_button(
-            label="Baixe a lista em CSV",
-            data=csv,
-            file_name='lista.csv',
-            mime='text/csv',
-        )
-        expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
+    </body>
+    </html>
+    """,unsafe_allow_html=True)
 
-    with col1:
-    ### Metodologia utilizada pelo agregador ###
-        expander = st.expander("Metodologia")
-        expander.markdown(f"""
-        <!DOCTYPE html>
-        <html>
-        <body>
+    ### lista de pesquisas
+    expander3 = st.expander("Verifique as pesquisas eleitorais utilizadas")
+    expander3.write("""#### Lista de pesquisas""")
+    lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
+    expander3.dataframe(lista)
 
-        <p>Explicação:</p>
+    @st.cache
+    def convert_df(df):
+        # IMPORTANT: Cache the conversion to prevent computation on every rerun
+        return df.to_csv().encode('utf-8-sig')
 
-        <p>1. O banco de dados é composto por informações de {len(df)} pesquisas eleitorais;</p>
-        <p>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title()};</p>
-        <p>3. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
-        <p>4. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
-        <p>5. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
-        <p>6. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
-        <p>7. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas;</p>
-        <p>8. O resumo das médias móveis apresentado no primeiro e segundo turnos considera o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
-        <p>9. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
-        <p>10. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
-        <p>11. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Para termos uma noção do universo amostrado pelos institutos,  os católicos variam entre 48% a 52% da população brasileira; os evangélicos entre 28% a 32% e os sem religião entre 10% a 14%;</p>
-        <p>12. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Portanto, não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
-        <p>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas". 
-        <p>14. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
+    csv = convert_df(lista)
 
-        </body>
-        </html>
-        """,unsafe_allow_html=True)
+    expander3.download_button(
+        label="Baixe a lista em CSV",
+        data=csv,
+        file_name='lista.csv',
+        mime='text/csv',
+    )
+    expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
 
-### Como citar o agregador ####
-    with col2:
-        expander2 = st.expander("Como citar")
-        expander2.markdown(f"""
-        **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
-        """)
+    ### Como citar o agregador ####
+    expander2 = st.expander("Veja como citar o agregador")
+    expander2.info(f"""
+    **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo de. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
+    """)
 
 ################################
 ### Cabeçario da barra lateral ## rgb(37, 117, 232)
@@ -133,11 +130,8 @@ with st.container():
 with st.sidebar.container():
     st.markdown(f"""
     <h2 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao Núcleo de Religiões no Mundo Contemporâneo</h2>
-    <br>
-    <h3 style='text-align: center; color: #54595F;'>Coordenação:</h3><p style='text-align: center';>Dirceu André Gerardi (FGV/SP) - <a href="mailto: andregerardi3@gmail.com">email</a><br>Ronaldo Almeida (UNICAMP) - <a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
-    <br>
+    <h4 style='text-align: center; color: #54595F;'>Coordenação:</h4><p style='text-align: center';>Dirceu André Gerardi<br>(LabDados FGV/CEBRAP/LAR) <br> <a href="mailto: andregerardi3@gmail.com">email<br></a><br>Ronaldo de Almeida (UNICAMP/CEBRAP/LAR) <br> <a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
     <hr style="width:30%,text-align: center;">
-    <br>
     <h2 style='text-align: center; color: #54595;'>Estatísticas do Agregador:</h2>
     <h3 style='text-align: center; color: rgb(37, 117, 232);'>Institutos analisados:</h3> <p style='text-align: center';>{', '.join(set(df['nome_instituto'].T)).title()}</p>
     <h3 style='text-align: center; color: rgb(37, 117, 232);'>Contador de pesquisas:</h3> <p style='color:#000000;font-weight:700;font-size:35px;text-align: center';>{len(list(df.sigla))}</p>
@@ -152,11 +146,6 @@ st.markdown("---")
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
 ########################################################################
 
-st.write("""
-\n
-\n
-\n
- """)
 
 with st.container():
    st.markdown("<h4 style='text-align: center; color: black; color:#004C99;'>Selecione aqui o turno da eleição para visualizar os dados:</h4>", unsafe_allow_html=True)
@@ -315,22 +304,37 @@ if options_turn == 'Primeiro Turno':
                         ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1000, height = 800, template = 'presentation',
-                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
+            fig.update_layout(width = 1000, height = 800, template = 'presentation',margin=dict(r=80, l=80, b=4, t=150),
+            title=("""
+            Agregador de pesquisas eleitorais por religião <br>
+            <i>Média móvel das intenções de voto dos candidato à presidencia</i>
+            """),
+                            #title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
-                            font=dict(family="arial",size=14),
+                            font=dict(family="arial",size=13),
                             legend=dict(
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
                 x=0.5, 
                 orientation="h"))
-
+            
             fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                    xref="paper", yref="paper",
+                    x=.99, y=1.18,
+                    sizex=0.1, sizey=0.1,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
 
             st.plotly_chart(fig)
             
