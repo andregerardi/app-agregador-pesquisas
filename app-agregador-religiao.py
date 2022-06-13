@@ -1,4 +1,5 @@
 from matplotlib import image
+from sqlalchemy import column
 import streamlit as st
 import pandas as pd
 import datetime as dt
@@ -7,6 +8,7 @@ from PIL import Image
 import openpyxl
 import plotly.graph_objects as go
 import datetime as dt
+import plotly.express as px
 
 
 ########################################################################
@@ -25,11 +27,26 @@ st.set_page_config(
 
 ## subtítulos do cabeçalho
 st.markdown("""
-<h2 style='text-align: center; color: black; color:#202020; font-family:tahoma;text-rendering: optimizelegibility'>Agregador de pesquisas eleitorais por religião</h2>
+<h2 style='text-align: center; color:#212529; font-family:tahoma;text-rendering: optimizelegibility;'>Agregador de pesquisas eleitorais por religião</h2>
 <br>
-<h3 style='text-align: center; color: black; color:#54595F;font-family:calibri'>Consolidação de pesquisas para as eleições presidenciais de 2022</h3>
+<h4 style='text-align: center; color:#54595F;font-family:Segoe UI'>Consolidação de pesquisas para as eleições presidenciais de 2022</h4>
 """, unsafe_allow_html=True)
-#st.markdown("---")
+
+# import streamlit.components.v1 as components
+
+# components.html(
+#     """
+#         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+#         data-text="Check my cool Streamlit Web-App🎈"
+#         data-url="https://share.streamlit.io/andregerardi/app-agregador-pesquisas/main/app-agregador-religiao.py"
+#         data-show-count="false">
+#         data-size="Large"
+#         data-hashtags="streamlit,python"
+#         Tweet
+#         </a>
+#         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+#     """
+# )
 
 ##retira o made streamlit no fim da página##
 hide_st_style = """
@@ -61,95 +78,99 @@ df.sigla = df.sigla.astype(str)
 ###############################################################################
 ## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
 ################################################################################
+st.markdown("---")
 
 with st.container():
-    st.markdown("""
-    <br>
-    <h5 style='text-align: center; color: #004C99;'>Informações sobre o agregador</h5>
-    """, unsafe_allow_html=True)        
-    
-    ### primeiro expander, da metodologia
-    expander = st.expander("Descubra aqui como o agregador foi construído")
-    expander.markdown(f"""
-    <!DOCTYPE html>
-    <html>
-    <body>
+    col3,col4,col5 = st.columns([.5,4,.5])
+    with col4:
+        st.markdown("""
+        <br>
+        <h4 style='text-align: center; color: #ffffff;font-family:font-family:poppins,sans-serif;background-color: #FA7A35;'><b>Informações sobre o agregador:<b></h4><br>
+        """, unsafe_allow_html=True)
 
-    <p>Explicação:</p>
+        ### primeiro expander, da metodologia
+        expander = st.expander("Descubra aqui como o agregador foi construído")
+        expander.markdown(f"""
+        <!DOCTYPE html>
+        <html>
+        <body>
 
-    <p>1. O banco de dados é atualizado constantemente e atualmente contém informações de {len(df)} pesquisas eleitorais;</p>
-    <p>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title()};</p>
-    <p>3. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
-    <p>4. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
-    <p>5. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
-    <p>6. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
-    <p>7. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas;</p>
-    <p>8. O resumo das médias móveis apresentado no primeiro e segundo turnos considera o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
-    <p>9. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
-    <p>10. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
-    <p>11. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Para termos uma noção do universo amostrado pelos institutos,  os católicos variam entre 48% a 52% da população brasileira; os evangélicos entre 28% a 32% e os sem religião entre 10% a 14%;</p>
-    <p>12. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Portanto, não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
-    <p>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas". 
-    <p>14. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
+        <p style='text-align: center; font-family:Segoe UI;'><b>Explicação:</b></p>
 
-    </body>
-    </html>
-    """,unsafe_allow_html=True)
+        <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de dados é atualizado constantemente e atualmente contém informações de {len(df)} pesquisas eleitorais;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title()};</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>3. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>4. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>5. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>6. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>7. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas. Exitem outras outras técnicas estatíticas para a redução do ruído dos dados da série temporal, tais como <i>weighted moving average, kernel smoother</i>, entre outras;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>8. O resumo das médias móveis apresentado no primeiro e segundo turnos considera e apresenta o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>9. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>10. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>11. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Para termos uma noção do universo amostrado pelos institutos,  os católicos variam entre 48% a 52% da população brasileira; os evangélicos entre 28% a 32% e os sem religião entre 10% a 14%;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>12. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Portanto, não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas".
+        <p style='text-align: justify; font-family:Segoe UI;'>14. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
 
-    ### lista de pesquisas
-    expander3 = st.expander("Verifique as pesquisas eleitorais utilizadas")
-    expander3.write("""#### Lista de pesquisas""")
-    lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
-    expander3.dataframe(lista)
+        </body>
+        </html>
+        """,unsafe_allow_html=True)
 
-    @st.cache
-    def convert_df(df):
-        # IMPORTANT: Cache the conversion to prevent computation on every rerun
-        return df.to_csv().encode('utf-8-sig')
+        ### lista de pesquisas
+        expander3 = st.expander("Verifique as pesquisas eleitorais utilizadas")
+        expander3.write("""#### Lista de pesquisas""")
+        lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int'})
+        expander3.dataframe(lista)
 
-    csv = convert_df(lista)
+        @st.cache
+        def convert_df(df):
+            # IMPORTANT: Cache the conversion to prevent computation on every rerun
+            return df.to_csv().encode('utf-8-sig')
 
-    expander3.download_button(
-        label="Baixe a lista em CSV",
-        data=csv,
-        file_name='lista.csv',
-        mime='text/csv',
-    )
-    expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
+        csv = convert_df(lista)
 
-    ### Como citar o agregador ####
-    expander2 = st.expander("Veja como citar o agregador")
-    expander2.info(f"""
-    **GERARDI**, Dirceu André; **ALMEIDA**, Ronaldo de. Agregador de pesquisas eleitorais por religião: consolidação de dados de pesquisas com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo: Streamlit, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.
-    """)
+        expander3.download_button(
+            label="Baixe a lista em CSV",
+            data=csv,
+            file_name='lista.csv',
+            mime='text/csv',
+        )
+        expander3.caption('*Fontes*: TSE e Institutos de Pesquisa')
 
-################################
-### Cabeçario da barra lateral ## rgb(37, 117, 232)
-###############################
+with st.container():
+    col,col1,col2,col3, col4 = st.columns([.5,1.3,1.3,1.3,.5])
+    with col1:
+        expander4 = st.expander('Estatíticas do agregador')
+        expander4.markdown(f"""
+            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Abrangencia das pesquisas:</h6> <p style='text-align: center';>Nacional</p>
+            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Institutos analisados:</h6> <p style='text-align: center';>{', '.join(set(df['nome_instituto'].T)).title()}</p>
+            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas:</h6> <p style='color:#000000;font-weight:700;font-size:30px;text-align: center';>{len(list(df.sigla))}</p>
+        """, unsafe_allow_html=True)
 
-with st.sidebar.container():
-    st.markdown(f"""
-    <h2 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao Núcleo de Religiões no Mundo Contemporâneo</h2>
-    <h4 style='text-align: center; color: #54595F;'>Coordenação:</h4><p style='text-align: center';>Dirceu André Gerardi<br>(LabDados FGV/CEBRAP/LAR) <br> <a href="mailto: andregerardi3@gmail.com">email<br></a><br>Ronaldo de Almeida (UNICAMP/CEBRAP/LAR) <br> <a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
-    <hr style="width:30%,text-align: center;">
-    <h2 style='text-align: center; color: #54595;'>Estatísticas do Agregador:</h2>
-    <h3 style='text-align: center; color: rgb(37, 117, 232);'>Institutos analisados:</h3> <p style='text-align: center';>{', '.join(set(df['nome_instituto'].T)).title()}</p>
-    <h3 style='text-align: center; color: rgb(37, 117, 232);'>Contador de pesquisas:</h3> <p style='color:#000000;font-weight:700;font-size:35px;text-align: center';>{len(list(df.sigla))}</p>
-    <hr style="width:30%,text-align: center;">
-    <br>
-    """, unsafe_allow_html=True)
+        ### Como citar o agregador ####
+    with col2:
+        expander2 = st.expander("Veja como citar o agregador")
+        expander2.markdown(f"""
+        <p style='text-align: center; font-family:Segoe UI;'>GERARDI, Dirceu André; ALMEIDA, Ronaldo de. <b>Agregador de pesquisas eleitorais por religião</b>: consolidação de dados de pesquisas eleitorais com recorte religioso às eleições presidenciais de 2022. Versão 1.0. São Paulo, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.</p>
+        """, unsafe_allow_html=True)
 
-    
-st.markdown("---")
+    with col3:
+        expander5 = st.expander("Sobre nós")
+        expander5.markdown(f"""
+        <h6 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao <br> Núcleo de Religiões no Mundo Contemporâneo - Cebrap</h6>
+        <h6 style='text-align: center; color: #54595F;'>Coordenação:</h6><p style='text-align: center';>Dirceu André Gerardi<br>(LabDados FGV/CEBRAP/LAR)<br><a href="mailto: andregerardi3@gmail.com">email<br></a><br>Ronaldo de Almeida<br>(UNICAMP/CEBRAP/LAR)<br><a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
+        """, unsafe_allow_html=True)
 
 ########################################################################
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
 ########################################################################
 
-
+st.markdown("---")
 with st.container():
-   st.markdown("<h4 style='text-align: center; color: black; color:#004C99;'>Selecione aqui o turno da eleição para visualizar os dados:</h4>", unsafe_allow_html=True)
-   options_turn = st.selectbox('',options=['--clique para selecionar--','Primeiro Turno', 'Segundo Turno'])
+    col3,col4,col5 = st.columns([.5,1.5,.5])
+    with col4:
+        st.markdown("<h4 style='text-align: center; color: #ffffff; font-family:font-family:source sans pro,sans-serif; background-color: rgb(0, 165, 200, 100);'>Selecione o turno da eleição para visualizar os dados:</h4>", unsafe_allow_html=True)
+        options_turn = st.selectbox('',options=['--clique para selecionar--','Primeiro Turno', 'Segundo Turno'])
 st.markdown("---")
 
 ########################
@@ -157,6 +178,9 @@ st.markdown("---")
 ########################
 
 if options_turn == 'Primeiro Turno':
+    st.markdown(f"""
+        <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility;'>Primeiro Turno</h2><br>""", unsafe_allow_html=True)
+    st.markdown("---")
 
     ############################################
     ## média movel dos candidatos por segmento##
@@ -164,9 +188,9 @@ if options_turn == 'Primeiro Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Resumo - intenção de voto por candidato</h3> \n
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>Resumo - intenção de voto geral por candidato</h3><br>
         """, unsafe_allow_html=True)
-    
+
         int_vot_lula = st.checkbox('Lula')
 
         if int_vot_lula:
@@ -177,7 +201,7 @@ if options_turn == 'Primeiro Turno':
             col0.image(lul,width=100)
             col.metric(label="Geral", value=f"{round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1)}")
-            col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1),1)}") 
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1),1)}")
             col3.metric(label="Outros", value=f"{round(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],1)}%") #delta=f"{round(round(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
             col4.metric(label="Sem Religião", value=f"{round(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1],1)}")
             ## coluna 2
@@ -234,21 +258,22 @@ if options_turn == 'Primeiro Turno':
             #col8.metric(label="Outros", value=f"{round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
             #col3.metric(label="Espíritas", value=f"{round(list(df[df['ciro_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1),1)}")
 
-     
+
         st.markdown(f"""
         <br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7> \n
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>2) Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7> \n
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
         """, unsafe_allow_html=True)
     st.markdown("---")
 
     ########################################
     ## gráfico média movel primeiro turno###
     ########################################
-
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#515151; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - Intenção de voto geral:</h3> \n
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+        </svg> Intenção de voto geral:</h3><br>
         """, unsafe_allow_html=True)
 
         int_vote_med_move = st.checkbox('Clique para visualizar')
@@ -300,16 +325,15 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
-                        arrowhead=1, 
+                        arrowhead=1,
                         ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1000, height = 800, template = 'presentation',margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            Agregador de pesquisas eleitorais por religião <br>
-            <i>Média móvel das intenções de voto dos candidato à presidencia</i>
+            Agregador de pesquisas eleitorais por religião
+            <br><i>Gráfico: Média móvel das intenções de voto de candidatos à presidência - 1º turno<i><br>
             """),
-                            #title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
                             font=dict(family="arial",size=13),
@@ -317,11 +341,12 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5, 
-                orientation="h"))
-            
-            fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+                x=0.5,
+                orientation="h",
+                font_family="arial",))
+
+            fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
 
@@ -337,26 +362,28 @@ if options_turn == 'Primeiro Turno':
             )
 
             st.plotly_chart(fig)
-            
+
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7>
             <br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>2) Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7>
             """, unsafe_allow_html=True)
     st.markdown("---")
 
-    
-    ################################################################## 
+
+    ##################################################################
     ## container - gráfico geral católicos e evangélicos - modelo 1 ##
-    ################################################################## 
-    
+    ##################################################################
+
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#515151; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - intenção de voto por religião:</h3> \n
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+        </svg> intenção de voto por religião:</h3><br>
         """, unsafe_allow_html=True)
         ## opções retiradas 'Espírita', 'Umbanda/Candomblé', 'Ateu',
         relig = st.selectbox('Selecione a religião:',options=['--Escolha a opção--','Católica', 'Evangélica', 'Sem Religião', 'Outras Religiosidades'])
-        
+
     if relig == 'Católica':
 
         fig = go.Figure()
@@ -372,7 +399,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_cat_1t']>1].sigla)[-1], y=int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -388,7 +415,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_cat_1t']>1].sigla)[-1], y=int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                        ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -405,7 +432,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_cat_1t']>1].sigla)[-1], y=int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -418,7 +445,7 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5, 
+                x=0.5,
                 orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -439,7 +466,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_ev_1t']>1].sigla)[-1], y=int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Bolsonaro
@@ -454,7 +481,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_ev_1t']>1].sigla)[-1], y=int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Ciro
@@ -469,7 +496,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_ev_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -482,10 +509,10 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5, 
+                x=0.5,
                 orientation="h"))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_xaxes(tickangle = 280, rangeslider_visible=True)
 
         st.plotly_chart(fig)
 
@@ -503,7 +530,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_espi_1t']>1].data)[-1], y=int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     #ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -519,7 +546,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_espi_1t']>1].data)[-1], y=int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                         #ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -536,7 +563,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['ciro_espi_1t']>1].data)[-1], y=int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     #ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -547,7 +574,7 @@ if options_turn == 'Primeiro Turno':
     #         yanchor="auto",
     #         y=1.1,
     #         xanchor="auto",
-    #         x=0.5, 
+    #         x=0.5,
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -569,7 +596,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_umb_can_1t']>1].data)[-1], y=int(list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -585,7 +612,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_umb_can_1t']>1].data)[-1], y=int(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -602,7 +629,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['ciro_umb_can_1t']>1].data)[-1], y=int(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -613,7 +640,7 @@ if options_turn == 'Primeiro Turno':
     #         yanchor="auto",
     #         y=1.1,
     #         xanchor="auto",
-    #         x=0.5, 
+    #         x=0.5,
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -633,7 +660,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_ateu_1t']>1].data)[-1], y=int(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                    #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -649,7 +676,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_ateu_1t']>1].data)[-1], y=int(list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -666,7 +693,7 @@ if options_turn == 'Primeiro Turno':
 
     #     fig.add_annotation(x=list(df[df['ciro_ateu_1t']>1].data)[-1], y=int(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                    #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))"""
 
@@ -677,7 +704,7 @@ if options_turn == 'Primeiro Turno':
     #         yanchor="auto",
     #         y=1.1,
     #         xanchor="auto",
-    #         x=0.5, 
+    #         x=0.5,
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -697,7 +724,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_non_1t']>1].data)[-1], y=int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -713,7 +740,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_non_1t']>1].data)[-1], y=int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -730,7 +757,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_non_1t']>1].data)[-1], y=int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -743,7 +770,7 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5, 
+                x=0.5,
                 orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -764,7 +791,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['lul_out_1t']>1].sigla)[-1], y=int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -780,7 +807,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['bol_out_1t']>1].sigla)[-1], y=int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -797,10 +824,10 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x=list(df[df['ciro_out_1t']>1].sigla)[-1], y=int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
-        
+
         fig.update_layout(width = 1000, height = 800, template = 'presentation',
                             title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
                             xaxis_title='Mês, ano e instituto de pesquisa',
@@ -810,21 +837,21 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5, 
+                x=0.5,
                 orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
         st.plotly_chart(fig)
-    
+
         ## info
     st.markdown(f"""
-    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) Método utilizado: média móvel de {m_m} dias.</h7> \n
-    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>2) Em alguns casos, a combinção de dados retornará um gráfico em branco. Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.</h7>
+    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
+    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Em alguns casos, a combinção de dados retornará um gráfico em branco. Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.</h7>
     """, unsafe_allow_html=True)
     st.markdown("---")
 
     #####################################
-    ### dados por instituto de pesquisa##    
+    ### dados por instituto de pesquisa##
     #####################################
 
     institutos = list(set(df['nome_instituto']))
@@ -832,14 +859,17 @@ if options_turn == 'Primeiro Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#515151; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - intenção de voto por instituto de pesquisa e religião:</h3> \n
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+        </svg> Intenção de voto por instituto de pesquisa e religião:</h3><br>
         """, unsafe_allow_html=True)
 
         col, col1 = st.columns(2)
         with col:
             inst = st.selectbox('Selecione o instituto de pesquisa:',options=institutos)
         with col1:
-            ##dados retirados 'Espírita', 'Umbanda/Candomblé', 'Ateu', 
+            ##dados retirados 'Espírita', 'Umbanda/Candomblé', 'Ateu',
             rel = st.selectbox('Escolha a religião:',options=['--Escolha a religião--','Católica', 'Evangélica', 'Sem Religião', 'Outras Religiosidades'])
 
         col1, col2, col3 = st.columns([.5,3,.5])
@@ -872,7 +902,7 @@ if options_turn == 'Primeiro Turno':
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
-                
+
                 grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
                 st.pyplot(plt)
@@ -884,7 +914,7 @@ if options_turn == 'Primeiro Turno':
                             file_name="grafico.png",
                             mime="image/png"
                             )
-        
+
             if rel == 'Evangélica':
 
                 df.set_index('sigla',inplace = True)
@@ -912,7 +942,7 @@ if options_turn == 'Primeiro Turno':
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
-                
+
                 grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
                 st.pyplot(plt)
@@ -924,7 +954,7 @@ if options_turn == 'Primeiro Turno':
                             file_name="grafico.png",
                             mime="image/png"
                             )
-        
+
             # if rel == 'Espírita':
 
             #     df.set_index('sigla',inplace = True)
@@ -952,7 +982,7 @@ if options_turn == 'Primeiro Turno':
 
             #     #axes = plt.gca()
             #     #axes.xaxis.grid()
-                
+
             #     grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
             #     st.pyplot(plt)
@@ -992,7 +1022,7 @@ if options_turn == 'Primeiro Turno':
 
             #     #axes = plt.gca()
             #     #axes.xaxis.grid()
-                
+
             #     grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
             #     st.pyplot(plt)
@@ -1003,8 +1033,8 @@ if options_turn == 'Primeiro Turno':
             #                 data=file,
             #                 file_name="grafico.png",
             #                 mime="image/png"
-            #                 )              
-    
+            #                 )
+
             # if rel == 'Ateu':
 
             #     df.set_index('sigla',inplace = True)
@@ -1032,7 +1062,7 @@ if options_turn == 'Primeiro Turno':
 
             #     #axes = plt.gca()
             #     #axes.xaxis.grid()
-                
+
             #     grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
             #     st.pyplot(plt)
@@ -1043,8 +1073,8 @@ if options_turn == 'Primeiro Turno':
             #                 data=file,
             #                 file_name="grafico.png",
             #                 mime="image/png"
-            #                 )              
-    
+            #                 )
+
             if rel == 'Sem Religião':
 
                 df.set_index('sigla',inplace = True)
@@ -1072,7 +1102,7 @@ if options_turn == 'Primeiro Turno':
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
-                
+
                 grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
                 st.pyplot(plt)
@@ -1083,7 +1113,7 @@ if options_turn == 'Primeiro Turno':
                             data=file,
                             file_name="grafico.png",
                             mime="image/png"
-                            )              
+                            )
 
             if rel == 'Outras Religiosidades':
 
@@ -1112,7 +1142,7 @@ if options_turn == 'Primeiro Turno':
 
                 #axes = plt.gca()
                 #axes.xaxis.grid()
-                
+
                 grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
                 st.pyplot(plt)
@@ -1123,18 +1153,24 @@ if options_turn == 'Primeiro Turno':
                             data=file,
                             file_name="grafico.png",
                             mime="image/png"
-                            )              
-    
+                            )
+
         st.markdown(f"""
-        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>*Obs.:* Os gráficos exibem os dados divulgados pelos institutos de pesquisa.</h7>
+        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso.</h7>
         """, unsafe_allow_html=True)
-    st.markdown("---") 
+    st.markdown("---")
 
 ########################
 ### segundo turno ######
 ########################
 
 if options_turn == 'Segundo Turno':
+
+    st.markdown(f"""
+        <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility'>Segundo Turno</h2>
+        <br>
+        """, unsafe_allow_html=True)
+    st.markdown("---")
 
 
 ##################
@@ -1143,9 +1179,9 @@ if options_turn == 'Segundo Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Resumo - intenção de voto por candidato</h3> \n
-        """, unsafe_allow_html=True)
-    
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>Resumo - intenção de voto por candidato</h3> \n
+        <br>""", unsafe_allow_html=True)
+
         int_vot_lula = st.checkbox('Lula ')
 
         if int_vot_lula:
@@ -1155,7 +1191,7 @@ if options_turn == 'Segundo Turno':
             col0.image(lul,width=105,channels="B")
             col.metric(label="Geral", value=f"{round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1],1),1)}")
-            col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1),1)}") 
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1),1)}")
             col3.metric(label="Outros", value=f"{round(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1],1),1)}")
             col4.metric(label="Sem Religião", value=f"{round(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1],1),1)}")
             ## coluna 2
@@ -1177,7 +1213,7 @@ if options_turn == 'Segundo Turno':
             col0.image(bol,width=100)
             col.metric(label="Geral", value=f"{round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1),1)}")
-            col2.metric(label="Evangélicos", value=f"{round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1),1)}") 
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1),1)}")
             col3.metric(label="Outros", value=f"{round(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1],1),1)}")
             col4.metric(label="Sem Religião", value=f"{round(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1],1),1)}")
             # ## coluna 2
@@ -1202,8 +1238,8 @@ if options_turn == 'Segundo Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - Intenção de voto geral</h3> \n
-        """, unsafe_allow_html=True)
+        <h3 style='text-align: left; color: #303030; font-family:tahoma; text-rendering: optimizelegibility; background-color: #e6e6e6;'>Gráfico - Intenção de voto geral</h3> \n
+        <br>""", unsafe_allow_html=True)
 
         int_vote_med_move_2t = st.checkbox('Clique para visualizar')
 
@@ -1222,7 +1258,7 @@ if options_turn == 'Segundo Turno':
 
             fig.add_annotation(x=list(df[df['lul_ger_2t']>1].sigla)[-1], y=int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
-                        arrowhead=1, 
+                        arrowhead=1,
                     ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
@@ -1238,7 +1274,7 @@ if options_turn == 'Segundo Turno':
 
             fig.add_annotation(x=list(df[df['bol_ger_2t']>1].sigla)[-1], y=int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
-                        arrowhead=1, 
+                        arrowhead=1,
                     ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
@@ -1251,7 +1287,7 @@ if options_turn == 'Segundo Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5, 
+                x=0.5,
                 orientation="h"))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=32,text="Moro desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -1278,11 +1314,11 @@ if options_turn == 'Segundo Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - intenção de voto por religião:</h3>
-        """, unsafe_allow_html=True)
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>Gráfico - intenção de voto por religião:</h3>
+        <br>""", unsafe_allow_html=True)
         ## opçoes deletadas 'Espírita ', 'Umbanda/Candomblé ', 'Ateu ',
         relig2t = st.selectbox('Selecione a religião:',options=['--Escolha a opção--','Católica ', 'Evangélica ', 'Sem Religião ', 'Outras Religiosidades '])
-        
+
     if relig2t == 'Católica ':
 
         fig = go.Figure()
@@ -1298,7 +1334,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_cat_2t']>1].sigla)[-1], y=int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -1314,7 +1350,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_cat_2t']>1].sigla)[-1], y=int(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -1327,7 +1363,7 @@ if options_turn == 'Segundo Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5, 
+                x=0.5,
                 orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -1348,7 +1384,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_ev_2t']>1].sigla)[-1], y=int(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Bolsonaro
@@ -1363,7 +1399,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_ev_2t']>1].sigla)[-1], y=int(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -1374,7 +1410,7 @@ if options_turn == 'Segundo Turno':
             yanchor="auto",
             y=1.1,
             xanchor="auto",
-            x=0.5, 
+            x=0.5,
             orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -1395,7 +1431,7 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_espi_2t']>1].data)[-1], y=int(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                    #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -1411,7 +1447,7 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_espi_2t']>1].data)[-1], y=int(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -1422,7 +1458,7 @@ if options_turn == 'Segundo Turno':
     #         yanchor="auto",
     #         y=1.1,
     #         xanchor="auto",
-    #         x=0.5, 
+    #         x=0.5,
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -1444,7 +1480,7 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_umb_can_2t']>1].data)[-1], y=int(list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                    #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -1460,7 +1496,7 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_umb_can_2t']>1].data)[-1], y=int(list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -1471,7 +1507,7 @@ if options_turn == 'Segundo Turno':
     #         yanchor="auto",
     #         y=1.1,
     #         xanchor="auto",
-    #         x=0.5, 
+    #         x=0.5,
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -1491,7 +1527,7 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['lul_ateu_2t']>1].data)[-1], y=int(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                     # ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -1507,7 +1543,7 @@ if options_turn == 'Segundo Turno':
 
     #     fig.add_annotation(x=list(df[df['bol_ateu_2t']>1].data)[-1], y=int(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
-    #                 arrowhead=1, 
+    #                 arrowhead=1,
                    #  ax = 40, ay = 0,
     #                 font=dict(size=20, color="black", family="Arial"))
 
@@ -1518,7 +1554,7 @@ if options_turn == 'Segundo Turno':
     #         yanchor="auto",
     #         y=1.1,
     #         xanchor="auto",
-    #         x=0.5, 
+    #         x=0.5,
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -1538,7 +1574,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_non_2t']>1].data)[-1], y=int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -1554,7 +1590,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_non_2t']>1].data)[-1], y=int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -1565,7 +1601,7 @@ if options_turn == 'Segundo Turno':
             yanchor="auto",
             y=1.1,
             xanchor="auto",
-            x=0.5, 
+            x=0.5,
             orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
@@ -1586,7 +1622,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['lul_out_2t']>1].sigla)[-1], y=int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -1602,7 +1638,7 @@ if options_turn == 'Segundo Turno':
 
         fig.add_annotation(x=list(df[df['bol_out_2t']>1].sigla)[-1], y=int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
-                    arrowhead=1, 
+                    arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
@@ -1613,14 +1649,14 @@ if options_turn == 'Segundo Turno':
             yanchor="auto",
             y=1.1,
             xanchor="auto",
-            x=0.5, 
+            x=0.5,
             orientation="h"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
         st.plotly_chart(fig)
-        
+
         st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
-    
+
     st.markdown(f"""
     <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
     """, unsafe_allow_html=True)
@@ -1628,7 +1664,7 @@ if options_turn == 'Segundo Turno':
 
 
     #####################################
-    ### dados por instituto de pesquisa##    
+    ### dados por instituto de pesquisa##
     #####################################
 
     institutos = list(set(df['nome_instituto']))
@@ -1636,8 +1672,8 @@ if options_turn == 'Segundo Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: black; color:#404040; font-family:sans-serif;text-rendering: optimizelegibility'>Gráfico - intenção de voto por instituto de pesquisa e religião:</h3> \n
-        """, unsafe_allow_html=True)
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>Gráfico - intenção de voto por instituto de pesquisa e religião:</h3> \n
+        <br>""", unsafe_allow_html=True)
 
         col, col1 = st.columns(2)
         with col:
@@ -1795,7 +1831,7 @@ if options_turn == 'Segundo Turno':
             #                 data=file,
             #                 file_name="grafico.png",
             #                 mime="image/png"
-            #                 )              
+            #                 )
 
             # if rel2 == 'Ateu':
 
@@ -1832,7 +1868,7 @@ if options_turn == 'Segundo Turno':
             #                 data=file,
             #                 file_name="grafico.png",
             #                 mime="image/png"
-            #                 )              
+            #                 )
 
             if rel2 == 'Sem Religião':
 
@@ -1869,7 +1905,7 @@ if options_turn == 'Segundo Turno':
                             data=file,
                             file_name="grafico.png",
                             mime="image/png"
-                            )              
+                            )
 
             if rel2 == 'Outras Religiosidades':
 
@@ -1906,11 +1942,11 @@ if options_turn == 'Segundo Turno':
                             data=file,
                             file_name="grafico.png",
                             mime="image/png"
-                            )              
+                            )
         st.caption(f'Os gráficos exibem os dados brutos divulgados pelos institutos de pesquisa.')
 
-    st.markdown("---") 
+    st.markdown("---")
 
-##############
-##estatíticas#
-#############
+
+
+
