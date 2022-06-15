@@ -78,6 +78,9 @@ start_date = dt.datetime(2022,1,1) # data de oito meses atras
 df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
 df.sigla = df.sigla.astype(str)
 
+##import image logo
+agre = Image.open('palacio-da-alvorada-interior-napa.jpg')
+
 
 ###############################################################################
 ## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
@@ -285,9 +288,6 @@ if options_turn == 'Primeiro Turno':
     #####################################################
     ## gráfico intenção de voto geral - primeiro turno###
     #####################################################
-    
-    ##import image logo
-    agre = Image.open('palacio-da-alvorada-interior-napa.jpg')
 
 
     with st.container():
@@ -407,7 +407,6 @@ if options_turn == 'Primeiro Turno':
     ################################################
     ## gráfico da rejeição geral - primeiro turno###
     ################################################
-
 
     with st.container():
         st.markdown(f"""
@@ -627,7 +626,6 @@ if options_turn == 'Primeiro Turno':
             )
         )
 
-        
         # Add image
         fig.add_layout_image(
             dict(
