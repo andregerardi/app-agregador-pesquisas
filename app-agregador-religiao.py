@@ -104,21 +104,21 @@ with st.container():
 
         <p style='text-align: center; font-family:Segoe UI;'><b>Explicação:</b></p>
 
-        <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de dados é atualizado constantemente e atualmente contém informações de {len(df)} pesquisas eleitorais;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de dados é atualizado constantemente. No momento, ele contém informações de {len(df)} pesquisas eleitorais;</p>
         <p style='text-align: justify; font-family:Segoe UI;'>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title()};</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>3. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>4. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>5. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>6. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>7. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas. Exitem outras outras técnicas estatíticas para a redução do ruído dos dados da série temporal, tais como <i>weighted moving average, kernel smoother</i>, entre outras;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>8. O resumo das médias móveis apresentado no primeiro e segundo turnos considera e apresenta o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>9. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>10. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>11. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Para termos uma noção do universo amostrado pelos institutos, os católicos variam entre 48% a 52% da população brasileira; os evangélicos entre 28% a 32% e os sem religião entre 10% a 14%;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>12. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Portanto, não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas".
-        <p style='text-align: justify; font-family:Segoe UI;'>14. O percentual de <i>rejeição dos candidatos</i> é obtido pelos institutos de pesquisa através da aplicação de questões em que solicitam ao eleitores à indicação de candidato, que "não votaria de jeito nenhum para presidente da República";</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>15. O percentual de <i>reprovação da administração</i> do Presidente Jair Bolsonaro foi obtido a partir da soma da respostas "ruim" e "péssimo" para a questão que avalia a satisfação dos eleitores para com a administração do mandatário: (A administração do Presidente Jair Bolsonaro está sendo ótima, boa, regular, ruim ou péssima?);</p> 
+        <p style='text-align: justify; font-family:Segoe UI;'>3. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>4. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>5. O percentual de <i>rejeição dos candidatos</i> é obtido pelos institutos de pesquisa através da aplicação de questões em que solicitam aos eleitores à indicação de candidato, que "não votaria de jeito nenhum para presidente da República";</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>6. O percentual de <i>reprovação da administração</i> do Presidente Jair Bolsonaro foi obtido a partir da soma da respostas "ruim" e "péssimo" para a questão que avalia a satisfação dos eleitores para com a administração do mandatário: "a administração do Presidente Jair Bolsonaro está sendo ótima, boa, regular, ruim ou péssima?";</p> 
+        <p style='text-align: justify; font-family:Segoe UI;'>7. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>8. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>9. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Os institutos utilizam dados o IGBE de 2010 e também da PNAD de 2021. Para termos uma noção do universo amostrado pelos institutos, os católicos variam entre 48% a 52% da população brasileira; os evangélicos entre 28% a 32% e os sem religião entre 10% a 14%;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>10. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>11. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>12. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>13. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas. Exitem outras outras técnicas estatíticas para a redução do ruído dos dados da série temporal, tais como <i>weighted moving average, kernel smoother</i>, entre outras;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>14. O resumo das médias móveis apresentado no primeiro e segundo turnos considera e apresenta o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>15. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas";</p>
         <p style='text-align: justify; font-family:Segoe UI;'>16. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
 
         </body>
@@ -188,7 +188,14 @@ st.markdown("---")
 
 if options_turn == 'Primeiro Turno':
     st.markdown(f"""
-        <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility;'>Primeiro Turno</h2><br>""", unsafe_allow_html=True)
+        <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility;'>Primeiro Turno</h2>
+        <br>
+        """, unsafe_allow_html=True)
+    st.markdown("---")
+
+    st.markdown(f"""
+        <h3 style='text-align: center; color: #303030; font-family:segoe UI; text-rendering: optimizelegibility;background-color: #FFD662;'>1. Intenção de voto:</h3>
+        """, unsafe_allow_html=True)
     st.markdown("---")
 
     ############################################
@@ -197,7 +204,7 @@ if options_turn == 'Primeiro Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>Resumo - intenção de voto geral e rejeição por candidato</h3><br>
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>Resumo - intenção de voto geral e por religião segundo candidato:</h3><br>
         """, unsafe_allow_html=True)
 
         int_vot_lula = st.checkbox('Lula')
@@ -206,16 +213,16 @@ if options_turn == 'Primeiro Turno':
 
             ## coluna 1
             lul = Image.open('lula_perfil.jpg')
-            col0,col, col1, col2, col3, col4, col5 = st.columns(7)
+            col0,col, col1, col2, col3, col4 = st.columns(6)
             col0.image(lul,width=100)
             col.metric(label="Geral", value=f"{round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1)}")
             col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(round(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1),1)}")
             col3.metric(label="Outros", value=f"{round(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],1)}%") #delta=f"{round(round(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
             col4.metric(label="Sem Religião", value=f"{round(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1],1)}%") # delta=f"{round(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1],1)}")
-            col5.metric(label="Rejeição", value=f"{round(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1),1)}")
+            #col5.metric(label="Rejeição", value=f"{round(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1),1)}")
 
-            ## coluna 2
+            ## coluna 2agre
             #col4, col5, col6, col7, col8 = st.columns(5)
             #col4.metric(label="",value="")
             #col5.metric(label="Outros", value=f"{round(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],1)}%") #delta=f"{round(round(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
@@ -231,7 +238,7 @@ if options_turn == 'Primeiro Turno':
 
             ## coluna 1
             bol = Image.open('bolso_image.jpeg')
-            col0,col, col1, col2, col3, col4, col5 = st.columns(7)
+            col0,col, col1, col2, col3, col4 = st.columns(6)
             col0.image(bol,width=100)
             col.metric(label="Geral", value=f"{round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],1)}%")
@@ -256,14 +263,14 @@ if options_turn == 'Primeiro Turno':
 
             ## coluna 1
             ciro = Image.open('ciro_perfil.jpg')
-            col0,col, col1, col2, col3, col4, col5 = st.columns(7)
+            col0,col, col1, col2, col3, col4 = st.columns(6)
             col0.image(ciro,width=100)
             col.metric(label="Geral", value=f"{round(list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],1)}%")
             col2.metric(label="Evangélicos", value=f"{round(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],1),1)}")
             col3.metric(label="Outros", value=f"{round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
             col4.metric(label="Sem Religião", value=f"{round(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1],1),1)}")
-            col5.metric(label="Rejeição", value=f"{round(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1),1)}")
+            #col5.metric(label="Rejeição", value=f"{round(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1),1)}")
 
             ## coluna 2
             #col4, col5, col6, col7, col8 = st.columns(5)
@@ -276,13 +283,11 @@ if options_turn == 'Primeiro Turno':
 
 
         st.markdown(f"""
-        <br>
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df.data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 4: Para o cálculo da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 5: Para o cálculo da avaliação 'ruim e péssima' do governo de Jair Bolsonaro utilizamos {len(df[df['ava_gov_bol_GERAL']>1])} pesquisas eleitorais.</h7>
         """, unsafe_allow_html=True)
+
     st.markdown("---")
 
     #####################################################
@@ -404,135 +409,9 @@ if options_turn == 'Primeiro Turno':
             """, unsafe_allow_html=True)
     st.markdown("---")
 
-    ################################################
-    ## gráfico da rejeição geral - primeiro turno###
-    ################################################
-
-    with st.container():
-        st.markdown(f"""
-        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
-        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
-        </svg> Rejeição geral:</h3><br>
-        """, unsafe_allow_html=True)
-
-        rej_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da rejeição')
-
-        if rej_vote_med_move:
-
-            ##import image
-
-            fig = go.Figure()
-            
-            ## lula
-
-            fig.add_trace(go.Scatter(y=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t, x=df[df['lul_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_lula',
-                                    marker=dict(
-                                    size=5,
-                                    color=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t, #set color equal to a variable
-                                    colorscale='peach')))
-
-            fig.add_trace(go.Scatter(y=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean(), x=df[df['lul_ger_rej_1t']>1].sigla,mode='lines', name='Lula',
-                                    line=dict(color='firebrick', width=2.5)))
-
-            fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1])}%",
-                        showarrow=True,
-                        arrowhead=1,
-                        ax = 40, ay = 0,
-                        font=dict(size=20, color="black", family="Arial"))
-
-
-            ## bolsonaro
-
-            fig.add_trace(go.Scatter(y=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t, x=df[df['bol_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_bolsonaro',
-                                    marker=dict(
-                                    size=5,
-                                    color=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t, #set color equal to a variable
-                                    colorscale='ice')))
-
-            fig.add_trace(go.Scatter(y=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m).mean(), x=df[df['bol_ger_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
-
-            fig.add_annotation(x=list(df[df['bol_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ger_rej_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1])}%",
-                        showarrow=True,
-                        arrowhead=1,
-                        ax = 40, ay = 0,
-                        font=dict(size=20, color="black", family="Arial"))
-
-            ## ciro gomes
-
-            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t, x=df[df['ciro_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_ciro',
-                                    marker=dict(
-                                    size=5,
-                                    color=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t, #set color equal to a variable
-                                    colorscale='Greens')))
-
-            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro',
-                                    line=dict(color='seagreen', width=2.5)))
-
-            fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1])}%",
-                        showarrow=True,
-                        arrowhead=1,
-                        ax = 40, ay = 0,
-                        font=dict(size=20, color="black", family="Arial"))
-
-            ## detalhes
-
-            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
-            title=("""
-            <i>Rejeição dos candidatos à presidência - 1º turno<i><br>
-            """),
-                            xaxis_title='Mês, ano e instituto de pesquisa',
-                            yaxis_title='Rejeição (%)',
-                            font=dict(family="arial",size=13),
-                            legend=dict(
-                yanchor="auto",
-                y=1.1,
-                xanchor="auto",
-                x=0.5,
-                orientation="h",
-                font_family="arial",))
-
-            fig.add_annotation(x="mar/22_pr_pesq", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_datafolha", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
-
-            # Add image
-            fig.add_layout_image(
-                dict(
-                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
-                    xref="paper", yref="paper",
-                    x=.99, y=1.12,
-                    sizex=0.1, sizey=0.1,
-                    xanchor="right", yanchor="bottom"
-                )
-            )
-
-            # Add image
-            fig.add_layout_image(
-                dict(
-                    source=agre,
-                    xref="paper", yref="paper",
-                    x=.99, y=1.20,
-                    sizex=0.12, sizey=0.12,
-                    xanchor="right", yanchor="bottom"
-                )
-            )
-
-            st.plotly_chart(fig)
-
-            st.markdown(f"""
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
-            """, unsafe_allow_html=True)
-    st.markdown("---")
-
-
-
-    ##################################################################
+    ###################################
     ## Intenção de voto por religião ##
-    ##################################################################
+    ###################################
 
     with st.container():
         st.markdown(f"""
@@ -1141,7 +1020,7 @@ if options_turn == 'Primeiro Turno':
         <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
         <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
-        </svg> Intenção de voto por instituto de pesquisa e religião:</h3><br>
+        </svg> Intenção de voto por religião e candidato segundo instituto de pesquisa: </h3><br>
         """, unsafe_allow_html=True)
 
         col, col1 = st.columns(2)
@@ -1439,9 +1318,834 @@ if options_turn == 'Primeiro Turno':
         """, unsafe_allow_html=True)
     st.markdown("---")
 
-########################
-### segundo turno ######
-########################
+
+###########################
+##rejeição primeiro turno##
+###########################
+
+    st.markdown(f"""
+        <h3 style='text-align: center; color: #303030; font-family:segoe UI; text-rendering: optimizelegibility;background-color: #FFD662;'>2. Rejeição</h3>
+        """, unsafe_allow_html=True)
+    st.markdown("---")
+
+
+    ####################
+    ##resumo rejeição###
+    ####################
+
+    with st.container():
+        st.markdown(f"""
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EAE6DA;'>Resumo - Rejeição geral e por religião segundo candidato:</h3><br>
+        """, unsafe_allow_html=True)
+
+        rej_lula = st.checkbox('Lula ')
+
+        if rej_lula:
+
+            ## coluna 1
+            lul = Image.open('lula_perfil.jpg')
+            col0, col, col1, col2, col3, col4 = st.columns(6)
+            col0.image(lul,width=100)
+            col.metric(label="Geral", value=f"{round(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col1.metric(label="Católicos", value=f"{round(list(df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col3.metric(label="Outros", value=f"{round(list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col4.metric(label="Sem Religião", value=f"{round(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            #col3.metric(label="Espíritas", value=f"{round(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            st.markdown("---")
+
+        rej_bolsonaro = st.checkbox('Bolsonaro ')
+
+        if rej_bolsonaro:
+
+            ## coluna 1
+            bol = Image.open('bolso_image.jpeg')
+            col0,col, col1, col2, col3, col4 = st.columns(6)
+            col0.image(bol,width=100)
+            col.metric(label="Geral", value=f"{round(list(df[df['bol_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col1.metric(label="Católicos", value=f"{round(list(df[df['bol_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['bol_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col3.metric(label="Outros", value=f"{round(list(df[df['bol_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col4.metric(label="Sem Religião", value=f"{round(list(df[df['bol_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            #col3.metric(label="Espíritas", value=f"{round(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            st.markdown("---")
+
+        rej_ciro = st.checkbox('Ciro Gomes ')
+
+        if rej_ciro:
+
+            ## coluna 1
+            ciro = Image.open('ciro_perfil.jpg')
+            col0,col, col1, col2, col3, col4 = st.columns(6)
+            col0.image(ciro,width=100)
+            col.metric(label="Geral", value=f"{round(list(df[df['ciro_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col1.metric(label="Católicos", value=f"{round(list(df[df['ciro_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['ciro_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col3.metric(label="Outros", value=f"{round(list(df[df['ciro_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            col4.metric(label="Sem Religião", value=f"{round(list(df[df['ciro_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            #col3.metric(label="Espíritas", value=f"{round(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1],1)}%") 
+            st.markdown("---")
+
+        st.markdown(f"""
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df.data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da <i>rejeição</i> dos candidatos utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 5: Para o cálculo da <i>avaliação</i> 'ruim e péssima' do governo de Jair Bolsonaro utilizamos {len(df[df['ava_gov_bol_GERAL']>1])} pesquisas eleitorais.</h7>
+        """, unsafe_allow_html=True)
+
+
+    st.markdown("---")
+
+
+    ################################################
+    ## gráfico da rejeição geral - primeiro turno###
+    ################################################
+
+    with st.container():
+        st.markdown(f"""
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EAE6DA;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+        </svg> Rejeição geral:</h3><br>
+        """, unsafe_allow_html=True)
+
+        rej_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da rejeição')
+
+        if rej_vote_med_move:
+
+            ##import image
+
+            fig = go.Figure()
+            
+            ## lula
+
+            fig.add_trace(go.Scatter(y=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t, x=df[df['lul_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_lula',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t, #set color equal to a variable
+                                    colorscale='peach')))
+
+            fig.add_trace(go.Scatter(y=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean(), x=df[df['lul_ger_rej_1t']>1].sigla, mode='lines', name='Lula',
+                                    line=dict(color='firebrick', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+
+            ## bolsonaro
+
+            fig.add_trace(go.Scatter(y=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t, x=df[df['bol_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_bolsonaro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t, #set color equal to a variable
+                                    colorscale='ice')))
+
+            fig.add_trace(go.Scatter(y=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m).mean(), x=df[df['bol_ger_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
+                                    line=dict(color='skyblue', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['bol_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## ciro gomes
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t, x=df[df['ciro_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_ciro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t, #set color equal to a variable
+                                    colorscale='Greens')))
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro',
+                                    line=dict(color='seagreen', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## detalhes
+
+            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            title=("""
+            <i>Rejeição geral dos candidatos à presidência - 1º turno<i><br>
+            """),
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Rejeição (%)',
+                            font=dict(family="arial",size=13),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5,
+                orientation="h",
+                font_family="arial",))
+
+            fig.add_annotation(x="mar/22_pr_pesq", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_datafolha", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                    xref="paper", yref="paper",
+                    x=.99, y=1.12,
+                    sizex=0.1, sizey=0.1,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source=agre,
+                    xref="paper", yref="paper",
+                    x=.99, y=1.20,
+                    sizex=0.12, sizey=0.12,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            st.plotly_chart(fig)
+
+            st.markdown(f"""
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            """, unsafe_allow_html=True)
+        st.markdown("---")
+
+
+    ###################################
+    ## rejeição por religião ##
+    ###################################
+
+    with st.container():
+        st.markdown(f"""
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EAE6DA;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+        </svg> Rejeição por religião:</h3><br>
+        """, unsafe_allow_html=True)
+        
+        relig = st.selectbox('Selecione a religião:',options=['--Escolha a opção--','Católica ', 'Evangélica ', 'Outras Religiosidades ', 'Sem Religião ', ])
+
+        if relig == 'Católica ':
+
+            fig = go.Figure()
+                
+            ## lula
+
+            fig.add_trace(go.Scatter(y=df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t, x=df[df['lul_cat_rej_1t']>1].sigla, mode='markers', name='rejeição_cat_lula',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t, #set color equal to a variable
+                                    colorscale='peach')))
+
+            fig.add_trace(go.Scatter(y=df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean(), x=df[df['lul_cat_rej_1t']>1].sigla, mode='lines', name='Lula',
+                                    line=dict(color='firebrick', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['lul_cat_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+
+            ## bolsonaro
+
+            fig.add_trace(go.Scatter(y=df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t, x=df[df['bol_cat_rej_1t']>1].sigla, mode='markers', name='rejeição_cat_bolsonaro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t, #set color equal to a variable
+                                    colorscale='ice')))
+
+            fig.add_trace(go.Scatter(y=df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean(), x=df[df['bol_cat_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
+                                    line=dict(color='skyblue', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['bol_cat_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## ciro gomes
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t, x=df[df['ciro_cat_rej_1t']>1].sigla, mode='markers', name='rejeição_cat_ciro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t, #set color equal to a variable
+                                    colorscale='Greens')))
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean(), x=df[df['ciro_cat_rej_1t']>1].sigla,mode='lines', name='Ciro',
+                                    line=dict(color='seagreen', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['ciro_cat_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## detalhes
+
+            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            title=("""
+            <i>Rejeição geral de católicos por candidato à presidência - 1º turno<i><br>
+            """),
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Rejeição (%)',
+                            font=dict(family="arial",size=13),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5,
+                orientation="h",
+                font_family="arial",))
+
+            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                    xref="paper", yref="paper",
+                    x=.99, y=1.12,
+                    sizex=0.1, sizey=0.1,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source=agre,
+                    xref="paper", yref="paper",
+                    x=.99, y=1.20,
+                    sizex=0.12, sizey=0.12,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            st.plotly_chart(fig)
+
+        if relig == 'Evangélica ':
+            
+            fig = go.Figure()
+                
+            ## lula
+
+            fig.add_trace(go.Scatter(y=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t, x=df[df['lul_ev_rej_1t']>1].sigla, mode='markers', name='rejeição_ev_lula',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t, #set color equal to a variable
+                                    colorscale='peach')))
+
+            fig.add_trace(go.Scatter(y=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean(), x=df[df['lul_ev_rej_1t']>1].sigla, mode='lines', name='Lula',
+                                    line=dict(color='firebrick', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['lul_ev_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+
+            ## bolsonaro
+
+            fig.add_trace(go.Scatter(y=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t, x=df[df['bol_ev_rej_1t']>1].sigla, mode='markers', name='rejeição_ev_bolsonaro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t, #set color equal to a variable
+                                    colorscale='ice')))
+
+            fig.add_trace(go.Scatter(y=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean(), x=df[df['bol_ev_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
+                                    line=dict(color='skyblue', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['bol_ev_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## ciro gomes
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t, x=df[df['ciro_ev_rej_1t']>1].sigla, mode='markers', name='rejeição_ev_ciro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t, #set color equal to a variable
+                                    colorscale='Greens')))
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean(), x=df[df['ciro_ev_rej_1t']>1].sigla,mode='lines', name='Ciro',
+                                    line=dict(color='seagreen', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['ciro_ev_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## detalhes
+
+            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            title=("""
+            <i>Rejeição geral de evangélicos por candidato à presidência - 1º turno<i><br>
+            """),
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Rejeição (%)',
+                            font=dict(family="arial",size=13),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5,
+                orientation="h",
+                font_family="arial",))
+
+            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                    xref="paper", yref="paper",
+                    x=.99, y=1.12,
+                    sizex=0.1, sizey=0.1,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source=agre,
+                    xref="paper", yref="paper",
+                    x=.99, y=1.20,
+                    sizex=0.12, sizey=0.12,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            st.plotly_chart(fig)
+            
+        if relig == 'Outras Religiosidades ':
+            
+            fig = go.Figure()
+                
+            ## lula
+
+            fig.add_trace(go.Scatter(y=df[df['lul_out_rej_1t']>1].lul_out_rej_1t, x=df[df['lul_out_rej_1t']>1].sigla, mode='markers', name='rejeição_out_lula',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['lul_out_rej_1t']>1].lul_out_rej_1t, #set color equal to a variable
+                                    colorscale='peach')))
+
+            fig.add_trace(go.Scatter(y=df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean(), x=df[df['lul_out_rej_1t']>1].sigla, mode='lines', name='Lula',
+                                    line=dict(color='firebrick', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['lul_out_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+
+            ## bolsonaro
+
+            fig.add_trace(go.Scatter(y=df[df['bol_out_rej_1t']>1].bol_out_rej_1t, x=df[df['bol_out_rej_1t']>1].sigla, mode='markers', name='rejeição_out_bolsonaro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['bol_out_rej_1t']>1].bol_out_rej_1t, #set color equal to a variable
+                                    colorscale='ice')))
+
+            fig.add_trace(go.Scatter(y=df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean(), x=df[df['bol_out_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
+                                    line=dict(color='skyblue', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['bol_out_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## ciro gomes
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t, x=df[df['ciro_out_rej_1t']>1].sigla, mode='markers', name='rejeição_out_ciro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t, #set color equal to a variable
+                                    colorscale='Greens')))
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean(), x=df[df['ciro_out_rej_1t']>1].sigla,mode='lines', name='Ciro',
+                                    line=dict(color='seagreen', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['ciro_out_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## detalhes
+
+            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            title=("""
+            <i>Rejeição geral de outras religiões por candidato à presidência - 1º turno<i><br>
+            """),
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Rejeição (%)',
+                            font=dict(family="arial",size=13),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5,
+                orientation="h",
+                font_family="arial",))
+
+            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                    xref="paper", yref="paper",
+                    x=.99, y=1.12,
+                    sizex=0.1, sizey=0.1,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source=agre,
+                    xref="paper", yref="paper",
+                    x=.99, y=1.20,
+                    sizex=0.12, sizey=0.12,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            st.plotly_chart(fig)
+            
+        if relig == 'Sem Religião ':
+            
+            fig = go.Figure()
+                    
+            ## lula
+
+            fig.add_trace(go.Scatter(y=df[df['lul_non_rej_1t']>1].lul_non_rej_1t, x=df[df['lul_non_rej_1t']>1].sigla, mode='markers', name='rejeição_non_lula',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['lul_non_rej_1t']>1].lul_non_rej_1t, #set color equal to a variable
+                                    colorscale='peach')))
+
+            fig.add_trace(go.Scatter(y=df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean(), x=df[df['lul_non_rej_1t']>1].sigla, mode='lines', name='Lula',
+                                    line=dict(color='firebrick', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['lul_non_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+
+            ## bolsonaro
+
+            fig.add_trace(go.Scatter(y=df[df['bol_non_rej_1t']>1].bol_non_rej_1t, x=df[df['bol_non_rej_1t']>1].sigla, mode='markers', name='rejeição_non_bolsonaro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['bol_non_rej_1t']>1].bol_non_rej_1t, #set color equal to a variable
+                                    colorscale='ice')))
+
+            fig.add_trace(go.Scatter(y=df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean(), x=df[df['bol_non_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
+                                    line=dict(color='skyblue', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['bol_non_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## ciro gomes
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t, x=df[df['ciro_non_rej_1t']>1].sigla, mode='markers', name='rejeição_non_ciro',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t, #set color equal to a variable
+                                    colorscale='Greens')))
+
+            fig.add_trace(go.Scatter(y=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean(), x=df[df['ciro_non_rej_1t']>1].sigla,mode='lines', name='Ciro',
+                                    line=dict(color='seagreen', width=2.5)))
+
+            fig.add_annotation(x=list(df[df['ciro_non_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
+
+            ## detalhes
+
+            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            title=("""
+            <i>Rejeição geral dos sem religião por candidato à presidência - 1º turno<i><br>
+            """),
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Rejeição (%)',
+                            font=dict(family="arial",size=13),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5,
+                orientation="h",
+                font_family="arial",))
+
+            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                    xref="paper", yref="paper",
+                    x=.99, y=1.12,
+                    sizex=0.1, sizey=0.1,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source=agre,
+                    xref="paper", yref="paper",
+                    x=.99, y=1.20,
+                    sizex=0.12, sizey=0.12,
+                    xanchor="right", yanchor="bottom"
+                )
+            )
+
+            st.plotly_chart(fig)
+        
+        ## info
+    st.markdown(f"""
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Em alguns casos, a combinção de dados retornará um gráfico em branco. Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.</h7>
+    """, unsafe_allow_html=True)
+    st.markdown("---")
+
+########################################################
+## rejeição por religião e candidato segundo instituto##
+########################################################
+
+    institutos2 = list(set(df['nome_instituto']))
+    institutos2.insert(0, ' --Escolha o instituto-- ')
+
+    with st.container():
+        st.markdown(f"""
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #e6e6e6;'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+        </svg> Rejeição por religião e candidato segundo instituto de pesquisa: </h3><br>
+        """, unsafe_allow_html=True)
+
+        col, col1 = st.columns(2)
+        with col:
+            inst = st.selectbox('Selecione o instituto de pesquisa:',options=institutos2)
+        with col1:
+            ##dados retirados 'Espírita', 'Umbanda/Candomblé', 'Ateu',
+            rel = st.selectbox('Escolha a religião:',options=[' --Escolha a religião-- ',' Católica ', ' Evangélica ', ' Outras Religiosidades ', ' Sem Religião '])
+
+        col1, col2, col3 = st.columns([.5,3,.5])
+
+        with col2:
+            if rel == ' Católica ':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Rejeição de 'católicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst)].lul_cat_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_cat")
+                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].bol_cat_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_cat_rej_1t")
+                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_cat_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_cat_rej_1t")
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Rejeição em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )
+
+            if rel == ' Evangélica ':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Rejeição de 'evangélicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst)].lul_ev_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ev")
+                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].bol_ev_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ev_rej_1t")
+                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_ev_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_ev_rej_1t")
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Rejeição em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )
+
+            if rel == ' Outras Religiosidades ':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Rejeição de 'outras religiosidades' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst)].lul_out_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_outras")
+                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].bol_out_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_outras")
+                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_out_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_outras")
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Rejeição em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )
+                
+            if rel == ' Sem Religião ':
+
+                df.set_index('sigla',inplace = True)
+
+                plt.rcParams['figure.figsize'] = (12,7)
+                plt.title(f"\n Rejeição de 'sem religião' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
+                plt.plot(df[(df['nome_instituto']==inst)].lul_non_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_non")
+                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].bol_non_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_non")
+                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_non_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_non")
+                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+
+                plt.style.use('ggplot')
+                plt.xlabel('mês/ano e instituto de pesquisa')
+                plt.xticks(rotation=80,fontsize=12)
+                plt.yticks(fontsize=14)
+                plt.ylabel('Rejeição em %')
+                plt.rcParams.update({'axes.facecolor':'white'})
+
+                plt.grid(color='black', linestyle='-', linewidth=.08)
+                plt.legend(fontsize=9, loc='best',ncol=3, borderaxespad=0.)
+
+                #axes = plt.gca()
+                #axes.xaxis.grid()
+
+                grafico = plt.savefig("grafico.png",bbox_inches='tight')
+
+                st.pyplot(plt)
+
+                with open(f"grafico.png", "rb") as file:
+                    st.download_button(
+                            label="Baixar o gráfico",
+                            data=file,
+                            file_name="grafico.png",
+                            mime="image/png"
+                            )
+
+
+        st.markdown(f"""
+        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso.</h7>
+        """, unsafe_allow_html=True)
+    st.markdown("---")
+
+
+
+#############################################################################################################################
+                                                        ### segundo turno ######
+#############################################################################################################################
 
 if options_turn == 'Segundo Turno':
 
