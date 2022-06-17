@@ -2189,142 +2189,142 @@ if options_turn == 'Primeiro Turno':
 ###Avaliação por religião###
 ############################
 
-with st.container():
-    st.markdown(f"""
-    <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EDF1FF;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
-    <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
-    </svg> Avaliação negativa por religião:</h3><br>
-    """, unsafe_allow_html=True)
+    with st.container():
+        st.markdown(f"""
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EDF1FF;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+        <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+        </svg> Avaliação negativa por religião:</h3><br>
+        """, unsafe_allow_html=True)
 
-    aval_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da avaliação do governo Bolsonaro')
+        aval_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da avaliação do governo Bolsonaro')
 
-    if aval_vote_med_move:
+        if aval_vote_med_move:
 
-        fig = go.Figure()
+            fig = go.Figure()
 
-        ## católicos
+            ## católicos
 
-        fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat, x=df[df['ava_gov_bol_cat']>1].sigla, mode='markers', name='aval_cat',
-                                marker=dict(
-                                size=5,
-                                color=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat, #set color equal to a variable
-                                colorscale='peach')))
+            fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat, x=df[df['ava_gov_bol_cat']>1].sigla, mode='markers', name='aval_cat',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat, #set color equal to a variable
+                                    colorscale='peach')))
 
-        fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean(), x=df[df['ava_gov_bol_cat']>1].sigla, mode='lines', name='aval_cat',
-                                line=dict(color='firebrick', width=2.5)))
+            fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean(), x=df[df['ava_gov_bol_cat']>1].sigla, mode='lines', name='aval_cat',
+                                    line=dict(color='firebrick', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['ava_gov_bol_cat']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1])}%",
-                    showarrow=True,
-                    arrowhead=1,
-                    ax = 40, ay = 0,
-                    font=dict(size=20, color="black", family="Arial"))
-
-
-        ## evangélicos
-
-        fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev, x=df[df['ava_gov_bol_ev']>1].sigla, mode='markers', name='aval_ev',
-                                marker=dict(
-                                size=5,
-                                color=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev, #set color equal to a variable
-                                colorscale='ice')))
-
-        fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean(), x=df[df['ava_gov_bol_ev']>1].sigla,mode='lines', name='aval_ev',
-                                line=dict(color='skyblue', width=2.5)))
-
-        fig.add_annotation(x=list(df[df['ava_gov_bol_ev']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1])}%",
-                    showarrow=True,
-                    arrowhead=1,
-                    ax = 40, ay = 0,
-                    font=dict(size=20, color="black", family="Arial"))
-
-        ## outras religiões
-
-        fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out, x=df[df['ava_gov_bol_out']>1].sigla, mode='markers', name='aval_out',
-                                marker=dict(
-                                size=5,
-                                color=df[df['ava_gov_bol_out']>1].ava_gov_bol_out, #set color equal to a variable
-                                colorscale='Greens')))
-
-        fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean(), x=df[df['ava_gov_bol_out']>1].sigla,mode='lines', name='aval_out',
-                                line=dict(color='seagreen', width=2.5)))
-
-        fig.add_annotation(x=list(df[df['ava_gov_bol_out']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1])}%",
-                    showarrow=True,
-                    arrowhead=1,
-                    ax = 40, ay = 0,
-                    font=dict(size=20, color="black", family="Arial"))
+            fig.add_annotation(x=list(df[df['ava_gov_bol_cat']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
 
 
-        ## sem religião 
+            ## evangélicos
 
-        # fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non, x=df[df['ava_gov_bol_non']>1].sigla, mode='markers', name='aval_sem_religião',
-        #                         marker=dict(
-        #                         size=5,
-        #                         color=df[df['ava_gov_bol_non']>1].ava_gov_bol_non, #set color equal to a variable
-        #                         colorscale='Greens')))
+            fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev, x=df[df['ava_gov_bol_ev']>1].sigla, mode='markers', name='aval_ev',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev, #set color equal to a variable
+                                    colorscale='ice')))
 
-        # fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean(), x=df[df['ava_gov_bol_non']>1].sigla,mode='lines', name='aval_sem_religião',
-        #                         line=dict(color='seagreen', width=2.5)))
+            fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean(), x=df[df['ava_gov_bol_ev']>1].sigla,mode='lines', name='aval_ev',
+                                    line=dict(color='skyblue', width=2.5)))
 
-        # fig.add_annotation(x=list(df[df['ava_gov_bol_non']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1])}%",
-        #             showarrow=True,
-        #             arrowhead=1,
-        #             ax = 40, ay = 0,
-        #             font=dict(size=20, color="black", family="Arial"))
+            fig.add_annotation(x=list(df[df['ava_gov_bol_ev']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
 
-        ## detalhes
+            ## outras religiões
 
-        fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
-        title=("""
-        <i>Avaliação negativa de Bolsonaro por religião - 1º turno<i><br>
-        """),
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Rejeição (%)',
-                        font=dict(family="arial",size=13),
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5,
-            orientation="h",
-            font_family="arial",))
+            fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out, x=df[df['ava_gov_bol_out']>1].sigla, mode='markers', name='aval_out',
+                                    marker=dict(
+                                    size=5,
+                                    color=df[df['ava_gov_bol_out']>1].ava_gov_bol_out, #set color equal to a variable
+                                    colorscale='Greens')))
 
-        fig.add_annotation(x="mar/22_fsb", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_annotation(x="mai/22_fsb", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean(), x=df[df['ava_gov_bol_out']>1].sigla,mode='lines', name='aval_out',
+                                    line=dict(color='seagreen', width=2.5)))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.add_annotation(x=list(df[df['ava_gov_bol_out']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1])}%",
+                        showarrow=True,
+                        arrowhead=1,
+                        ax = 40, ay = 0,
+                        font=dict(size=20, color="black", family="Arial"))
 
-        # Add image
-        fig.add_layout_image(
-            dict(
-                source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
-                xref="paper", yref="paper",
-                x=.99, y=1.12,
-                sizex=0.1, sizey=0.1,
-                xanchor="right", yanchor="bottom"
+
+            ## sem religião 
+
+            # fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non, x=df[df['ava_gov_bol_non']>1].sigla, mode='markers', name='aval_sem_religião',
+            #                         marker=dict(
+            #                         size=5,
+            #                         color=df[df['ava_gov_bol_non']>1].ava_gov_bol_non, #set color equal to a variable
+            #                         colorscale='Greens')))
+
+            # fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean(), x=df[df['ava_gov_bol_non']>1].sigla,mode='lines', name='aval_sem_religião',
+            #                         line=dict(color='seagreen', width=2.5)))
+
+            # fig.add_annotation(x=list(df[df['ava_gov_bol_non']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1])}%",
+            #             showarrow=True,
+            #             arrowhead=1,
+            #             ax = 40, ay = 0,
+            #             font=dict(size=20, color="black", family="Arial"))
+
+            ## detalhes
+
+            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            title=("""
+            <i>Avaliação negativa de Bolsonaro por religião - 1º turno<i><br>
+            """),
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Rejeição (%)',
+                            font=dict(family="arial",size=13),
+                            legend=dict(
+                yanchor="auto",
+                y=1.1,
+                xanchor="auto",
+                x=0.5,
+                orientation="h",
+                font_family="arial",))
+
+            fig.add_annotation(x="mar/22_fsb", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_fsb", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                    xref="paper", yref="paper",
+                    x=.99, y=1.12,
+                    sizex=0.1, sizey=0.1,
+                    xanchor="right", yanchor="bottom"
+                )
             )
-        )
 
-        # Add image
-        fig.add_layout_image(
-            dict(
-                source=agre,
-                xref="paper", yref="paper",
-                x=.99, y=1.20,
-                sizex=0.12, sizey=0.12,
-                xanchor="right", yanchor="bottom"
+            # Add image
+            fig.add_layout_image(
+                dict(
+                    source=agre,
+                    xref="paper", yref="paper",
+                    x=.99, y=1.20,
+                    sizex=0.12, sizey=0.12,
+                    xanchor="right", yanchor="bottom"
+                )
             )
-        )
 
-        st.plotly_chart(fig)
+            st.plotly_chart(fig)
 
-        
-        ## info
-    st.markdown(f"""
-    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
-    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para a produção dos gráficos sobre a <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através do registro das respostas 'ruim e péssimo'.</h7><br>
-    """, unsafe_allow_html=True)
-    st.markdown("---")
+            
+            ## info
+        st.markdown(f"""
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para a produção dos gráficos sobre a <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através do registro das respostas 'ruim e péssimo'.</h7><br>
+        """, unsafe_allow_html=True)
+        st.markdown("---")
 
 
 #############################################################################################################################
