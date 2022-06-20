@@ -158,7 +158,6 @@ with st.container():
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Método de coleta das pesquisas:</h6><p style='text-align: center';>
                 Telefone: {df[df['tipo_coleta']=='telefone'].tipo_coleta.value_counts()[0]}
                 <br>Presencial: {df[df['tipo_coleta']=='presencial'].tipo_coleta.value_counts()[0]}</p>
-            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas para dados gerais:</h6> <p style='color:#000000;font-weight:700;font-size:30px;text-align: center';>{len(list(df.sigla))}</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas com perguntas sobre religião:</h6> <p style='color:#000000;font-weight:700;font-size:30px;text-align: center';>{len(df[df['lul_cat_1t']>=1])}</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Total de pesquisas com amostra sobre religião:</h6><p style='text-align: center';>Católicos e evangélicos: {len(df[df['lul_cat_1t']>=1])}
             <br>Espíritas: {len(df[df['lul_espi_1t']>=1])}
@@ -167,6 +166,7 @@ with st.container():
             <br>Sem religião: {len(df[df['lul_non_1t']>=1])}
             <br>Ateus: {len(df[df['lul_ateu_1t']>=1])}
             </p>
+            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas para dados gerais:</h6> <p style='color:#000000;font-weight:700;font-size:30px;text-align: center';>{len(list(df.sigla))}</p>
         """, unsafe_allow_html=True)
 
         ### Como citar o agregador ####
