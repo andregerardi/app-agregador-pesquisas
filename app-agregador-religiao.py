@@ -150,9 +150,10 @@ with st.container():
     col,col1,col2,col3, col4 = st.columns([.5,1.3,1.3,1.3,.5])
     with col1:
         expander4 = st.expander('Estatíticas do agregador')
-        expander4.markdown(f"""
+        expander4.markdown(f"""<br>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Abrangencia das pesquisas:</h6> <p style='text-align: center';>Nacional</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Institutos analisados:</h6> <p style='text-align: center';>{', '.join(set(df['nome_instituto'].T)).title()}</p>
+            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Método de coleta dos institutos:</h6><p style='text-align: center';>Telefone: {df[df['tipo_coleta']=='telefone'].tipo_coleta.value_counts()[0]} pesquisas;<br>Presencial: {df[df['tipo_coleta']=='presencial'].tipo_coleta.value_counts()[0]} pesquisas.</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas:</h6> <p style='color:#000000;font-weight:700;font-size:30px;text-align: center';>{len(list(df.sigla))}</p>
         """, unsafe_allow_html=True)
 
