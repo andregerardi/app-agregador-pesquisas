@@ -25,6 +25,22 @@ st.set_page_config(
      }
  )
 
+# import streamlit.components.v1 as components
+
+# components.html(
+#     """
+#         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+#         data-text="Agregador de Pesquisas eleitorais por religião - Cebrap"
+#         data-url="https://cebrap.org.br/teste-app/"
+#         data-show-count="true">
+#         data-size="Large"
+#         data-hashtags="eleições2022, agregador_cebrap, python"
+#         Compartilhar
+#         </a>
+#         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+#     """
+# )
+
 ## subtítulos do cabeçalho
 image = Image.open('palacio-da-alvorada-interior-black.jpg')
 col3,col4,col5 = st.columns([.5,3,1])
@@ -34,23 +50,6 @@ st.markdown("""
 <br>
 <h4 style='text-align: center; color:#54595F;font-family:Segoe UI'>Consolidação de pesquisas para as eleições presidenciais de 2022</h4>
 """, unsafe_allow_html=True)
-
-# import streamlit.components.v1 as components
-# <br>
-  #  <h4 style='text-align: center; color:#54595F;font-family:Segoe UI'>Consolidação de pesquisas para as eleições presidenciais de 2022</h4>#
-# components.html(
-#     """
-#         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
-#         data-text="Check my cool Streamlit Web-App🎈"
-#         data-url="https://share.streamlit.io/andregerardi/app-agregador-pesquisas/main/app-agregador-religiao.py"
-#         data-show-count="false">
-#         data-size="Large"
-#         data-hashtags="streamlit,python"
-#         Tweet
-#         </a>
-#         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-#     """
-# )
 
 ##retira o made streamlit no fim da página##
 hide_st_style = """
@@ -112,7 +111,7 @@ with st.container():
         <p style='text-align: justify; font-family:Segoe UI;'>6. O percentual de <i>reprovação da administração</i> do Presidente Jair Bolsonaro foi obtido a partir da soma da respostas "ruim" e "péssimo" para a questão destinada a avaliar a satisfação dos eleitores para com a administração do mandatário: "a administração do Presidente Jair Bolsonaro está sendo ótima, boa, regular, ruim ou péssima?";</p> 
         <p style='text-align: justify; font-family:Segoe UI;'>7. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
         <p style='text-align: justify; font-family:Segoe UI;'>8. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>9. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Os institutos utilizam dados o IBGE de 2010, da PNAD de 2021 e 2022 e também do TSE. Para termos uma noção do universo amostrado pelos institutos: Os <i>católicos</i> variaram entre {int(df['am_cat'].agg('min'))}% e {int(df['am_cat'].agg('max'))}% das amostras selecionadas; <i>evangélicos</i>, entre {int(df['am_ev'].agg('min'))}% e {int(df['am_ev'].agg('max'))}%; <i>outras religiões</i> de {int(df['am_out'].agg('min'))}% e {int(df['am_out'].agg('max'))}% e os <i>sem religião</i>, entre {int(df['am_non'].agg('min'))}% e {int(df['am_non'].agg('max'))}%.</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>9. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Os institutos utilizam dados o IBGE de 2010, da PNAD de 2021 e 2022 e também do TSE. Para termos uma noção do universo amostrado pelos institutos: Os <i>católicos</i> variaram entre {int(df['am_cat'].agg('min'))}% e {int(df['am_cat'].agg('max'))}% das amostras selecionadas; <i>evangélicos</i>, entre {int(df['am_ev'].agg('min'))}% e {int(df['am_ev'].agg('max'))}%; <i>espíritas</i>, entre {int(df['am_espi'].agg('min'))}% e {int(df['am_espi'].agg('max'))}%; <i>candomblé/umbanda</i>, entre {int(df['am_umb_can'].agg('min'))}% e {int(df['am_umb_can'].agg('max'))}%; <i>outras religiões</i> de {int(df['am_out'].agg('min'))}% e {int(df['am_out'].agg('max'))}%, os <i>sem religião</i>, entre {int(df['am_non'].agg('min'))}% e {int(df['am_non'].agg('max'))}% e <i>os ateus</i> apresentaram variação entre {int(df['am_ateu'].agg('min'))}% e {int(df['am_ateu'].agg('max'))}%.</p>
         <p style='text-align: justify; font-family:Segoe UI;'>10. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
         <p style='text-align: justify; font-family:Segoe UI;'>11. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
         <p style='text-align: justify; font-family:Segoe UI;'>12. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
