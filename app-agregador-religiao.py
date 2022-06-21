@@ -1,3 +1,4 @@
+from ctypes import alignment
 from ctypes.wintypes import RGB
 import streamlit as st
 import pandas as pd
@@ -25,21 +26,13 @@ st.set_page_config(
      }
  )
 
-# import streamlit.components.v1 as components
-
-# components.html(
-#     """
-#         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
-#         data-text="Agregador de Pesquisas eleitorais por religião - Cebrap"
-#         data-url="https://cebrap.org.br/teste-app/"
-#         data-show-count="true">
-#         data-size="Large"
-#         data-hashtags="eleições2022, agregador_cebrap, python"
-#         Compartilhar
-#         </a>
-#         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-#     """
-# )
+# st.markdown("""
+# <a href="https://www.facebook.com/sharer/sharer.php?u=https://cebrap.org.br/teste-app/" title="Agregador de Pesquisas Eleitorais por religião" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#3c589a;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-5 -5 42 42"><path d="M17.78 27.5V17.008h3.522l.527-4.09h-4.05v-2.61c0-1.182.33-1.99 2.023-1.99h2.166V4.66c-.375-.05-1.66-.16-3.155-.16-3.123 0-5.26 1.905-5.26 5.405v3.016h-3.53v4.09h3.53V27.5h4.223z" fill="#fff"></path></svg></span></a>
+# <a href="https://twitter.com/intent/tweet?text=Agregador de Pesquisas Eleitorais por religião&nbsp;&url=https://cebrap.org.br/teste-app&nbsp;&hashtags=Agregador,eleições2022,datascience" title="Twitter" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg heateor_sss_s__default heateor_sss_s_twitter" style="background-color:#55acee;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-4 -4 39 39"><path d="M28 8.557a9.913 9.913 0 0 1-2.828.775 4.93 4.93 0 0 0 2.166-2.725 9.738 9.738 0 0 1-3.13 1.194 4.92 4.92 0 0 0-3.593-1.55 4.924 4.924 0 0 0-4.794 6.049c-4.09-.21-7.72-2.17-10.15-5.15a4.942 4.942 0 0 0-.665 2.477c0 1.71.87 3.214 2.19 4.1a4.968 4.968 0 0 1-2.23-.616v.06c0 2.39 1.7 4.38 3.952 4.83-.414.115-.85.174-1.297.174-.318 0-.626-.03-.928-.086a4.935 4.935 0 0 0 4.6 3.42 9.893 9.893 0 0 1-6.114 2.107c-.398 0-.79-.023-1.175-.068a13.953 13.953 0 0 0 7.55 2.213c9.056 0 14.01-7.507 14.01-14.013 0-.213-.005-.426-.015-.637.96-.695 1.795-1.56 2.455-2.55z" fill="#fff"></path></svg></span></a>
+# <a href="https://api.whatsapp.com/send?text=Agregador de Pesquisas Eleitorais por religião - https://cebrap.org.br/teste-app/" title="Whatsapp" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#55eb4c;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-6 -5 40 40"><path class="heateor_sss_svg_stroke heateor_sss_no_fill" stroke="#fff" stroke-width="2" fill="none" d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"></path><path d="M 7 19 l -1 6 l 6 -1" class="heateor_sss_no_fill heateor_sss_svg_stroke" stroke="#fff" stroke-width="2" fill="none"></path><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="#fff"></path></svg></span></a></div></div>
+# <br>
+# """,unsafe_allow_html=True)
+    
 
 ## subtítulos do cabeçalho
 image = Image.open('palacio-da-alvorada-interior-black.jpg')
@@ -94,7 +87,7 @@ with st.container():
     with col4:
         st.markdown("""
         <br>
-        <h4 style='text-align: center; color: #ffffff;font-family:font-family:poppins,sans-serif;background-color: #FA7A35;'><b>Informações sobre o agregador:<b></h4><br>
+        <h4 style='text-align: center; color: #ffffff;font-family:font-family:poppins-sans-serif;background-color: #FA7A35;'><b>Informações sobre o agregador:<b></h4><br>
         """, unsafe_allow_html=True)
 
         ### primeiro expander, da metodologia
@@ -188,16 +181,16 @@ with st.container():
         <h6 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao <br> Núcleo de Religiões no Mundo Contemporâneo - Cebrap</h6>
         <h6 style='text-align: center; color: #54595F;'>Coordenação:</h6><p style='text-align: center;'>Dirceu André Gerardi<br>(LabDados FGV/CEBRAP)<br><a href="mailto: andregerardi3@gmail.com">email<br></a><br>Ronaldo de Almeida<br>(UNICAMP/CEBRAP/LAR)<br><a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
         """, unsafe_allow_html=True)
+    st.markdown("---")
 
 ########################################################################
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
 ########################################################################
 
-st.markdown("---")
 with st.container():
     col3,col4,col5 = st.columns([.5,1.5,.5])
     with col4:
-        st.markdown("<h4 style='text-align: center; color: #ffffff; font-family:font-family:source sans pro,sans-serif; background-color: rgb(0, 165, 200, 100);'>Selecione o turno da eleição para visualizar os dados:</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: center; color: #ffffff; font-family:font-family:poppins-sans-serif; background-color: rgb(0, 165, 200, 100);'>Selecione o turno da eleição para visualizar os dados:</h4>", unsafe_allow_html=True)
         options_turn = st.selectbox('',options=['--clique para selecionar--','Primeiro Turno', 'Segundo Turno'])
 st.markdown("---")
 
@@ -206,6 +199,11 @@ st.markdown("---")
 ########################
 
 if options_turn == 'Primeiro Turno':
+
+    ######################
+    ###compartilhamento###
+    ######################
+
     st.markdown(f"""
         <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility;'>Primeiro Turno</h2>
         <br>
@@ -1416,7 +1414,8 @@ if options_turn == 'Primeiro Turno':
 
     with st.container():
         st.markdown(f"""
-        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EAE6DA;'>Resumo - Rejeição geral e por religião segundo candidato:</h3><br>
+        <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EAE6DA;'>
+        Resumo - Rejeição geral e por religião segundo candidato:</h3><br>
         """, unsafe_allow_html=True)
 
         rej_lula = st.checkbox('Lula ')
