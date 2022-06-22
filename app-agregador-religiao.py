@@ -150,6 +150,10 @@ with st.container():
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Método de coleta das pesquisas:</h6><p style='text-align: center';>
                 Telefone: {df[df['tipo_coleta']=='telefone'].tipo_coleta.value_counts()[0]}
                 <br>Presencial: {df[df['tipo_coleta']=='presencial'].tipo_coleta.value_counts()[0]}</p>
+            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas para dados gerais:</h6> 
+            <p style='color:#000000;font-weight:700;font-size:18px;text-align: center';>
+            1º turno: {len(df[df['lul_ger_1t']>=1])}<br>
+            2º turno: {len(df[df['lul_ger_2t']>=1])}</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas com perguntas sobre religião:</h6> 
             <p style='color:#000000;font-weight:700;font-size:18px;text-align: center';>
             1º turno: {len(df[df['lul_cat_1t']>=1])}<br>
@@ -161,10 +165,6 @@ with st.container():
             <br>Sem religião: {len(df[df['lul_non_1t']>=1])}
             <br>Ateus: {len(df[df['lul_ateu_1t']>=1])}
             </p>
-            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas para dados gerais:</h6> 
-            <p style='color:#000000;font-weight:700;font-size:18px;text-align: center';>
-            1º turno: {len(df[df['lul_ger_1t']>=1])}<br>
-            2º turno: {len(df[df['lul_ger_2t']>=1])}</p>
         """, unsafe_allow_html=True)
 
         ### Como citar o agregador ####
@@ -396,7 +396,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
@@ -414,7 +414,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.18,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
