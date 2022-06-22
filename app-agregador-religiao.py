@@ -74,8 +74,7 @@ df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
 #df.sigla = df['sigla'].astype(str)
 
 ##import image logo
-agre = Image.open('palacio-da-alvorada-interior-napa.jpg')
-
+agre = Image.open('palacio-da-alvorada-interior-black-so-agregador-branco.jpg')
 
 ###############################################################################
 ## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
