@@ -379,18 +379,35 @@ if options_turn == 'Primeiro Turno':
                         font=dict(size=20, color="black", family="Arial"))
 
 
+            # ## Brancos e Nulos e não sabe e não respondeu
+
+            # fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t, x=df.sigla, mode='markers', name='brancos_nulos_ns_nr',
+            #                         marker=dict(
+            #                         size=5,
+            #                         color=df.bra_nul_ns_nr_ger_1t, #set color equal to a variable
+            #                         colorscale='Greys')))
+
+            # fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos, NS e NR',
+            #                         line=dict(color='grey', width=2.5)))
+
+            # fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
+            #             showarrow=True,
+            #             arrowhead=1,
+            #             ax = 40, ay = -8,
+            #             font=dict(size=20, color="black", family="Arial"))
+
             ## Brancos e Nulos
 
-            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t, x=df.sigla, mode='markers', name='brancos_nulos_ns_nr',
+            fig.add_trace(go.Scatter(y=df.bra_nulo_ger_1t, x=df.sigla, mode='markers', name='brancos_nulos_ns_nr',
                                     marker=dict(
                                     size=5,
-                                    color=df.bra_nul_ns_nr_ger_1t, #set color equal to a variable
+                                    color=df.bra_nulo_ger_1t, #set color equal to a variable
                                     colorscale='Greys')))
 
-            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos, NS e NR',
+            fig.add_trace(go.Scatter(y=df.bra_nulo_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos, NS e NR',
                                     line=dict(color='grey', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nulo_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nulo_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -8,
@@ -2690,7 +2707,7 @@ if options_turn == 'Segundo Turno':
         if int_vot_bolsonaro:
             ## coluna 1
             bol = Image.open('bolso_image.jpeg')
-            col0, col, col1, col2, col3, col4 = st.columns(7)
+            col0, col, col1, col2, col3, col4, col5 = st.columns(7)
             col0.image(bol,width=100)
             col.metric(label="Geral", value=f"{round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1),1)}")
