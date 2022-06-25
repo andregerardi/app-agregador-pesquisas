@@ -1739,7 +1739,7 @@ if options_turn == 'Primeiro Turno':
         </svg> Rejeição por religião:</h3><br>
         """, unsafe_allow_html=True)
         
-        relig = st.selectbox('Selecione a religião:',options=['--Escolha a opção--','Católica ', 'Evangélica ', 'Espírita ', 'Outras Religiosidades ', 'Sem Religião ', ])
+        relig = st.selectbox('Selecione a religião:',options=['--Escolha a opção--','Católica ', 'Evangélica ', 'Espírita ', 'Sem Religião ', 'Outras Religiosidades '])
 
         if relig == 'Católica ':
 
@@ -1891,7 +1891,7 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df.ciro_ev_rej_1t, x=DFAState.sigla, mode='markers', name='rejeição_ev_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_ev_rej_1t, x=df.sigla, mode='markers', name='rejeição_ev_ciro',
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_ev_rej_1t, #set color equal to a variable
