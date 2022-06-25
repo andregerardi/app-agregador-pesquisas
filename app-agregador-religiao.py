@@ -1,5 +1,6 @@
 from ctypes import alignment
 from ctypes.wintypes import RGB
+from lib2to3.pgen2.pgen import DFAState
 import streamlit as st
 import pandas as pd
 import datetime as dt
@@ -63,18 +64,25 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 m_m = 7
 
 ## MÉDIA MÓVEL 15 DIAS (EXCLUSIVO PARA O GRÁFICO DE REJEIÇÃO GERAL)
-m_m15 = 15
+m_m15 = 7
 
 ### dados de tempo
 end_date = dt.datetime.today() # data atual
 start_date = dt.datetime(2022,1,1) # data de oito meses atras
 
 ### dados pesquisas
-df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
-#df.sigla = df['sigla'].astype(str)
+@st.cache(allow_output_mutation=True)
+def load_data():
+    df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
+    return df
+df = load_data()
 
 ##import image logo
-agre = Image.open('palacio-da-alvorada-interior-black-so-agregador-branco.jpg')
+@st.cache(allow_output_mutation=True)
+def load_image():
+    agre = Image.open('palacio-da-alvorada-interior-black-so-agregador-branco.jpg')
+    return agre
+agre = load_image()
 
 ###############################################################################
 ## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
@@ -290,7 +298,6 @@ if options_turn == 'Primeiro Turno':
             col4.metric(label="Outros", value=f"{round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],1),1)}")
             col5.metric(label="Sem Religião", value=f"{round(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1],1),1)}")
             #col5.metric(label="Rejeição", value=f"{round(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1],1),1)}")
-
             ## coluna 2
             #col4, col5, col6, col7, col8 = st.columns(5)
             #col4.metric(label="",value="")
@@ -343,6 +350,7 @@ if options_turn == 'Primeiro Turno':
                         arrowhead=1,
                         ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
+
 
             ## Bolsonaro
             fig.add_trace(go.Scatter(y=df.bol_ger_1t, x=df.sigla, mode='markers', name='int_vot_geral_bolsonaro',
@@ -431,6 +439,8 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
+
+            fig.update_yaxes(range=[0,60]) ## exibe o intervalo de y a ser exibido no gráfico
 
             # Add image
             fig.add_layout_image(
@@ -565,6 +575,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
 
+        fig.update_yaxes(range=[0,65]) ## exibe o intervalo de y a ser exibido no gráfico
+
         # Add image
         fig.add_layout_image(
             dict(
@@ -586,8 +598,6 @@ if options_turn == 'Primeiro Turno':
                 xanchor="right", yanchor="bottom"
             )
         )
-
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
 
         st.plotly_chart(fig)
 
@@ -618,7 +628,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_ev_1t']>1].bol_ev_1t, x=df[df['bol_ev_1t']>1].sigla, mode='markers', name='int_vot_ev_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_ev_1t']>1].lul_ev_1t, #set color equal to a variable
+                                color=df[df['bol_ev_1t']>1].bol_ev_1t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean(), x=df[df['bol_ev_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -682,6 +692,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=True,title_font_family="Arial")
 
+        fig.update_yaxes(range=[0,60]) ## exibe o intervalo de y a ser exibido no gráfico
+
         # Add image
         fig.add_layout_image(
             dict(
@@ -734,7 +746,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_espi_1t']>1].bol_espi_1t, x=df[df['bol_espi_1t']>1].sigla, mode='markers', name='int_vot_espi_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_espi_1t']>1].lul_espi_1t, #set color equal to a variable
+                                color=df[df['bol_espi_1t']>1].bol_espi_1t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean(), x=df[df['bol_espi_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -822,8 +834,6 @@ if options_turn == 'Primeiro Turno':
                 xanchor="right", yanchor="bottom"
             )
         )
-
-        fig.update_xaxes(tickangle = 280, rangeslider_visible=True)
 
         st.plotly_chart(fig)
 
@@ -985,7 +995,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_non_1t']>1].bol_non_1t, x=df[df['bol_non_1t']>1].sigla, mode='markers', name='int_vot_non_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_non_1t']>1].lul_non_1t, #set color equal to a variable
+                                color=df[df['bol_non_1t']>1].bol_non_1t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean(), x=df[df['bol_non_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -1073,8 +1083,6 @@ if options_turn == 'Primeiro Turno':
             )
         )
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
-
         st.plotly_chart(fig)
 
         ## info
@@ -1105,7 +1113,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_out_1t']>1].bol_out_1t, x=df[df['bol_out_1t']>1].sigla, mode='markers', name='int_vot_out_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_out_1t']>1].lul_out_1t, #set color equal to a variable
+                                color=df[df['bol_out_1t']>1].bol_out_1t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean(), x=df[df['bol_out_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -1193,7 +1201,6 @@ if options_turn == 'Primeiro Turno':
             )
         )
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
         st.plotly_chart(fig)
 
         ## info
@@ -1235,14 +1242,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'católicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_cat_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_cat")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_cat_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_cat")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_cat_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_cat_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_cat_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_cat_1t")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_cat_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_cat_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_cat_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_cat_1t")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -1275,14 +1282,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'evangélicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ev_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ev")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_ev_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ev")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ev_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ev_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_ev_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ev_1t")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ev_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_ev_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ev_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_ev_1t")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -1315,14 +1322,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'espíritas' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_espi_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_espi")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_espi_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_espi")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_espi_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_espi_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_espi_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_espi_1t")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_espi_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_espi_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_espi_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_espi_1t")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -1355,14 +1362,14 @@ if options_turn == 'Primeiro Turno':
 
             #     plt.rcParams['figure.figsize'] = (12,7)
             #     plt.title(f"\n Intenção de voto de 'umbandistas e candonblecistas' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-            #     plt.plot(df[(df['nome_instituto']==inst)].lul_umb_can_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_umb_can")
-            #     plt.plot(df[(df['nome_instituto']==inst)].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+            #     plt.plot(df[df['nome_instituto']==inst].lul_umb_can_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_umb_can")
+            #     plt.plot(df[df['nome_instituto']==inst].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
 
-            #     plt.plot(df[(df['nome_instituto']==inst)].bol_umb_can_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_umb_can")
-            #     plt.plot(df[(df['nome_instituto']==inst)].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+            #     plt.plot(df[df['nome_instituto']==inst].bol_umb_can_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_umb_can")
+            #     plt.plot(df[df['nome_instituto']==inst].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
 
-            #     plt.plot(df[(df['nome_instituto']==inst)].ciro_umb_can_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_umb_can")
-            #     plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
+            #     plt.plot(df[df['nome_instituto']==inst].ciro_umb_can_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_umb_can")
+            #     plt.plot(df[df['nome_instituto']==inst].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
 
             #     plt.style.use('ggplot')
             #     plt.xlabel('mês/ano e instituto de pesquisa')
@@ -1395,14 +1402,14 @@ if options_turn == 'Primeiro Turno':
 
             #     plt.rcParams['figure.figsize'] = (12,7)
             #     plt.title(f"\n Intenção de voto de 'ateus' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-            #     plt.plot(df[(df['nome_instituto']==inst)].lul_ateu_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ateu")
-            #     plt.plot(df[(df['nome_instituto']==inst)].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+            #     plt.plot(df[df['nome_instituto']==inst].lul_ateu_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ateu")
+            #     plt.plot(df[df['nome_instituto']==inst].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
 
-            #     plt.plot(df[(df['nome_instituto']==inst)].bol_ateu_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ateu")
-            #     plt.plot(df[(df['nome_instituto']==inst)].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+            #     plt.plot(df[df['nome_instituto']==inst].bol_ateu_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ateu")
+            #     plt.plot(df[df['nome_instituto']==inst].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
 
-            #     plt.plot(df[(df['nome_instituto']==inst)].ciro_ateu_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_ateu")
-            #     plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
+            #     plt.plot(df[df['nome_instituto']==inst].ciro_ateu_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_ateu")
+            #     plt.plot(df[df['nome_instituto']==inst].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
 
             #     plt.style.use('ggplot')
             #     plt.xlabel('mês/ano e instituto de pesquisa')
@@ -1435,14 +1442,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'sem religião' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_non_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_non")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_non_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_non")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_non_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_non")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_non_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_non")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_non_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_non")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_non_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_non")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -1475,14 +1482,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'outras religiosidades' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_out_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_outras")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_out_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_outras")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_out_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_outras")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_out_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_outras")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_out_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_outras")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_out_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_outras")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -1598,6 +1605,7 @@ if options_turn == 'Primeiro Turno':
     ################################################
 
     with st.container():
+
         st.markdown(f"""
         <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EAE6DA;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
         <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
@@ -1613,35 +1621,33 @@ if options_turn == 'Primeiro Turno':
             fig = go.Figure()
             
             ## lula
-
-            fig.add_trace(go.Scatter(y=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t, x=df[df['lul_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_lula',
+            fig.add_trace(go.Scatter(y=df.lul_ger_rej_1t, x=df.sigla, mode='markers', name='rejeição_geral_lula',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t, #set color equal to a variable
+                                    color=df.lul_ger_rej_1t, #set color equal to a variable
                                     colorscale='peach')))
 
             fig.add_trace(go.Scatter(y=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean(), x=df[df['lul_ger_rej_1t']>1].sigla, mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 0,
+                        ax = 40, ay = 25,
                         font=dict(size=20, color="black", family="Arial"))
-
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t, x=df[df['bol_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_ger_rej_1t, x=df.sigla, mode='markers', name='rejeição_geral_bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t, #set color equal to a variable
+                                    color=df.bol_ger_rej_1t, #set color equal to a variable
                                     colorscale='ice')))
 
             fig.add_trace(go.Scatter(y=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean(), x=df[df['bol_ger_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -1649,16 +1655,16 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t, x=df[df['ciro_ger_rej_1t']>1].sigla, mode='markers', name='rejeição_geral_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_ger_rej_1t, x=df.sigla, mode='markers', name='rejeição_geral_ciro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t, #set color equal to a variable
+                                    color=df.ciro_ger_rej_1t, #set color equal to a variable
                                     colorscale='Greens')))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -1685,6 +1691,8 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mai/22_datafolha", y=35,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+
+            fig.update_yaxes(range=[0,70])
 
             # Add image
             fig.add_layout_image(
@@ -1738,10 +1746,10 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t, x=df[df['lul_cat_rej_1t']>1].sigla, mode='markers', name='rejeição_cat_lula',
+            fig.add_trace(go.Scatter(y=df.lul_cat_rej_1t, x=df.sigla, mode='markers', name='rejeição_cat_lula',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t, #set color equal to a variable
+                                    color=df.lul_cat_rej_1t, #set color equal to a variable
                                     colorscale='peach')))
 
             fig.add_trace(go.Scatter(y=df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean(), x=df[df['lul_cat_rej_1t']>1].sigla, mode='lines', name='Lula',
@@ -1756,10 +1764,10 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t, x=df[df['bol_cat_rej_1t']>1].sigla, mode='markers', name='rejeição_cat_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_cat_rej_1t, x=df.sigla, mode='markers', name='rejeição_cat_bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t, #set color equal to a variable
+                                    color=df.bol_cat_rej_1t, #set color equal to a variable
                                     colorscale='ice')))
 
             fig.add_trace(go.Scatter(y=df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean(), x=df[df['bol_cat_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -1773,7 +1781,7 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t, x=df[df['ciro_cat_rej_1t']>1].sigla, mode='markers', name='rejeição_cat_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_cat_rej_1t, x=df.sigla, mode='markers', name='rejeição_cat_ciro',
                                     marker=dict(
                                     size=5,
                                     color=df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t, #set color equal to a variable
@@ -1847,10 +1855,10 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t, x=df[df['lul_ev_rej_1t']>1].sigla, mode='markers', name='rejeição_ev_lula',
+            fig.add_trace(go.Scatter(y=df.lul_ev_rej_1t, x=df.sigla, mode='markers', name='rejeição_ev_lula',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t, #set color equal to a variable
+                                    color=df.lul_ev_rej_1t, #set color equal to a variable
                                     colorscale='peach')))
 
             fig.add_trace(go.Scatter(y=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean(), x=df[df['lul_ev_rej_1t']>1].sigla, mode='lines', name='Lula',
@@ -1865,10 +1873,10 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t, x=df[df['bol_ev_rej_1t']>1].sigla, mode='markers', name='rejeição_ev_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_ev_rej_1t, x=df.sigla, mode='markers', name='rejeição_ev_bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t, #set color equal to a variable
+                                    color=df.bol_ev_rej_1t, #set color equal to a variable
                                     colorscale='ice')))
 
             fig.add_trace(go.Scatter(y=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean(), x=df[df['bol_ev_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -1882,10 +1890,10 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t, x=df[df['ciro_ev_rej_1t']>1].sigla, mode='markers', name='rejeição_ev_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_ev_rej_1t, x=DFAState.sigla, mode='markers', name='rejeição_ev_ciro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t, #set color equal to a variable
+                                    color=df.ciro_ev_rej_1t, #set color equal to a variable
                                     colorscale='Greens')))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean(), x=df[df['ciro_ev_rej_1t']>1].sigla,mode='lines', name='Ciro',
@@ -1956,10 +1964,10 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t, x=df[df['lul_espi_rej_1t']>1].sigla, mode='markers', name='rejeição_espi_lula',
+            fig.add_trace(go.Scatter(y=df.lul_espi_rej_1t, x=df.sigla, mode='markers', name='rejeição_espi_lula',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t, #set color equal to a variable
+                                    color=df.lul_espi_rej_1t, #set color equal to a variable
                                     colorscale='peach')))
 
             fig.add_trace(go.Scatter(y=df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean(), x=df[df['lul_espi_rej_1t']>1].sigla, mode='lines', name='Lula',
@@ -1974,10 +1982,10 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t, x=df[df['bol_espi_rej_1t']>1].sigla, mode='markers', name='rejeição_espi_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_espi_rej_1t, x=df.sigla, mode='markers', name='rejeição_espi_bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t, #set color equal to a variable
+                                    color=df.bol_espi_rej_1t, #set color equal to a variable
                                     colorscale='ice')))
 
             fig.add_trace(go.Scatter(y=df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean(), x=df[df['bol_espi_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -1991,10 +1999,10 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t, x=df[df['ciro_espi_rej_1t']>1].sigla, mode='markers', name='rejeição_espi_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_espi_rej_1t, x=df.sigla, mode='markers', name='rejeição_espi_ciro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t, #set color equal to a variable
+                                    color=df.ciro_espi_rej_1t, #set color equal to a variable
                                     colorscale='Greens')))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean(), x=df[df['ciro_espi_rej_1t']>1].sigla,mode='lines', name='Ciro',
@@ -2065,10 +2073,10 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df[df['lul_out_rej_1t']>1].lul_out_rej_1t, x=df[df['lul_out_rej_1t']>1].sigla, mode='markers', name='rejeição_out_lula',
+            fig.add_trace(go.Scatter(y=df.lul_out_rej_1t, x=df.sigla, mode='markers', name='rejeição_out_lula',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['lul_out_rej_1t']>1].lul_out_rej_1t, #set color equal to a variable
+                                    color=df.lul_out_rej_1t, #set color equal to a variable
                                     colorscale='peach')))
 
             fig.add_trace(go.Scatter(y=df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean(), x=df[df['lul_out_rej_1t']>1].sigla, mode='lines', name='Lula',
@@ -2083,10 +2091,10 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df[df['bol_out_rej_1t']>1].bol_out_rej_1t, x=df[df['bol_out_rej_1t']>1].sigla, mode='markers', name='rejeição_out_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_out_rej_1t, x=df.sigla, mode='markers', name='rejeição_out_bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bol_out_rej_1t']>1].bol_out_rej_1t, #set color equal to a variable
+                                    color=df.bol_out_rej_1t, #set color equal to a variable
                                     colorscale='ice')))
 
             fig.add_trace(go.Scatter(y=df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean(), x=df[df['bol_out_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -2100,10 +2108,10 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t, x=df[df['ciro_out_rej_1t']>1].sigla, mode='markers', name='rejeição_out_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_out_rej_1t, x=df.sigla, mode='markers', name='rejeição_out_ciro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t, #set color equal to a variable
+                                    color=df.ciro_out_rej_1t, #set color equal to a variable
                                     colorscale='Greens')))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean(), x=df[df['ciro_out_rej_1t']>1].sigla,mode='lines', name='Ciro',
@@ -2174,10 +2182,10 @@ if options_turn == 'Primeiro Turno':
                     
             ## lula
 
-            fig.add_trace(go.Scatter(y=df[df['lul_non_rej_1t']>1].lul_non_rej_1t, x=df[df['lul_non_rej_1t']>1].sigla, mode='markers', name='rejeição_non_lula',
+            fig.add_trace(go.Scatter(y=df.lul_non_rej_1t, x=df.sigla, mode='markers', name='rejeição_non_lula',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['lul_non_rej_1t']>1].lul_non_rej_1t, #set color equal to a variable
+                                    color=df.lul_non_rej_1t, #set color equal to a variable
                                     colorscale='peach')))
 
             fig.add_trace(go.Scatter(y=df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean(), x=df[df['lul_non_rej_1t']>1].sigla, mode='lines', name='Lula',
@@ -2192,10 +2200,10 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df[df['bol_non_rej_1t']>1].bol_non_rej_1t, x=df[df['bol_non_rej_1t']>1].sigla, mode='markers', name='rejeição_non_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_non_rej_1t, x=df.sigla, mode='markers', name='rejeição_non_bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bol_non_rej_1t']>1].bol_non_rej_1t, #set color equal to a variable
+                                    color=df.bol_non_rej_1t, #set color equal to a variable
                                     colorscale='ice')))
 
             fig.add_trace(go.Scatter(y=df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean(), x=df[df['bol_non_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -2209,10 +2217,10 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t, x=df[df['ciro_non_rej_1t']>1].sigla, mode='markers', name='rejeição_non_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_non_rej_1t, x=df.sigla, mode='markers', name='rejeição_non_ciro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t, #set color equal to a variable
+                                    color=df.ciro_non_rej_1t, #set color equal to a variable
                                     colorscale='Greens')))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean(), x=df[df['ciro_non_rej_1t']>1].sigla,mode='lines', name='Ciro',
@@ -2310,14 +2318,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'católicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_cat_rej_1t, data=df[df['lul_cat_rej_1t']>1], marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_cat")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df[df['lul_ger_rej_1t']>1], marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_cat_rej_1t, data=df[df['lul_cat_rej_1t']>1], marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_cat")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_rej_1t, data=df[df['lul_ger_rej_1t']>1], marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_cat_rej_1t, data=df[df['bol_cat_rej_1t']>1], marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_cat_rej_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df[df['bol_ger_rej_1t']>1], marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_cat_rej_1t, data=df[df['bol_cat_rej_1t']>1], marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_cat_rej_1t")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_rej_1t, data=df[df['bol_ger_rej_1t']>1], marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_cat_rej_1t, data=df[df['ciro_cat_rej_1t']>1], marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_cat_rej_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df[df['ciro_ger_rej_1t']>1], marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_cat_rej_1t, data=df[df['ciro_cat_rej_1t']>1], marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_cat_rej_1t")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_rej_1t, data=df[df['ciro_ger_rej_1t']>1], marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -2350,14 +2358,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'evangélicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ev_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ev")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_ev_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_ev")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ev_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ev_rej_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_ev_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_ev_rej_1t")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ev_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_ev_rej_1t")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ev_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_ev_rej_1t")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -2390,14 +2398,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'outras religiosidades' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_out_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_outras")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_out_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_outras")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_out_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_outras")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_out_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_outras")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_out_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_outras")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_out_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_outras")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -2430,14 +2438,14 @@ if options_turn == 'Primeiro Turno':
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'sem religião' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
-                plt.plot(df[(df['nome_instituto']==inst)].lul_non_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_non")
-                plt.plot(df[(df['nome_instituto']==inst)].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].lul_non_rej_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_non")
+                plt.plot(df[df['nome_instituto']==inst].lul_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='firebrick', markersize=5, color='red', linewidth=1,alpha=0.6, label="lula_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].bol_non_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_non")
-                plt.plot(df[(df['nome_instituto']==inst)].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].bol_non_rej_1t, data=df, marker='*', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=3, label="bol_non")
+                plt.plot(df[df['nome_instituto']==inst].bol_ger_rej_1t, data=df, marker='*',linestyle='dashed', markerfacecolor='skyblue', markersize=8, color='skyblue', linewidth=1, label="bolsonaro_rej_geral")
 
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_non_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_non")
-                plt.plot(df[(df['nome_instituto']==inst)].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
+                plt.plot(df[df['nome_instituto']==inst].ciro_non_rej_1t, data=df, marker='.', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=3, label="ciro_non")
+                plt.plot(df[df['nome_instituto']==inst].ciro_ger_rej_1t, data=df, marker='.',linestyle='dashed', markerfacecolor='seagreen', markersize=8, color='seagreen', linewidth=1, label="ciro_rej_geral")
 
                 plt.style.use('ggplot')
                 plt.xlabel('mês/ano e instituto de pesquisa')
@@ -2721,6 +2729,7 @@ if options_turn == 'Segundo Turno':
             # col6.metric(label="Ateu", value=f"{round(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1],1)}%", delta=f"{round(round(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1],1),1)}")
             # ## info
             # st.caption('* Dados na cor verde indicam a vantagem de Bolsonaro em relação a Lula, e vermelho, desvantagem.')
+        
         st.markdown(f"""
         <br>
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7> \n
@@ -2747,10 +2756,10 @@ if options_turn == 'Segundo Turno':
 
             fig = go.Figure()
             ## lula
-            fig.add_trace(go.Scatter(y=df[df['lul_ger_2t']>1].lul_ger_2t, x=df.sigla, mode='markers', name='int_vot_geral_lula',
+            fig.add_trace(go.Scatter(y=df.lul_ger_2t, x=df.sigla, mode='markers', name='int_vot_geral_lula',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['lul_ger_2t']>1].lul_ger_2t, #set color equal to a variable
+                                    color=df.lul_ger_2t, #set color equal to a variable
                                     colorscale='peach')))
 
             fig.add_trace(go.Scatter(y=df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Lula',
@@ -2763,10 +2772,10 @@ if options_turn == 'Segundo Turno':
                         font=dict(size=20, color="black", family="Arial"))
 
             ## Bolsonaro
-            fig.add_trace(go.Scatter(y=df[df['bol_ger_2t']>1].bol_ger_2t, x=df.sigla, mode='markers', name='int_vot_geral_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_ger_2t, x=df.sigla, mode='markers', name='int_vot_geral_bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bol_ger_2t']>1].lul_ger_2t, #set color equal to a variable
+                                    color=df.lul_ger_2t, #set color equal to a variable
                                     colorscale='ice')))
 
             fig.add_trace(go.Scatter(y=df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -2780,10 +2789,10 @@ if options_turn == 'Segundo Turno':
 
             ## Brancos e Nulos df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t
 
-            fig.add_trace(go.Scatter(y=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t, x=df[df['bra_nul_ns_nr_ger_2t']>1].sigla, mode='markers', name='brancos_nulos_ns_nr',
+            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_2t, x=df.sigla, mode='markers', name='brancos_nulos_ns_nr',
                                     marker=dict(
                                     size=5,
-                                    color=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t, #set color equal to a variable
+                                    color=df.bra_nul_ns_nr_ger_2t, #set color equal to a variable
                                     colorscale='gray')))
 
             fig.add_trace(go.Scatter(y=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean(), x=df[df['bra_nul_ns_nr_ger_2t']>1].sigla, mode='lines', name='Brancos, nulos, NS e NR',
@@ -2869,10 +2878,10 @@ if options_turn == 'Segundo Turno':
 
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df[df['lul_cat_2t']>1].lul_cat_2t, x=df[df['lul_cat_2t']>1].sigla, mode='markers', name='int_vot_cat_lula',
+        fig.add_trace(go.Scatter(y=df.lul_cat_2t, x=df.sigla, mode='markers', name='int_vot_cat_lula',
                                 marker=dict(
                                 size=5,
-                                color=df[df['lul_cat_2t']>1].lul_cat_2t, #set color equal to a variable
+                                color=df.lul_cat_2t, #set color equal to a variable
                                 colorscale='peach')))
 
         fig.add_trace(go.Scatter(y=df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='Lula',
@@ -2885,10 +2894,10 @@ if options_turn == 'Segundo Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df[df['bol_cat_2t']>1].bol_cat_2t, x=df[df['bol_cat_2t']>1].sigla, mode='markers', name='int_vot_cat_bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_cat_2t, x=df.sigla, mode='markers', name='int_vot_cat_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_cat_2t']>1].lul_cat_2t, #set color equal to a variable
+                                color=df.lul_cat_2t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -2919,10 +2928,10 @@ if options_turn == 'Segundo Turno':
     if relig2t == 'Evangélica ':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df[df['lul_ev_2t']>1].lul_ev_2t, x=df[df['lul_ev_2t']>1].sigla, mode='markers', name='int_vot_ev_lula',
+        fig.add_trace(go.Scatter(y=df.lul_ev_2t, x=df.sigla, mode='markers', name='int_vot_ev_lula',
                                 marker=dict(
                                 size=5,
-                                color=df[df['lul_ev_2t']>1].lul_ev_2t, #set color equal to a variable
+                                color=df.lul_ev_2t, #set color equal to a variable
                                 colorscale='peach')))
 
         fig.add_trace(go.Scatter(y=df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean(), x=df[df['bol_ev_2t']>1].sigla,mode='lines', name='Lula',
@@ -2934,10 +2943,10 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df[df['bol_ev_2t']>1].bol_ev_2t, x=df[df['bol_ev_2t']>1].sigla, mode='markers', name='int_vot_ev_bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_ev_2t, x=df.sigla, mode='markers', name='int_vot_ev_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_ev_2t']>1].lul_ev_2t, #set color equal to a variable
+                                color=df.lul_ev_2t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean(), x=df[df['bol_ev_2t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -3109,10 +3118,10 @@ if options_turn == 'Segundo Turno':
     if relig2t == 'Sem Religião ':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df[df['lul_non_2t']>1].lul_non_2t, x=df[df['lul_non_2t']>1].data, mode='markers', name='int_vot_non_lula',
+        fig.add_trace(go.Scatter(y=df.lul_non_2t, x=df.data, mode='markers', name='int_vot_non_lula',
                                 marker=dict(
                                 size=5,
-                                color=df[df['lul_non_2t']>1].lul_non_2t, #set color equal to a variable
+                                color=df.lul_non_2t, #set color equal to a variable
                                 colorscale='peach')))
 
         fig.add_trace(go.Scatter(y=df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].data,mode='lines', name='Lula',
@@ -3125,10 +3134,10 @@ if options_turn == 'Segundo Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df[df['bol_non_2t']>1].bol_non_2t, x=df[df['bol_non_2t']>1].data, mode='markers', name='int_vot_non_bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_non_2t, x=df.data, mode='markers', name='int_vot_non_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_non_2t']>1].lul_non_2t, #set color equal to a variable
+                                color=df.lul_non_2t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].data,mode='lines', name='Bolsonaro',
@@ -3157,10 +3166,10 @@ if options_turn == 'Segundo Turno':
     if relig2t == 'Outras Religiosidades ':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df[df['lul_out_2t']>1].lul_out_2t, x=df[df['lul_out_2t']>1].sigla, mode='markers', name='int_vot_out_lula',
+        fig.add_trace(go.Scatter(y=df.lul_out_2t, x=df.sigla, mode='markers', name='int_vot_out_lula',
                                 marker=dict(
                                 size=5,
-                                color=df[df['lul_out_2t']>1].lul_out_2t, #set color equal to a variable
+                                color=df.lul_out_2t, #set color equal to a variable
                                 colorscale='peach')))
 
         fig.add_trace(go.Scatter(y=df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Lula',
@@ -3173,10 +3182,10 @@ if options_turn == 'Segundo Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df[df['bol_out_2t']>1].bol_out_2t, x=df[df['bol_out_2t']>1].sigla, mode='markers', name='int_vot_out_bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_out_2t, x=df.sigla, mode='markers', name='int_vot_out_bolsonaro',
                                 marker=dict(
                                 size=5,
-                                color=df[df['bol_out_2t']>1].lul_out_2t, #set color equal to a variable
+                                color=df.lul_out_2t, #set color equal to a variable
                                 colorscale='ice')))
 
         fig.add_trace(go.Scatter(y=df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Bolsonaro',
@@ -3261,7 +3270,7 @@ if options_turn == 'Segundo Turno':
                 grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
                 st.pyplot(plt)
-
+                
                 with open(f"grafico.png", "rb") as file:
                     st.download_button(
                             label="Baixar o gráfico",
@@ -3269,6 +3278,8 @@ if options_turn == 'Segundo Turno':
                             file_name="grafico.png",
                             mime="image/png"
                             )
+
+                
 
             if rel2 == 'Evangélica':
 
