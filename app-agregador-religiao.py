@@ -36,11 +36,7 @@ st.set_page_config(
     
 
 ## subtítulos do cabeçalho
-@st.cache(allow_output_mutation=True)
-def load_img_entrada():
-    image = Image.open('palacio-da-alvorada-interior-black.jpg')
-    return image
-image = load_img_entrada()
+image = Image.open('palacio-da-alvorada-interior-black.jpg')
 
 col3,col4,col5 = st.columns([.5,3,1])
 with col4:
