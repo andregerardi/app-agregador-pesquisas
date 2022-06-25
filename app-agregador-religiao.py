@@ -1239,8 +1239,6 @@ if options_turn == 'Primeiro Turno':
         with col2:
             if rel == 'Católica':
 
-                df.set_index('sigla',inplace = True)
-
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'católicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
                 plt.plot(df[df['nome_instituto']==inst].lul_cat_1t, data=df, marker='.', markerfacecolor='firebrick', markersize=10, color='red', linewidth=3,alpha=0.6, label="lul_cat")
@@ -1279,7 +1277,7 @@ if options_turn == 'Primeiro Turno':
 
             if rel == 'Evangélica':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'evangélicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -1319,7 +1317,7 @@ if options_turn == 'Primeiro Turno':
 
             if rel == 'Espírita':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'espíritas' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -1359,7 +1357,7 @@ if options_turn == 'Primeiro Turno':
 
             # if rel == 'Umbanda/Candomblé':
 
-            #     df.set_index('sigla',inplace = True)
+            #     
 
             #     plt.rcParams['figure.figsize'] = (12,7)
             #     plt.title(f"\n Intenção de voto de 'umbandistas e candonblecistas' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -1399,7 +1397,7 @@ if options_turn == 'Primeiro Turno':
 
             # if rel == 'Ateu':
 
-            #     df.set_index('sigla',inplace = True)
+            #     
 
             #     plt.rcParams['figure.figsize'] = (12,7)
             #     plt.title(f"\n Intenção de voto de 'ateus' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -1439,7 +1437,7 @@ if options_turn == 'Primeiro Turno':
 
             if rel == 'Sem Religião':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'sem religião' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -1479,7 +1477,7 @@ if options_turn == 'Primeiro Turno':
 
             if rel == 'Outras Religiosidades':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'outras religiosidades' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -2315,7 +2313,7 @@ if options_turn == 'Primeiro Turno':
         with col2:
             if rel == ' Católica ':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'católicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -2355,7 +2353,7 @@ if options_turn == 'Primeiro Turno':
 
             if rel == ' Evangélica ':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'evangélicos' para presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -2395,7 +2393,7 @@ if options_turn == 'Primeiro Turno':
 
             if rel == ' Outras Religiosidades ':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'outras religiosidades' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -2435,7 +2433,7 @@ if options_turn == 'Primeiro Turno':
                 
             if rel == ' Sem Religião ':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Rejeição de 'sem religião' à presidente - {inst.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -3245,7 +3243,7 @@ if options_turn == 'Segundo Turno':
         with col2:
             if rel2 == 'Católica':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'católicos' para presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -3271,8 +3269,6 @@ if options_turn == 'Segundo Turno':
                 grafico = plt.savefig("grafico.png",bbox_inches='tight')
 
                 st.pyplot(plt)
-
-                df.reset_index()
                 
                 with open(f"grafico.png", "rb") as file:
                     st.download_button(
@@ -3284,7 +3280,7 @@ if options_turn == 'Segundo Turno':
 
             if rel2 == 'Evangélica':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'evangélicos' para presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -3311,8 +3307,6 @@ if options_turn == 'Segundo Turno':
 
                 st.pyplot(plt)
 
-                df.reset_index()
-
                 with open(f"grafico.png", "rb") as file:
                     st.download_button(
                             label="Baixar o gráfico",
@@ -3323,7 +3317,7 @@ if options_turn == 'Segundo Turno':
 
             if rel2 == 'Sem Religião':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'sem religião' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -3350,8 +3344,6 @@ if options_turn == 'Segundo Turno':
 
                 st.pyplot(plt)
 
-                df.reset_index()
-
                 with open(f"grafico.png", "rb") as file:
                     st.download_button(
                             label="Baixar o gráfico",
@@ -3362,7 +3354,7 @@ if options_turn == 'Segundo Turno':
 
             if rel2 == 'Outras Religiosidades':
 
-                df.set_index('sigla',inplace = True)
+                
 
                 plt.rcParams['figure.figsize'] = (12,7)
                 plt.title(f"\n Intenção de voto de 'outras religiosidades' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -3389,8 +3381,6 @@ if options_turn == 'Segundo Turno':
 
                 st.pyplot(plt)
 
-                df.reset_index()
-
                 with open(f"grafico.png", "rb") as file:
                     st.download_button(
                             label="Baixar o gráfico",
@@ -3401,7 +3391,7 @@ if options_turn == 'Segundo Turno':
             
             # if rel2 == 'Espírita':
 
-            #     df.set_index('sigla',inplace = True)
+            #     
 
             #     plt.rcParams['figure.figsize'] = (12,7)
             #     plt.title(f"\n Intenção de voto de 'espírita/kradecista' para presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -3438,7 +3428,7 @@ if options_turn == 'Segundo Turno':
 
             # if rel2 == 'Umbanda/Candomblé':
 
-            #     df.set_index('sigla',inplace = True)
+            #     
 
             #     plt.rcParams['figure.figsize'] = (12,7)
             #     plt.title(f"\n Intenção de voto de 'umbandistas e candonblecistas' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
@@ -3475,7 +3465,7 @@ if options_turn == 'Segundo Turno':
 
             # if rel2 == 'Ateu':
 
-            #     df.set_index('sigla',inplace = True)
+            #     
 
             #     plt.rcParams['figure.figsize'] = (12,7)
             #     plt.title(f"\n Intenção de voto de 'ateus' à presidente - {inst2.title()} 1º turno" + "\n", fontdict={'fontsize':18})
