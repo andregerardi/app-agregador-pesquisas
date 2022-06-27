@@ -4270,7 +4270,7 @@ if options_turn == 'Segundo Turno':
 
 
 
-st.markdown(f"""
+st.caption(f"""
 <br>
 <br>
 Site publicado em: 15/05/2022.<br>
