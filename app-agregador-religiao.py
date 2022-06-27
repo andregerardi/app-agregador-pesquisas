@@ -1225,7 +1225,7 @@ if options_turn == 'Primeiro Turno':
             if rel == 'Católica':
                 fonte = df.query(f"nome_instituto =='{inst}'")
                 religi_escolhida = 'cat'
-                rel = 'evangélicos'
+                rel = 'católicos'
 
                 fig = go.Figure()
                 ##lula
@@ -1286,7 +1286,6 @@ if options_turn == 'Primeiro Turno':
                 )
                 
                 st.plotly_chart(fig)
-
 
             if rel == 'Evangélica':
 
@@ -1354,7 +1353,6 @@ if options_turn == 'Primeiro Turno':
                 
                 st.plotly_chart(fig)
 
-
             if rel == 'Espírita':
 
                 fonte = df.query(f"nome_instituto =='{inst}'")
@@ -1421,7 +1419,6 @@ if options_turn == 'Primeiro Turno':
                 
                 st.plotly_chart(fig)
             
-
             if rel == 'Sem Religião':
 
                 fonte = df.query(f"nome_instituto =='{inst}'")
@@ -1488,7 +1485,6 @@ if options_turn == 'Primeiro Turno':
                 
                 st.plotly_chart(fig)
             
-
             if rel == 'Outras Religiosidades':
 
                 fonte = df.query(f"nome_instituto =='{inst}'")
@@ -1973,7 +1969,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral de católicos por candidato à presidência (1º turno)<i><br>
+            <i>Rejeição geral e de católicos por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2082,7 +2078,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral de evangélicos por candidato à presidência (1º turno)<i><br>
+            <i>Rejeição geral e de evangélicos por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2191,7 +2187,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral de espíritas por candidato à presidência (1º turno)<i><br>
+            <i>Rejeição geral e de espíritas por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2300,7 +2296,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral de outras religiões por candidato à presidência (1º turno)<i><br>
+            <i>Rejeição geral e de outras religiões por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2553,7 +2549,7 @@ if options_turn == 'Primeiro Turno':
             if rel == ' Evangélica ':
 
                 fonte = df.query(f"nome_instituto =='{inst}'")
-                religi_escolhida = 'ev'
+                religi_escolhida = 'ev_rej'
                 rel = 'evangélicos'
 
                 fig = go.Figure()
@@ -2619,7 +2615,7 @@ if options_turn == 'Primeiro Turno':
             if rel == ' Espírita ':
 
                 fonte = df.query(f"nome_instituto =='{inst}'")
-                religi_escolhida = 'espi'
+                religi_escolhida = 'espi_rej'
                 rel = 'espíritas'
 
                 fig = go.Figure()
@@ -2685,7 +2681,7 @@ if options_turn == 'Primeiro Turno':
             if rel == ' Sem Religião ':
 
                 fonte = df.query(f"nome_instituto =='{inst}'")
-                religi_escolhida = 'non'
+                religi_escolhida = 'non_rej'
                 rel = 'sem religião'
 
                 fig = go.Figure()
@@ -2751,7 +2747,7 @@ if options_turn == 'Primeiro Turno':
             if rel == ' Outras Religiosidades ':
 
                 fonte = df.query(f"nome_instituto =='{inst}'")
-                religi_escolhida = 'out'
+                religi_escolhida = 'out_rej'
                 rel = 'outras religiões'
 
                 fig = go.Figure()
@@ -2818,7 +2814,7 @@ if options_turn == 'Primeiro Turno':
             # if rel == ' Umbanda/Candomblé ':
 
             #     fonte = df.query(f"nome_instituto =='{inst}'")
-            #     religi_escolhida = 'umb_can'
+            #     religi_escolhida = 'umb_can_rej'
             #     rel = 'umbanda e candomblé'
 
             #     fig = go.Figure()
@@ -2885,7 +2881,7 @@ if options_turn == 'Primeiro Turno':
             # if rel == ' Ateu ':
 
             #     fonte = df.query(f"nome_instituto =='{inst}'")
-            #     religi_escolhida = 'ateu'
+            #     religi_escolhida = 'ateu_rej'
             #     rel = 'ateus'
 
             #     fig = go.Figure()
