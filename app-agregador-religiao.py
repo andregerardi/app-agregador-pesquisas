@@ -86,6 +86,7 @@ def load_image():
     return agre
 agre = load_image()
 
+
 ###############################################################################
 ## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
 ################################################################################
@@ -384,7 +385,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 20,
+                        ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
 
@@ -419,28 +420,25 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nulo_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nulo_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = -8,
+                        ax = 40, ay = 20,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=80),
             title=("""
-            <i>Média móvel das intenções de voto de candidatos à presidência (1º turno)<i><br>
+            <i>Média móvel das intenções de voto de candidatos à presidência (1º turno)<i>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
                             font=dict(family="arial",size=13),
+                            legend_title_text='<br><br>',
                             legend=dict(
-                yanchor="auto",
-                y=1.12,
-                xanchor="auto",
-                x=0.5,
-                orientation="h",
+                orientation="v",
                 font_family="arial"))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
 
             fig.update_yaxes(range=[0,60]) ## exibe o intervalo de y a ser exibido no gráfico
 
@@ -449,7 +447,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.08,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -460,7 +458,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.18,
+                    x=.88, y=1.08,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -558,20 +556,17 @@ if options_turn == 'Primeiro Turno':
                         font=dict(size=20, color="black", family="Arial"))
 
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=110),
             title=("""
             <i>Média móvel das intenções de voto de católicos por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
+                            legend_title_text='<br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.15,
-                xanchor="auto",
-                x=0.4,
-                orientation="h",
-                font_family="arial",))
+                orientation="v",
+                font_family="arial"))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=25,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -585,7 +580,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.05,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -596,7 +591,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.12,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -675,19 +670,16 @@ if options_turn == 'Primeiro Turno':
                         ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=110),
             title=("""
             <i>Média móvel das intenções de voto de evangélicos por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
+                            legend_title_text='<br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.15,
-                xanchor="auto",
-                x=0.4,
-                orientation="h",
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -702,18 +694,18 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.05,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
             )
-            
+
             # Add image
             fig.add_layout_image(
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.12,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -796,19 +788,16 @@ if options_turn == 'Primeiro Turno':
                         ax = 40, ay = 20,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=110),
             title=("""
             <i>Média móvel das intenções de voto de espíritas por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
+                            legend_title_text='<br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.15,
-                xanchor="auto",
-                x=0.4,
-                orientation="h",
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -821,18 +810,18 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.05,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
             )
-            
+
             # Add image
             fig.add_layout_image(
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.12,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -1044,19 +1033,16 @@ if options_turn == 'Primeiro Turno':
                     ax = 40, ay = 20,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+        fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=110),
         title=("""
         <i>Média móvel das intenções de voto dos sem religião por candidato à presidência (1º turno)<i><br>
         """),
                         xaxis_title='Mês, ano e instituto de pesquisa',
                         yaxis_title='Intenção de voto (%)',
+                        legend_title_text='<br><br>',
                         font=dict(family="arial",size=13),
                         legend=dict(
-            yanchor="auto",
-            y=1.15,
-            xanchor="auto",
-            x=0.4,
-            orientation="h",
+            orientation="v",
             font_family="arial",))
 
         fig.add_annotation(x="mar/22_poderdata_3", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -1069,18 +1055,18 @@ if options_turn == 'Primeiro Turno':
             dict(
                 source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.05,
                 sizex=0.1, sizey=0.1,
                 xanchor="right", yanchor="bottom"
             )
         )
-      
+
         # Add image
         fig.add_layout_image(
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.20,
+                x=.99, y=1.12,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
@@ -1162,19 +1148,16 @@ if options_turn == 'Primeiro Turno':
                     ax = 40, ay = 20,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+        fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=110),
         title=("""
         <i>Média móvel das intenções de voto de outras religiões por candidato à presidência (1º turno)<i><br>
         """),
                         xaxis_title='Mês, ano e instituto de pesquisa',
                         yaxis_title='Intenção de voto (%)',
+                        legend_title_text='<br><br>',
                         font=dict(family="arial",size=13),
                         legend=dict(
-            yanchor="auto",
-            y=1.15,
-            xanchor="auto",
-            x=0.4,
-            orientation="h",
+            orientation="v",
             font_family="arial"))
 
         fig.add_annotation(x="mar/22_futura", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -1187,7 +1170,7 @@ if options_turn == 'Primeiro Turno':
             dict(
                 source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.05,
                 sizex=0.1, sizey=0.1,
                 xanchor="right", yanchor="bottom"
             )
@@ -1198,7 +1181,7 @@ if options_turn == 'Primeiro Turno':
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.20,
+                x=.99, y=1.12,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
@@ -1708,7 +1691,8 @@ if options_turn == 'Primeiro Turno':
                 
 
         st.markdown(f"""
-        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso.</h7>
+        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7>
+        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 2: Os gráficos com linhas descontinuadas indicam que o instituto não coletou a informação em determinada pesquisa. Um exemplo pode ser visto a partir da combinação "Paraná Pesquisas" e "católicos".</h7>
         """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -1812,7 +1796,7 @@ if options_turn == 'Primeiro Turno':
             fig = go.Figure()
             
             ## lula
-            fig.add_trace(go.Scatter(y=df.lul_ger_rej_1t, x=df.sigla, mode='markers', name='rejeição_geral_lula',
+            fig.add_trace(go.Scatter(y=df.lul_ger_rej_1t, x=df.sigla, mode='markers', name='Rejeição Lula',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ger_rej_1t, #set color equal to a variable
@@ -1829,7 +1813,7 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df.bol_ger_rej_1t, x=df.sigla, mode='markers', name='rejeição_geral_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_ger_rej_1t, x=df.sigla, mode='markers', name='Rejeição Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.bol_ger_rej_1t, #set color equal to a variable
@@ -1846,13 +1830,13 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df.ciro_ger_rej_1t, x=df.sigla, mode='markers', name='rejeição_geral_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_ger_rej_1t, x=df.sigla, mode='markers', name='Rejeição Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_ger_rej_1t, #set color equal to a variable
                                     colorscale='Greens')))
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro',
+            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5)))
 
             fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
@@ -1863,19 +1847,17 @@ if options_turn == 'Primeiro Turno':
 
             ## detalhes
 
-            fig.update_layout(width = 1100, height = 850, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=110),
             title=("""
             <i>Rejeição geral dos candidatos à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
+                            legend_title_text='<br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.1,
-                xanchor="auto",
-                x=0.5,
-                orientation="h",
+                
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_pr_pesq", y=35,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -1890,7 +1872,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.03,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -1901,7 +1883,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.11,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -1989,7 +1971,7 @@ if options_turn == 'Primeiro Turno':
 
             ## detalhes
 
-            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
             <i>Rejeição geral de católicos por candidato à presidência (1º turno)<i><br>
             """),
@@ -2098,7 +2080,7 @@ if options_turn == 'Primeiro Turno':
 
             ## detalhes
 
-            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
             <i>Rejeição geral de evangélicos por candidato à presidência (1º turno)<i><br>
             """),
@@ -2207,7 +2189,7 @@ if options_turn == 'Primeiro Turno':
 
             ## detalhes
 
-            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
             <i>Rejeição geral de espíritas por candidato à presidência (1º turno)<i><br>
             """),
@@ -2316,7 +2298,7 @@ if options_turn == 'Primeiro Turno':
 
             ## detalhes
 
-            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
             <i>Rejeição geral de outras religiões por candidato à presidência (1º turno)<i><br>
             """),
@@ -2425,7 +2407,7 @@ if options_turn == 'Primeiro Turno':
 
             ## detalhes
 
-            fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
             <i>Rejeição geral dos sem religião por candidato à presidência (1º turno)<i><br>
             """),
@@ -3250,7 +3232,7 @@ if options_turn == 'Segundo Turno':
 
             fig = go.Figure()
             ## lula
-            fig.add_trace(go.Scatter(y=df.lul_ger_2t, x=df.sigla, mode='markers', name='int_vot_geral_lula',
+            fig.add_trace(go.Scatter(y=df.lul_ger_2t, x=df.sigla, mode='markers', name='Lula - geral',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ger_2t, #set color equal to a variable
@@ -3266,7 +3248,7 @@ if options_turn == 'Segundo Turno':
                         font=dict(size=20, color="black", family="Arial"))
 
             ## Bolsonaro
-            fig.add_trace(go.Scatter(y=df.bol_ger_2t, x=df.sigla, mode='markers', name='int_vot_geral_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_ger_2t, x=df.sigla, mode='markers', name='Bolsonaro - geral',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ger_2t, #set color equal to a variable
@@ -3283,13 +3265,13 @@ if options_turn == 'Segundo Turno':
 
             ## Brancos e Nulos df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t
 
-            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_2t, x=df.sigla, mode='markers', name='brancos_nulos_ns_nr',
+            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_2t, x=df.sigla, mode='markers', name='Brancos e nulos',
                                     marker=dict(
                                     size=5,
                                     color=df.bra_nul_ns_nr_ger_2t, #set color equal to a variable
                                     colorscale='gray')))
 
-            fig.add_trace(go.Scatter(y=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean(), x=df[df['bra_nul_ns_nr_ger_2t']>1].sigla, mode='lines', name='Brancos, nulos, NS e NR',
+            fig.add_trace(go.Scatter(y=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean(), x=df[df['bra_nul_ns_nr_ger_2t']>1].sigla, mode='lines', name='Brancos e nulos',
                                     line=dict(color='gray', width=2.5)))
 
             fig.add_annotation(x=list(df[df['bra_nul_ns_nr_ger_2t']>1].sigla)[-1], y=int(list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1])}%",
@@ -3298,32 +3280,32 @@ if options_turn == 'Segundo Turno':
                         ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=150),
             title=("""
-            <i>Média móvel das intenções de voto de candidatos à presidência - 2º turno<i><br>
+            <i>Média móvel das intenções de voto de candidatos à presidência (2º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
                             font=dict(family="arial",size=13),
                             legend=dict(
                 yanchor="auto",
-                y=1.1,
+                y=1.15,
                 xanchor="auto",
-                x=0.5,
+                x=0.4,
                 orientation="h",
-                font_family="arial",))
+                font_family="arial"))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=32,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.05,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -3334,7 +3316,7 @@ if options_turn == 'Segundo Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.18,
+                    x=.99, y=1.12,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -3372,13 +3354,13 @@ if options_turn == 'Segundo Turno':
 
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df.lul_cat_2t, x=df.sigla, mode='markers', name='int_vot_cat_lula',
+        fig.add_trace(go.Scatter(y=df.lul_cat_2t, x=df.sigla, mode='markers', name='Lula ',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_cat_2t, #set color equal to a variable
                                 colorscale='peach')))
 
-        fig.add_trace(go.Scatter(y=df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='Lula',
+        fig.add_trace(go.Scatter(y=df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='int. voto Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
         fig.add_annotation(x=list(df[df['lul_cat_2t']>1].sigla)[-1], y=int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1])}%",
@@ -3388,7 +3370,7 @@ if options_turn == 'Segundo Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_cat_2t, x=df.sigla, mode='markers', name='int_vot_cat_bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_cat_2t, x=df.sigla, mode='markers', name='int. voto bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_cat_2t, #set color equal to a variable
@@ -3403,26 +3385,53 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1000, height = 800, template = 'presentation',
-                            title="Clique sobre a legenda do gráfico para interagir com os dados <br>",
+        fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
+                            title="""
+                            <i>Média móvel das intenções de voto de católicos por candidato à presidência (2º turno)<i><br>
+                            """,
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
                             font=dict(family="arial",size=14),
                             legend=dict(
                 yanchor="auto",
-                y=1.1,
+                y=1.15,
                 xanchor="auto",
-                x=0.5,
-                orientation="h"))
+                x=0.2,
+                orientation="h",
+                font_family="arial"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_yaxes(range=[0,70])
+
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                xref="paper", yref="paper",
+                x=.99, y=1.05,
+                sizex=0.1, sizey=0.1,
+                xanchor="right", yanchor="bottom"
+            )
+        )
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source=agre,
+                xref="paper", yref="paper",
+                x=.99, y=1.12,
+                sizex=0.12, sizey=0.12,
+                xanchor="right", yanchor="bottom"
+            )
+        )
 
         st.plotly_chart(fig)
 
     if relig2t == 'Evangélica ':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df.lul_ev_2t, x=df.sigla, mode='markers', name='int_vot_ev_lula',
+        fig.add_trace(go.Scatter(y=df.lul_ev_2t, x=df.sigla, mode='markers', name='iint. voto Lula',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_ev_2t, #set color equal to a variable
@@ -3437,7 +3446,7 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_ev_2t, x=df.sigla, mode='markers', name='int_vot_ev_bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_ev_2t, x=df.sigla, mode='markers', name='int. voto Bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_ev_2t, #set color equal to a variable
@@ -3452,21 +3461,203 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5,
-            orientation="h"))
+        fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
+                            title="""
+                            <i>Média móvel das intenções de voto de evangélicos por candidato à presidência (2º turno)<i><br>
+                            """,
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.15,
+                xanchor="auto",
+                x=0.2,
+                orientation="h",
+                font_family="arial"))
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_yaxes(range=[0,70])
+
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                xref="paper", yref="paper",
+                x=.99, y=1.05,
+                sizex=0.1, sizey=0.1,
+                xanchor="right", yanchor="bottom"
+            )
+        )
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source=agre,
+                xref="paper", yref="paper",
+                x=.99, y=1.12,
+                sizex=0.12, sizey=0.12,
+                xanchor="right", yanchor="bottom"
+            )
+        )      
 
         st.plotly_chart(fig)
 
-    # if relig2t == 'Espírita ':
+    if relig2t == 'Sem Religião ':
+        fig = go.Figure()
+        ## lula
+        fig.add_trace(go.Scatter(y=df.lul_non_2t, x=df.sigla, mode='markers', name='int. voto Lula',
+                                marker=dict(
+                                size=5,
+                                color=df.lul_non_2t, #set color equal to a variable
+                                colorscale='peach')))
+
+        fig.add_trace(go.Scatter(y=df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].sigla,mode='lines', name='Lula',
+                                line=dict(color='firebrick', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['lul_non_2t']>1].sigla)[-1], y=int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = 0,
+                    font=dict(size=20, color="black", family="Arial"))
+
+        ## Bolsonaro
+        fig.add_trace(go.Scatter(y=df.bol_non_2t, x=df.sigla, mode='markers', name='int. voto Bolsonaro',
+                                marker=dict(
+                                size=5,
+                                color=df.lul_non_2t, #set color equal to a variable
+                                colorscale='ice')))
+
+        fig.add_trace(go.Scatter(y=df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].sigla,mode='lines', name='Bolsonaro',
+                                line=dict(color='skyblue', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['bol_non_2t']>1].sigla)[-1], y=int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = 0,
+                    font=dict(size=20, color="black", family="Arial"))
+
+        fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
+                            title="""
+                            <i>Média móvel das intenções de voto dos sem religião por candidato à presidência (2º turno)<i><br>
+                            """,
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.15,
+                xanchor="auto",
+                x=0.2,
+                orientation="h",
+                font_family="arial"))
+
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_yaxes(range=[0,70])
+
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                xref="paper", yref="paper",
+                x=.99, y=1.05,
+                sizex=0.1, sizey=0.1,
+                xanchor="right", yanchor="bottom"
+            )
+        )
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source=agre,
+                xref="paper", yref="paper",
+                x=.99, y=1.12,
+                sizex=0.12, sizey=0.12,
+                xanchor="right", yanchor="bottom"
+            )
+        )
+
+        st.plotly_chart(fig)
+
+    if relig2t == 'Outras Religiosidades ':
+        fig = go.Figure()
+        ## lula
+        fig.add_trace(go.Scatter(y=df.lul_out_2t, x=df.sigla, mode='markers', name='int. voto Lula',
+                                marker=dict(
+                                size=5,
+                                color=df.lul_out_2t, #set color equal to a variable
+                                colorscale='peach')))
+
+        fig.add_trace(go.Scatter(y=df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Lula',
+                                line=dict(color='firebrick', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['lul_out_2t']>1].sigla)[-1], y=int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = 0,
+                    font=dict(size=20, color="black", family="Arial"))
+
+        ## Bolsonaro
+        fig.add_trace(go.Scatter(y=df.bol_out_2t, x=df.sigla, mode='markers', name='int. voto Bolsonaro',
+                                marker=dict(
+                                size=5,
+                                color=df.lul_out_2t, #set color equal to a variable
+                                colorscale='ice')))
+
+        fig.add_trace(go.Scatter(y=df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Bolsonaro',
+                                line=dict(color='skyblue', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['bol_out_2t']>1].sigla)[-1], y=int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = 0,
+                    font=dict(size=20, color="black", family="Arial"))
+
+        fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
+                            title="""
+                            <i>Média móvel das intenções de voto de católicos por candidato à presidência (2º turno)<i><br>
+                            """,
+                            xaxis_title='Mês, ano e instituto de pesquisa',
+                            yaxis_title='Intenção de voto (%)',
+                            font=dict(family="arial",size=14),
+                            legend=dict(
+                yanchor="auto",
+                y=1.15,
+                xanchor="auto",
+                x=0.2,
+                orientation="h",
+                font_family="arial"))
+
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_yaxes(range=[0,70])
+
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+                xref="paper", yref="paper",
+                x=.99, y=1.05,
+                sizex=0.1, sizey=0.1,
+                xanchor="right", yanchor="bottom"
+            )
+        )
+
+        # Add image
+        fig.add_layout_image(
+            dict(
+                source=agre,
+                xref="paper", yref="paper",
+                x=.99, y=1.12,
+                sizex=0.12, sizey=0.12,
+                xanchor="right", yanchor="bottom"
+            )
+        )
+        st.plotly_chart(fig)
+
+        # if relig2t == 'Espírita ':
     #     fig = go.Figure()
     #     ## lula
     #     fig.add_trace(go.Scatter(y=df[df['lul_espi_2t']>1].lul_espi_2t, x=df[df['lul_espi_2t']>1].data, mode='markers', name='int_vot_espi_lula',
@@ -3608,101 +3799,6 @@ if options_turn == 'Segundo Turno':
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
     #     st.plotly_chart(fig)
-
-    if relig2t == 'Sem Religião ':
-        fig = go.Figure()
-        ## lula
-        fig.add_trace(go.Scatter(y=df.lul_non_2t, x=df.data, mode='markers', name='int_vot_non_lula',
-                                marker=dict(
-                                size=5,
-                                color=df.lul_non_2t, #set color equal to a variable
-                                colorscale='peach')))
-
-        fig.add_trace(go.Scatter(y=df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].data,mode='lines', name='Lula',
-                                line=dict(color='firebrick', width=2.5)))
-
-        fig.add_annotation(x=list(df[df['lul_non_2t']>1].data)[-1], y=int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1])}%",
-                    showarrow=True,
-                    arrowhead=1,
-                    ax = 40, ay = 0,
-                    font=dict(size=20, color="black", family="Arial"))
-
-        ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_non_2t, x=df.data, mode='markers', name='int_vot_non_bolsonaro',
-                                marker=dict(
-                                size=5,
-                                color=df.lul_non_2t, #set color equal to a variable
-                                colorscale='ice')))
-
-        fig.add_trace(go.Scatter(y=df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].data,mode='lines', name='Bolsonaro',
-                                line=dict(color='skyblue', width=2.5)))
-
-        fig.add_annotation(x=list(df[df['bol_non_2t']>1].data)[-1], y=int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1])}%",
-                    showarrow=True,
-                    arrowhead=1,
-                    ax = 40, ay = 0,
-                    font=dict(size=20, color="black", family="Arial"))
-
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5,
-            orientation="h"))
-
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
-
-        st.plotly_chart(fig)
-
-    if relig2t == 'Outras Religiosidades ':
-        fig = go.Figure()
-        ## lula
-        fig.add_trace(go.Scatter(y=df.lul_out_2t, x=df.sigla, mode='markers', name='int_vot_out_lula',
-                                marker=dict(
-                                size=5,
-                                color=df.lul_out_2t, #set color equal to a variable
-                                colorscale='peach')))
-
-        fig.add_trace(go.Scatter(y=df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Lula',
-                                line=dict(color='firebrick', width=2.5)))
-
-        fig.add_annotation(x=list(df[df['lul_out_2t']>1].sigla)[-1], y=int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1])}%",
-                    showarrow=True,
-                    arrowhead=1,
-                    ax = 40, ay = 0,
-                    font=dict(size=20, color="black", family="Arial"))
-
-        ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_out_2t, x=df.sigla, mode='markers', name='int_vot_out_bolsonaro',
-                                marker=dict(
-                                size=5,
-                                color=df.lul_out_2t, #set color equal to a variable
-                                colorscale='ice')))
-
-        fig.add_trace(go.Scatter(y=df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Bolsonaro',
-                                line=dict(color='skyblue', width=2.5)))
-
-        fig.add_annotation(x=list(df[df['bol_out_2t']>1].sigla)[-1], y=int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1])}%",
-                    showarrow=True,
-                    arrowhead=1,
-                    ax = 40, ay = 0,
-                    font=dict(size=20, color="black", family="Arial"))
-
-        fig.update_layout(width = 1000, height = 800, template = 'none',
-                        xaxis_title='Mês, ano e instituto de pesquisa',
-                        yaxis_title='Intenção de voto (%)',
-                        legend=dict(
-            yanchor="auto",
-            y=1.1,
-            xanchor="auto",
-            x=0.5,
-            orientation="h"))
-
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
-        st.plotly_chart(fig)
 
         st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
 
@@ -4169,10 +4265,18 @@ if options_turn == 'Segundo Turno':
                 
             #     st.plotly_chart(fig)
         
-        st.caption(f'Os gráficos exibem os dados brutos divulgados pelos institutos de pesquisa.')
+        st.markdown(f"""
+        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7>
+        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 2: Os gráficos com linhas descontinuadas indicam que o instituto não coletou a informação em determinada pesquisa. Um exemplo pode ser visto a partir da combinação "Paraná Pesquisas" e "católicos".</h7>
+        """, unsafe_allow_html=True)
 
     st.markdown("---")
 
 
 
-
+st.markdown(f"""
+<br>
+<br>
+Site publicado em: 15/05/2022.<br>
+Última atualização: {end_date.strftime(format='%d/%m/%Y')}
+""", unsafe_allow_html=True)
