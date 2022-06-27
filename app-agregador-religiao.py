@@ -1,7 +1,6 @@
 from ctypes import alignment
 from ctypes.wintypes import RGB
 from lib2to3.pgen2.pgen import DFAState
-from cv2 import dft
 import streamlit as st
 import pandas as pd
 import datetime as dt
@@ -12,7 +11,6 @@ import openpyxl
 import plotly.graph_objects as go
 import datetime as dt
 import plotly.express as px
-import altair as alt
 
 
 
