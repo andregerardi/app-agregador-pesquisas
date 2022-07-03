@@ -1246,7 +1246,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Intenção de voto 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -1312,7 +1312,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Intenção de voto 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -1378,7 +1378,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Intenção de voto 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -1444,7 +1444,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Intenção de voto 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -1510,7 +1510,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 800, template = 'plotly', margin=dict(r=70, l=80, b=4, t=160),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel}' à presidente segundo inst. '{inst.title()}' (1º turno)
+                        Intenção de voto 'geral' e de '{rel}' por candidato segundo inst. '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -1577,7 +1577,7 @@ if options_turn == 'Primeiro Turno':
 
             #     fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
-            #             Intenção de voto 'geral' de adeptos da '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+            #             Intenção de voto 'geral' de adeptos da '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
             #             <br>
             #             """),
@@ -1644,7 +1644,7 @@ if options_turn == 'Primeiro Turno':
 
             #     fig.update_layout(width = 810, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
-            #             Intenção de voto 'geral' de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+            #             Intenção de voto 'geral' de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
             #             <br>
             #             """),
@@ -2504,7 +2504,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Rejeição 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -2570,7 +2570,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Rejeição 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -2636,7 +2636,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Rejeição 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -2702,7 +2702,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Rejeição 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -2768,7 +2768,7 @@ if options_turn == 'Primeiro Turno':
 
                 fig.update_layout(width = 800, height = 800, template = 'plotly', margin=dict(r=70, l=80, b=4, t=160),
                         title=(f"""
-                        Rejeição 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+                        Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
                         <br>
                         """),
@@ -2835,7 +2835,7 @@ if options_turn == 'Primeiro Turno':
 
             #     fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
-            #             Rejeição 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+            #             Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
             #             <br>
             #             """),
@@ -2902,7 +2902,7 @@ if options_turn == 'Primeiro Turno':
 
             #     fig.update_layout(width = 810, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
-            #             Rejeição 'geral' e de '{rel}' à presidente segundo '{inst.title()}' (1º turno)
+            #             Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
             #             <br>
             #             """),
@@ -3916,7 +3916,7 @@ if options_turn == 'Segundo Turno':
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel2}' à presidente segundo '{inst2.title()}' (2º turno)
+                        Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
                         <br>
                         <br>
                         """),
@@ -3978,7 +3978,7 @@ if options_turn == 'Segundo Turno':
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel2}' à presidente segundo '{inst2.title()}' (2º turno)
+                        Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
                         <br>
                         <br>
                         """),
@@ -4040,7 +4040,7 @@ if options_turn == 'Segundo Turno':
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel2}' à presidente segundo '{inst2.title()}' (2º turno)
+                        Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
                         <br>
                         <br>
                         """),
@@ -4102,7 +4102,7 @@ if options_turn == 'Segundo Turno':
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel2}' à presidente segundo '{inst2.title()}' (2º turno)
+                        Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
                         <br>
                         <br>
                         """),
@@ -4164,7 +4164,7 @@ if options_turn == 'Segundo Turno':
                 
                 fig.update_layout(width = 800, height = 800, template = 'plotly', margin=dict(r=70, l=80, b=4, t=160),
                         title=(f"""
-                        Intenção de voto 'geral' e de '{rel2}' à presidente segundo '{inst2.title()}' (2º turno)
+                        Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
                         <br>
                         <br>
                         """),
@@ -4226,7 +4226,7 @@ if options_turn == 'Segundo Turno':
             #
             #     fig.update_layout(width = 1000, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
-            #             Intenção de voto 'geral' e de '{rel2}' à presidente segundo '{inst2.title()}' (2º turno)
+            #             Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
             #             <br>
             #             <br>
             #             """),
@@ -4288,7 +4288,7 @@ if options_turn == 'Segundo Turno':
 
             #     fig.update_layout(width = 810, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
-            #             Intenção de voto 'geral' e de '{rel2}' à presidente segundo '{inst2.title()}' (2º turno)
+            #             Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
             #             <br>
             #             <br>
             #             """),
