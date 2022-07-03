@@ -66,7 +66,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 m_m = 7
 
 ## MÉDIA MÓVEL 15 DIAS (EXCLUSIVO PARA O GRÁFICO DE REJEIÇÃO GERAL)
-m_m15 = 7
+m_m15 = 15
 
 ### dados de tempo
 end_date = dt.datetime.today() # data atual
@@ -385,8 +385,8 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = -8,
-                        font=dict(size=20, color="black", family="Arial"))
+                        ax = 40, ay = 20,
+                        font=dict(size=25, color="black", family="Arial"))
 
 
             # ## Brancos e Nulos e não sabe e não respondeu
@@ -406,21 +406,21 @@ if options_turn == 'Primeiro Turno':
             #             ax = 40, ay = -8,
             #             font=dict(size=20, color="black", family="Arial"))
 
-            ## Brancos e Nulos
+            ## Brancos e Nulos, NS e NR
 
-            fig.add_trace(go.Scatter(y=df.bra_nulo_ger_1t, x=df.sigla, mode='markers', name='Brancos e nulos',
+            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t, x=df.sigla, mode='markers', name='Brancos, nulos NS e NR',
                                     marker=dict(
                                     size=5,
-                                    color=df.bra_nulo_ger_1t, #set color equal to a variable
+                                    color=df.bra_nul_ns_nr_ger_1t, #set color equal to a variable
                                     colorscale='Greys')))
 
-            fig.add_trace(go.Scatter(y=df.bra_nulo_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos e nulos',
+            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos NS e NR',
                                     line=dict(color='grey', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nulo_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nulo_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 20,
+                        ax = 40, ay = -0.5,
                         font=dict(size=20, color="black", family="Arial"))
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=80),
@@ -438,7 +438,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             fig.update_yaxes(range=[0,60]) ## exibe o intervalo de y a ser exibido no gráfico
 
@@ -447,7 +447,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.08,
+                    x=.99, y=1.05,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -458,7 +458,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.88, y=1.08,
+                    x=.88, y=1.05,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -571,7 +571,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_poderdata_3", y=25,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             fig.update_yaxes(range=[0,65]) ## exibe o intervalo de y a ser exibido no gráfico
 
@@ -580,7 +580,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.05,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -591,7 +591,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.08,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -685,7 +685,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 300,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
             fig.update_yaxes(range=[0,60]) ## exibe o intervalo de y a ser exibido no gráfico
 
@@ -694,7 +694,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.05,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -705,7 +705,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.08,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -803,14 +803,14 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.05,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -821,7 +821,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.08,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -898,7 +898,7 @@ if options_turn == 'Primeiro Turno':
     #         x=0.5,
     #         orientation="h"))
 
-    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
     #     st.plotly_chart(fig)
 
     # if relig == 'Ateu':
@@ -962,7 +962,7 @@ if options_turn == 'Primeiro Turno':
     #         x=0.5,
     #         orientation="h"))
 
-    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
     #     st.plotly_chart(fig)
 
     if relig == 'Sem Religião':
@@ -1048,14 +1048,14 @@ if options_turn == 'Primeiro Turno':
         fig.add_annotation(x="mar/22_poderdata_3", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_poderdata_2", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
         # Add image
         fig.add_layout_image(
             dict(
                 source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                 xref="paper", yref="paper",
-                x=.99, y=1.05,
+                x=.99, y=1.02,
                 sizex=0.1, sizey=0.1,
                 xanchor="right", yanchor="bottom"
             )
@@ -1066,7 +1066,7 @@ if options_turn == 'Primeiro Turno':
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.08,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
@@ -1163,14 +1163,14 @@ if options_turn == 'Primeiro Turno':
         fig.add_annotation(x="mar/22_futura", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_futura", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
         # Add image
         fig.add_layout_image(
             dict(
                 source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                 xref="paper", yref="paper",
-                x=.99, y=1.05,
+                x=.99, y=1.02,
                 sizex=0.1, sizey=0.1,
                 xanchor="right", yanchor="bottom"
             )
@@ -1181,7 +1181,7 @@ if options_turn == 'Primeiro Turno':
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.08,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
@@ -1804,7 +1804,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 25,
+                        ax = 40, ay = -0.05,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## bolsonaro
@@ -1859,9 +1859,9 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_pr_pesq", y=35,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_datafolha", y=35,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
-            fig.update_yaxes(range=[0,80])
+            fig.update_yaxes(range=[0,70])
 
             # Add image
             fig.add_layout_image(
@@ -1879,7 +1879,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.11,
+                    x=.99, y=1.08,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -1978,21 +1978,21 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5,
+                x=0.4,
                 orientation="h",
                 font_family="arial",))
 
-            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_datafolha", y=32,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_futura", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2003,7 +2003,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.10,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2087,21 +2087,21 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5,
+                x=0.4,
                 orientation="h",
                 font_family="arial",))
 
-            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_datafolha", y=38,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_futura", y=35,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2112,7 +2112,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.10,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2196,21 +2196,21 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5,
+                x=0.4,
                 orientation="h",
                 font_family="arial",))
 
-            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_datafolha", y=30,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2221,7 +2221,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.10,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2309,17 +2309,17 @@ if options_turn == 'Primeiro Turno':
                 orientation="h",
                 font_family="arial",))
 
-            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_datafolha", y=30,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2330,7 +2330,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.10,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2414,21 +2414,21 @@ if options_turn == 'Primeiro Turno':
                 yanchor="auto",
                 y=1.1,
                 xanchor="auto",
-                x=0.5,
+                x=0.4,
                 orientation="h",
                 font_family="arial",))
 
-            fig.add_annotation(x="mar/22_datafolha", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_datafolha", y=35,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_futura", y=29,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -2439,7 +2439,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.20,
+                    x=.99, y=1.10,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -3101,7 +3101,7 @@ if options_turn == 'Primeiro Turno':
 #             fig.add_annotation(x="mar/22_fsb", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 #             fig.add_annotation(x="mai/22_fsb", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-#             fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+#             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
 #             # Add image
 #             fig.add_layout_image(
@@ -3259,15 +3259,15 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
 
-            ## Brancos e Nulos df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t
+            ## Brancos, Nulos, NS, NR 
 
-            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_2t, x=df.sigla, mode='markers', name='Brancos e nulos',
+            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_2t, x=df.sigla, mode='markers', name='Brancos, nulos, NS e NR',
                                     marker=dict(
                                     size=5,
                                     color=df.bra_nul_ns_nr_ger_2t, #set color equal to a variable
                                     colorscale='gray')))
 
-            fig.add_trace(go.Scatter(y=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean(), x=df[df['bra_nul_ns_nr_ger_2t']>1].sigla, mode='lines', name='Brancos e nulos',
+            fig.add_trace(go.Scatter(y=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean(), x=df[df['bra_nul_ns_nr_ger_2t']>1].sigla, mode='lines', name='Brancos, nulos, NS e NR',
                                     line=dict(color='gray', width=2.5)))
 
             fig.add_annotation(x=list(df[df['bra_nul_ns_nr_ger_2t']>1].sigla)[-1], y=int(list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1])}%",
@@ -3285,7 +3285,7 @@ if options_turn == 'Segundo Turno':
                             font=dict(family="arial",size=13),
                             legend=dict(
                 yanchor="auto",
-                y=1.15,
+                y=1.12,
                 xanchor="auto",
                 x=0.4,
                 orientation="h",
@@ -3294,14 +3294,14 @@ if options_turn == 'Segundo Turno':
             fig.add_annotation(x="mar/22_poderdata_3", y=32,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
-            fig.update_xaxes(tickangle = 280,rangeslider_visible=True,title_font_family="Arial")
+            fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
             fig.add_layout_image(
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.05,
+                    x=.99, y=1.02,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -3312,7 +3312,7 @@ if options_turn == 'Segundo Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.12,
+                    x=.99, y=1.08,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
@@ -3381,6 +3381,23 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
+        ## Brancos, Nulos 
+
+        fig.add_trace(go.Scatter(y=df.bra_nulo_cat_2t, x=df.sigla, mode='markers', name='Brancos e nulos',
+                                marker=dict(
+                                size=5,
+                                color=df.bra_nulo_cat_2t, #set color equal to a variable
+                                colorscale='gray')))
+
+        fig.add_trace(go.Scatter(y=df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean(), x=df[df['bra_nulo_cat_2t']>1].sigla, mode='lines', name='Brancos e nulos',
+                                line=dict(color='gray', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['bra_nulo_cat_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = -8,
+                    font=dict(size=20, color="black", family="Arial"))
+
         fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
                             <i>Média móvel das intenções de voto de católicos por candidato à presidência (2º turno)<i><br>
@@ -3390,17 +3407,17 @@ if options_turn == 'Segundo Turno':
                             font=dict(family="arial",size=14),
                             legend=dict(
                 yanchor="auto",
-                y=1.15,
+                y=1.12,
                 xanchor="auto",
-                x=0.2,
+                x=0.4,
                 orientation="h",
                 font_family="arial"))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
 
 
-        # Add image
+       # Add image
         fig.add_layout_image(
             dict(
                 source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
@@ -3416,11 +3433,11 @@ if options_turn == 'Segundo Turno':
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.13,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
-        )
+        )      
 
         st.plotly_chart(fig)
 
@@ -3456,6 +3473,23 @@ if options_turn == 'Segundo Turno':
                     arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
+        
+        ## Brancos, Nulos 
+
+        fig.add_trace(go.Scatter(y=df.bra_nulo_ev_2t, x=df.sigla, mode='markers', name='Brancos e nulos',
+                                marker=dict(
+                                size=5,
+                                color=df.bra_nulo_ev_2t, #set color equal to a variable
+                                colorscale='gray')))
+
+        fig.add_trace(go.Scatter(y=df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean(), x=df[df['bra_nulo_ev_2t']>1].sigla, mode='lines', name='Brancos e nulos',
+                                line=dict(color='gray', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['bra_nulo_ev_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = -8,
+                    font=dict(size=20, color="black", family="Arial"))
 
         fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
@@ -3466,13 +3500,13 @@ if options_turn == 'Segundo Turno':
                             font=dict(family="arial",size=14),
                             legend=dict(
                 yanchor="auto",
-                y=1.15,
+                y=1.12,
                 xanchor="auto",
-                x=0.2,
+                x=0.4,
                 orientation="h",
                 font_family="arial"))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
 
 
@@ -3492,7 +3526,7 @@ if options_turn == 'Segundo Turno':
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.13,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
@@ -3534,6 +3568,23 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
 
+        ## Brancos, Nulos 
+
+        fig.add_trace(go.Scatter(y=df.bra_nulo_non_2t, x=df.sigla, mode='markers', name='Brancos e nulos',
+                                marker=dict(
+                                size=5,
+                                color=df.bra_nulo_non_2t, #set color equal to a variable
+                                colorscale='gray')))
+
+        fig.add_trace(go.Scatter(y=df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean(), x=df[df['bra_nulo_non_2t']>1].sigla, mode='lines', name='Brancos e nulos',
+                                line=dict(color='gray', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['bra_nulo_non_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = -8,
+                    font=dict(size=20, color="black", family="Arial"))
+
         fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
                             <i>Média móvel das intenções de voto dos sem religião por candidato à presidência (2º turno)<i><br>
@@ -3543,13 +3594,13 @@ if options_turn == 'Segundo Turno':
                             font=dict(family="arial",size=14),
                             legend=dict(
                 yanchor="auto",
-                y=1.15,
+                y=1.13,
                 xanchor="auto",
-                x=0.2,
+                x=0.4,
                 orientation="h",
                 font_family="arial"))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
 
 
@@ -3569,11 +3620,11 @@ if options_turn == 'Segundo Turno':
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.13,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
-        )
+        )      
 
         st.plotly_chart(fig)
 
@@ -3610,6 +3661,23 @@ if options_turn == 'Segundo Turno':
                     arrowhead=1,
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
+        
+        ## Brancos, Nulos 
+
+        fig.add_trace(go.Scatter(y=df.bra_nulo_out_2t, x=df.sigla, mode='markers', name='Brancos e nulos',
+                                marker=dict(
+                                size=5,
+                                color=df.bra_nulo_out_2t, #set color equal to a variable
+                                colorscale='gray')))
+
+        fig.add_trace(go.Scatter(y=df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean(), x=df[df['bra_nulo_out_2t']>1].sigla, mode='lines', name='Brancos e nulos',
+                                line=dict(color='gray', width=2.5)))
+
+        fig.add_annotation(x=list(df[df['bra_nulo_out_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean())[-1])}%",
+                    showarrow=True,
+                    arrowhead=1,
+                    ax = 40, ay = -8,
+                    font=dict(size=20, color="black", family="Arial"))
 
         fig.update_layout(width = 1100, height = 800, template = 'plotly',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
@@ -3620,13 +3688,13 @@ if options_turn == 'Segundo Turno':
                             font=dict(family="arial",size=14),
                             legend=dict(
                 yanchor="auto",
-                y=1.15,
+                y=1.13,
                 xanchor="auto",
-                x=0.2,
+                x=0.4,
                 orientation="h",
                 font_family="arial"))
 
-        fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+        fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
 
 
@@ -3646,11 +3714,12 @@ if options_turn == 'Segundo Turno':
             dict(
                 source=agre,
                 xref="paper", yref="paper",
-                x=.99, y=1.12,
+                x=.99, y=1.13,
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
-        )
+        )      
+
         st.plotly_chart(fig)
 
         # if relig2t == 'Espírita ':
@@ -3697,7 +3766,7 @@ if options_turn == 'Segundo Turno':
     #         x=0.5,
     #         orientation="h"))
 
-    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
 
     #     st.plotly_chart(fig)
 
@@ -3746,7 +3815,7 @@ if options_turn == 'Segundo Turno':
     #         x=0.5,
     #         orientation="h"))
 
-    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
     #     st.plotly_chart(fig)
 
     # if relig2t == 'Ateu ':
@@ -3793,7 +3862,7 @@ if options_turn == 'Segundo Turno':
     #         x=0.5,
     #         orientation="h"))
 
-    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=True)
+    #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
     #     st.plotly_chart(fig)
 
         st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
