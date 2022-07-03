@@ -348,7 +348,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.lul_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Lula', legendrank=3,
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.lul_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.lul_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.lul_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.lul_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -365,7 +365,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.bol_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bol_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bol_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bol_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.bol_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -382,7 +382,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.ciro_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.ciro_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 20,
@@ -400,7 +400,7 @@ if options_turn == 'Primeiro Turno':
             # fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos, NS e NR',
             #                         line=dict(color='grey', width=2.5)))
 
-            # fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
+            # fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1] ,text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
             #             showarrow=True,
             #             arrowhead=1,
             #             ax = 40, ay = -8,
@@ -417,7 +417,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos NS e NR',
                                     line=dict(color='grey', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -0.5,
@@ -499,7 +499,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean(), x=df[df['bol_cat_1t']>1].sigla,mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_cat_1t']>1].sigla)[-1], y=int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_cat_1t']>1].sigla)[-1], y=list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -515,7 +515,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean(), x=df[df['bol_cat_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_cat_1t']>1].sigla)[-1], y=int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_cat_1t']>1].sigla)[-1], y=list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -532,7 +532,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean(), x=df[df['ciro_cat_1t']>1].sigla, mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_cat_1t']>1].sigla)[-1], y=int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_cat_1t']>1].sigla)[-1], y=list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -8,
@@ -549,7 +549,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean(), x=df[df['bra_nulo_cat_1t']>1].sigla, mode='lines', name='Brancos, nulos',
                                     line=dict(color='grey', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bra_nulo_cat_1t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bra_nulo_cat_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 20,
@@ -617,7 +617,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean(), x=df[df['bol_ev_1t']>1].sigla,mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_ev_1t']>1].sigla)[-1], y=int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_ev_1t']>1].sigla)[-1], y=list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -632,7 +632,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean(), x=df[df['bol_ev_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_ev_1t']>1].sigla)[-1], y=int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_ev_1t']>1].sigla)[-1], y=list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -647,7 +647,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean(), x=df[df['ciro_ev_1t']>1].sigla, mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_ev_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_ev_1t']>1].sigla)[-1], y=list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 20,
@@ -664,7 +664,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean(), x=df[df['bra_nulo_ev_1t']>1].sigla, mode='lines', name='Brancos e nulos',
                                     line=dict(color='grey', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -8,
@@ -731,7 +731,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean(), x=df[df['bol_espi_1t']>1].sigla,mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_espi_1t']>1].sigla)[-1], y=int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_espi_1t']>1].sigla)[-1], y=list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -747,7 +747,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean(), x=df[df['bol_espi_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_espi_1t']>1].sigla)[-1], y=int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_espi_1t']>1].sigla)[-1], y=list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                             ax = 40, ay = 0,
@@ -764,7 +764,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean(), x=df[df['ciro_espi_1t']>1].sigla, mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_espi_1t']>1].sigla)[-1], y=int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_espi_1t']>1].sigla)[-1], y=list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -8,
@@ -782,7 +782,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean(), x=df[df['bra_nulo_espi_1t']>1].sigla, mode='lines', name='Brancos e nulos',
                                     line=dict(color='grey', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_espi_1t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_espi_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 20,
@@ -849,7 +849,7 @@ if options_turn == 'Primeiro Turno':
     #     fig.add_trace(go.Scatter(y=df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean(), x=df[df['bol_umb_can_1t']>1].data,mode='lines', name='Lula',
     #                             line=dict(color='firebrick', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['lul_umb_can_1t']>1].data)[-1], y=int(list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['lul_umb_can_1t']>1].data)[-1], y=list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_umb_can_1t']>1].lul_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                     # ax = 40, ay = 0,
@@ -865,7 +865,7 @@ if options_turn == 'Primeiro Turno':
     #     fig.add_trace(go.Scatter(y=df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean(), x=df[df['bol_umb_can_1t']>1].data,mode='lines', name='Bolsonaro',
     #                             line=dict(color='skyblue', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['bol_umb_can_1t']>1].data)[-1], y=int(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['bol_umb_can_1t']>1].data)[-1], y=list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_umb_can_1t']>1].bol_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                     # ax = 40, ay = 0,
@@ -882,7 +882,7 @@ if options_turn == 'Primeiro Turno':
     #     fig.add_trace(go.Scatter(y=df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean(), x=df[df['ciro_umb_can_1t']>1].data, mode='lines', name='Ciro Gomes',
     #                             line=dict(color='seagreen', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['ciro_umb_can_1t']>1].data)[-1], y=int(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['ciro_umb_can_1t']>1].data)[-1], y=list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_umb_can_1t']>1].ciro_umb_can_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                     # ax = 40, ay = 0,
@@ -913,7 +913,7 @@ if options_turn == 'Primeiro Turno':
     #     fig.add_trace(go.Scatter(y=df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean(), x=df[df['bol_ateu_1t']>1].data,mode='lines', name='Lula',
     #                             line=dict(color='firebrick', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['lul_ateu_1t']>1].data)[-1], y=int(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['lul_ateu_1t']>1].data)[-1], y=list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ateu_1t']>1].lul_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                    #  ax = 40, ay = 0,
@@ -929,7 +929,7 @@ if options_turn == 'Primeiro Turno':
     #     fig.add_trace(go.Scatter(y=df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean(), x=df[df['bol_ateu_1t']>1].data,mode='lines', name='Bolsonaro',
     #                             line=dict(color='skyblue', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['bol_ateu_1t']>1].data)[-1], y=int(list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['bol_ateu_1t']>1].data)[-1], y=list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ateu_1t']>1].bol_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                     # ax = 40, ay = 0,
@@ -946,7 +946,7 @@ if options_turn == 'Primeiro Turno':
     #     fig.add_trace(go.Scatter(y=df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean(), x=df[df['ciro_ateu_1t']>1].data, mode='lines', name='Ciro Gomes',
     #                             line=dict(color='seagreen', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['ciro_ateu_1t']>1].data)[-1], y=int(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['ciro_ateu_1t']>1].data)[-1], y=list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ateu_1t']>1].ciro_ateu_1t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                    #  ax = 40, ay = 0,
@@ -977,7 +977,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean(), x=df[df['bol_non_1t']>1].sigla,mode='lines', name='Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['lul_non_1t']>1].sigla)[-1], y=int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['lul_non_1t']>1].sigla)[-1], y=list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -993,7 +993,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean(), x=df[df['bol_non_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                 line=dict(color='skyblue', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bol_non_1t']>1].sigla)[-1], y=int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bol_non_1t']>1].sigla)[-1], y=list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -1010,7 +1010,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean(), x=df[df['ciro_non_1t']>1].sigla, mode='lines', name='Ciro Gomes',
                                 line=dict(color='seagreen', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['ciro_non_1t']>1].sigla)[-1], y=int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['ciro_non_1t']>1].sigla)[-1], y=list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = -8,
@@ -1027,7 +1027,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean(), x=df[df['bra_nulo_non_1t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='grey', width=2.5)))
 
-        fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 20,
@@ -1092,7 +1092,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean(), x=df[df['bol_out_1t']>1].sigla,mode='lines', name='Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['lul_out_1t']>1].sigla)[-1], y=int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['lul_out_1t']>1].sigla)[-1], y=list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -1108,7 +1108,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean(), x=df[df['bol_out_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                 line=dict(color='skyblue', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bol_out_1t']>1].sigla)[-1], y=int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bol_out_1t']>1].sigla)[-1], y=list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -1125,7 +1125,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean(), x=df[df['ciro_out_1t']>1].sigla, mode='lines', name='Ciro Gomes',
                                 line=dict(color='seagreen', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['ciro_out_1t']>1].sigla)[-1], y=int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['ciro_out_1t']>1].sigla)[-1], y=list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = -8,
@@ -1142,7 +1142,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean(), x=df[df['bra_nulo_out_1t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='grey', width=2.5)))
 
-        fig.add_annotation(x=list(df.sigla)[-1], y=int(list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 20,
@@ -1801,7 +1801,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean(), x=df[df['lul_ger_rej_1t']>1].sigla, mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1],text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -0.05,
@@ -1818,7 +1818,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean(), x=df[df['bol_ger_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_ger_rej_1t']>1].sigla)[-1], y=list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean())[-1],text=f"{int(list(df[df['bol_ger_rej_1t']>1].bol_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -1835,7 +1835,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1]),text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1],text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -1868,7 +1868,7 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
                     xref="paper", yref="paper",
-                    x=.99, y=1.03,
+                    x=.99, y=1.07,
                     sizex=0.1, sizey=0.1,
                     xanchor="right", yanchor="bottom"
                 )
@@ -1879,12 +1879,11 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.99, y=1.08,
+                    x=.88, y=1.07,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
             )
-
             st.plotly_chart(fig)
 
             st.markdown(f"""
@@ -1924,7 +1923,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean(), x=df[df['lul_cat_rej_1t']>1].sigla, mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_cat_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_cat_rej_1t']>1].sigla)[-1], y=list(df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_cat_rej_1t']>1].lul_cat_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -1942,7 +1941,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean(), x=df[df['bol_cat_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_cat_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_cat_rej_1t']>1].sigla)[-1], y=list(df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_cat_rej_1t']>1].bol_cat_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -1959,7 +1958,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean(), x=df[df['ciro_cat_rej_1t']>1].sigla,mode='lines', name='Ciro',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_cat_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_cat_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2033,7 +2032,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean(), x=df[df['lul_ev_rej_1t']>1].sigla, mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_ev_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_ev_rej_1t']>1].sigla)[-1], y=list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2051,7 +2050,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean(), x=df[df['bol_ev_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_ev_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_ev_rej_1t']>1].sigla)[-1], y=list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -5,
@@ -2068,7 +2067,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean(), x=df[df['ciro_ev_rej_1t']>1].sigla,mode='lines', name='Ciro',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_ev_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_ev_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 25,
@@ -2142,7 +2141,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean(), x=df[df['lul_espi_rej_1t']>1].sigla, mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_espi_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_espi_rej_1t']>1].sigla)[-1], y=list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2160,7 +2159,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean(), x=df[df['bol_espi_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_espi_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_espi_rej_1t']>1].sigla)[-1], y=list(df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2177,7 +2176,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean(), x=df[df['ciro_espi_rej_1t']>1].sigla,mode='lines', name='Ciro',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_espi_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_espi_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2251,7 +2250,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean(), x=df[df['lul_out_rej_1t']>1].sigla, mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_out_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_out_rej_1t']>1].sigla)[-1], y=list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2269,7 +2268,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean(), x=df[df['bol_out_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_out_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_out_rej_1t']>1].sigla)[-1], y=list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2286,7 +2285,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean(), x=df[df['ciro_out_rej_1t']>1].sigla,mode='lines', name='Ciro',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_out_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_out_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2360,7 +2359,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean(), x=df[df['lul_non_rej_1t']>1].sigla, mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_non_rej_1t']>1].sigla)[-1], y=int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_non_rej_1t']>1].sigla)[-1], y=list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2378,7 +2377,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean(), x=df[df['bol_non_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_non_rej_1t']>1].sigla)[-1], y=int(list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_non_rej_1t']>1].sigla)[-1], y=list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -2395,7 +2394,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean(), x=df[df['ciro_non_rej_1t']>1].sigla,mode='lines', name='Ciro',
                                     line=dict(color='seagreen', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['ciro_non_rej_1t']>1].sigla)[-1], y=int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['ciro_non_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -3022,7 +3021,7 @@ if options_turn == 'Primeiro Turno':
 #             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean(), x=df[df['ava_gov_bol_cat']>1].sigla, mode='lines', name='católicos',
 #                                     line=dict(color='#802b00', width=2.5)))
 
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_cat']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1])}%",
+#             fig.add_annotation(x=list(df[df['ava_gov_bol_cat']>1].sigla)[-1], y=list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1])}%",
 #                         showarrow=True,
 #                         arrowhead=1,
 #                         ax = 40, ay = 0,
@@ -3040,7 +3039,7 @@ if options_turn == 'Primeiro Turno':
 #             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean(), x=df[df['ava_gov_bol_ev']>1].sigla,mode='lines', name='evangélicos',
 #                                     line=dict(color='#80ccff', width=2.5)))
 
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_ev']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1])}%",
+#             fig.add_annotation(x=list(df[df['ava_gov_bol_ev']>1].sigla)[-1], y=list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1])}%",
 #                         showarrow=True,
 #                         arrowhead=1,
 #                         ax = 40, ay = 0,
@@ -3057,7 +3056,7 @@ if options_turn == 'Primeiro Turno':
 #             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean(), x=df[df['ava_gov_bol_out']>1].sigla,mode='lines', name='outras religiões',
 #                                     line=dict(color='#808080', width=2.5)))
 
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_out']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1])}%",
+#             fig.add_annotation(x=list(df[df['ava_gov_bol_out']>1].sigla)[-1], y=list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1])}%",
 #                         showarrow=True,
 #                         arrowhead=1,
 #                         ax = 40, ay = 0,
@@ -3075,7 +3074,7 @@ if options_turn == 'Primeiro Turno':
 #             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean(), x=df[df['ava_gov_bol_non']>1].sigla,mode='lines', name='aval_sem_religião',
 #                                      line=dict(color='seagreen', width=2.5)))
 
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_non']>1].sigla)[-1], y=int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1])}%",
+#             fig.add_annotation(x=list(df[df['ava_gov_bol_non']>1].sigla)[-1], y=list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1])}%",
 #                          showarrow=True,
 #                          arrowhead=1,
 #                          ax = 40, ay = 0,
@@ -3237,7 +3236,7 @@ if options_turn == 'Segundo Turno':
             fig.add_trace(go.Scatter(y=df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['lul_ger_2t']>1].sigla)[-1], y=int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['lul_ger_2t']>1].sigla)[-1], y=list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                     ax = 40, ay = 0,
@@ -3253,7 +3252,7 @@ if options_turn == 'Segundo Turno':
             fig.add_trace(go.Scatter(y=df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bol_ger_2t']>1].sigla)[-1], y=int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bol_ger_2t']>1].sigla)[-1], y=list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                     ax = 40, ay = 0,
@@ -3270,7 +3269,7 @@ if options_turn == 'Segundo Turno':
             fig.add_trace(go.Scatter(y=df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean(), x=df[df['bra_nul_ns_nr_ger_2t']>1].sigla, mode='lines', name='Brancos, nulos, NS e NR',
                                     line=dict(color='gray', width=2.5)))
 
-            fig.add_annotation(x=list(df[df['bra_nul_ns_nr_ger_2t']>1].sigla)[-1], y=int(list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bra_nul_ns_nr_ger_2t']>1].sigla)[-1], y=list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bra_nul_ns_nr_ger_2t']>1].bra_nul_ns_nr_ger_2t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -8,
@@ -3359,7 +3358,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='int. voto Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['lul_cat_2t']>1].sigla)[-1], y=int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['lul_cat_2t']>1].sigla)[-1], y=list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3375,7 +3374,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='Bolsonaro',
                                 line=dict(color='skyblue', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bol_cat_2t']>1].sigla)[-1], y=int(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bol_cat_2t']>1].sigla)[-1], y=list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3392,7 +3391,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean(), x=df[df['bra_nulo_cat_2t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='gray', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bra_nulo_cat_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bra_nulo_cat_2t']>1].sigla)[-1], y=list(df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bra_nulo_cat_2t']>1].bra_nulo_cat_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = -8,
@@ -3453,7 +3452,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean(), x=df[df['bol_ev_2t']>1].sigla,mode='lines', name='Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['lul_ev_2t']>1].sigla)[-1], y=int(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['lul_ev_2t']>1].sigla)[-1], y=list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3468,7 +3467,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean(), x=df[df['bol_ev_2t']>1].sigla,mode='lines', name='Bolsonaro',
                                 line=dict(color='skyblue', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bol_ev_2t']>1].sigla)[-1], y=int(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bol_ev_2t']>1].sigla)[-1], y=list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3485,7 +3484,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean(), x=df[df['bra_nulo_ev_2t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='gray', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bra_nulo_ev_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bra_nulo_ev_2t']>1].sigla)[-1], y=list(df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bra_nulo_ev_2t']>1].bra_nulo_ev_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = -8,
@@ -3546,7 +3545,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].sigla,mode='lines', name='Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['lul_non_2t']>1].sigla)[-1], y=int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['lul_non_2t']>1].sigla)[-1], y=list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3562,7 +3561,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean(), x=df[df['bol_non_2t']>1].sigla,mode='lines', name='Bolsonaro',
                                 line=dict(color='skyblue', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bol_non_2t']>1].sigla)[-1], y=int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bol_non_2t']>1].sigla)[-1], y=list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3579,7 +3578,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean(), x=df[df['bra_nulo_non_2t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='gray', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bra_nulo_non_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bra_nulo_non_2t']>1].sigla)[-1], y=list(df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bra_nulo_non_2t']>1].bra_nulo_non_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = -8,
@@ -3640,7 +3639,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['lul_out_2t']>1].sigla)[-1], y=int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['lul_out_2t']>1].sigla)[-1], y=list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3656,7 +3655,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean(), x=df[df['bol_out_2t']>1].sigla,mode='lines', name='Bolsonaro',
                                 line=dict(color='skyblue', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bol_out_2t']>1].sigla)[-1], y=int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bol_out_2t']>1].sigla)[-1], y=list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 0,
@@ -3673,7 +3672,7 @@ if options_turn == 'Segundo Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean(), x=df[df['bra_nulo_out_2t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='gray', width=2.5)))
 
-        fig.add_annotation(x=list(df[df['bra_nulo_out_2t']>1].sigla)[-1], y=int(list(df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bra_nulo_out_2t']>1].sigla)[-1], y=list(df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bra_nulo_out_2t']>1].bra_nulo_out_2t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = -8,
@@ -3734,7 +3733,7 @@ if options_turn == 'Segundo Turno':
     #     fig.add_trace(go.Scatter(y=df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean(), x=df[df['bol_espi_2t']>1].data,mode='lines', name='Lula',
     #                             line=dict(color='firebrick', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['lul_espi_2t']>1].data)[-1], y=int(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['lul_espi_2t']>1].data)[-1], y=list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                    #  ax = 40, ay = 0,
@@ -3750,7 +3749,7 @@ if options_turn == 'Segundo Turno':
     #     fig.add_trace(go.Scatter(y=df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean(), x=df[df['bol_espi_2t']>1].data,mode='lines', name='Bolsonaro',
     #                             line=dict(color='skyblue', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['bol_espi_2t']>1].data)[-1], y=int(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['bol_espi_2t']>1].data)[-1], y=list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                     # ax = 40, ay = 0,
@@ -3783,7 +3782,7 @@ if options_turn == 'Segundo Turno':
     #     fig.add_trace(go.Scatter(y=df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean(), x=df[df['bol_umb_can_2t']>1].data,mode='lines', name='Lula',
     #                             line=dict(color='firebrick', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['lul_umb_can_2t']>1].data)[-1], y=int(list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['lul_umb_can_2t']>1].data)[-1], y=list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_umb_can_2t']>1].lul_umb_can_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                    #  ax = 40, ay = 0,
@@ -3799,7 +3798,7 @@ if options_turn == 'Segundo Turno':
     #     fig.add_trace(go.Scatter(y=df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean(), x=df[df['bol_umb_can_2t']>1].data,mode='lines', name='Bolsonaro',
     #                             line=dict(color='skyblue', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['bol_umb_can_2t']>1].data)[-1], y=int(list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['bol_umb_can_2t']>1].data)[-1], y=list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_umb_can_2t']>1].bol_umb_can_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                     # ax = 40, ay = 0,
@@ -3830,7 +3829,7 @@ if options_turn == 'Segundo Turno':
     #     fig.add_trace(go.Scatter(y=df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean(), x=df[df['bol_ateu_2t']>1].data,mode='lines', name='Lula',
     #                             line=dict(color='firebrick', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['lul_ateu_2t']>1].data)[-1], y=int(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['lul_ateu_2t']>1].data)[-1], y=list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_ateu_2t']>1].lul_ateu_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                     # ax = 40, ay = 0,
@@ -3846,7 +3845,7 @@ if options_turn == 'Segundo Turno':
     #     fig.add_trace(go.Scatter(y=df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean(), x=df[df['bol_ateu_2t']>1].data,mode='lines', name='Bolsonaro',
     #                             line=dict(color='skyblue', width=2.5)))
 
-    #     fig.add_annotation(x=list(df[df['bol_ateu_2t']>1].data)[-1], y=int(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1]),text=f"{int(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1])}%",
+    #     fig.add_annotation(x=list(df[df['bol_ateu_2t']>1].data)[-1], y=list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_ateu_2t']>1].bol_ateu_2t.rolling(m_m).mean())[-1])}%",
     #                 showarrow=True,
     #                 arrowhead=1,
                    #  ax = 40, ay = 0,
