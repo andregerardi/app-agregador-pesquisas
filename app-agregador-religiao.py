@@ -1842,7 +1842,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=110),
             title=("""
-            <i>Média móvel da rejeição geral dos candidatos à presidência (1º turno)<i><br>
+            <i>Média móvel da rejeição geral de candidatos à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
