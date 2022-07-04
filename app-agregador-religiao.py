@@ -34,14 +34,14 @@ st.set_page_config(
 # <a href="https://api.whatsapp.com/send?text=Agregador de Pesquisas Eleitorais por religião - https://cebrap.org.br/teste-app/" title="Whatsapp" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#55eb4c;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-6 -5 40 40"><path class="heateor_sss_svg_stroke heateor_sss_no_fill" stroke="#fff" stroke-width="2" fill="none" d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"></path><path d="M 7 19 l -1 6 l 6 -1" class="heateor_sss_no_fill heateor_sss_svg_stroke" stroke="#fff" stroke-width="2" fill="none"></path><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="#fff"></path></svg></span></a></div></div>
 # <br>
 # """,unsafe_allow_html=True)
-    
 
-## subtítulos do cabeçalho
-image = Image.open('palacio-da-alvorada-interior-black.jpg')
+## titulo
+st.markdown("""
+<br>
+<h1 style='text-align: center; color:#303030;font-family:Segoe UI'>Agregador de pesquisas eleitorais por religião</h1>
+""", unsafe_allow_html=True)
 
-col3,col4,col5 = st.columns([.5,3,1])
-with col4:
-    st.image(image, width=800)
+## subtítulo do cabeçalho
 st.markdown("""
 <br>
 <h4 style='text-align: center; color:#54595F;font-family:Segoe UI'>Consolidação de pesquisas para as eleições presidenciais de 2022</h4>
@@ -109,22 +109,20 @@ with st.container():
 
         <p style='text-align: center; font-family:Segoe UI;'><b>Explicação:</b></p>
 
-        <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de dados é atualizado constantemente. No momento, ele contém informações de {len(df)} pesquisas eleitorais;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de dados é atualizado constantemente.</p>
         <p style='text-align: justify; font-family:Segoe UI;'>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title()};</p>
         <p style='text-align: justify; font-family:Segoe UI;'>3. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>4. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações dos três principais candidatos do 1º turno das eleições presidenciais: Lula, Bolsonaro e Ciro Gomes, e de Lula e Bolsonaro, no 2º turno. Levando em conta o recorte religioso, a partir de tais pesquisas, coletamos as intenção de voto dos candidatos nos dois turnos, assim como as intenções de voto e a rejeição gerais.;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>5. O percentual de <i>rejeição</i> dos candidatos obtivemos por meio da resposta de eleitores que declaram "não votar de jeito nenhum” em determinado candidato;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>6. O percentual de <i>reprovação da administração</i> do Presidente Jair Bolsonaro foi obtido a partir da soma da respostas "ruim" e "péssimo" para a questão destinada a avaliar a satisfação dos eleitores para com a administração do mandatário: "a administração do Presidente Jair Bolsonaro está sendo ótima, boa, regular, ruim ou péssima?";</p> 
-        <p style='text-align: justify; font-family:Segoe UI;'>7. Os institutos de pesquisa, por motívos internos, não incluem dados do recorte religioso nas pesquisas realizadas. Portanto, a coleta de tais informações é inconstante;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>8. Devido a irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os espíritas, ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam distorções estatísticas severas. Assim, decidiu-se incluí-las na categoria "outras religiosidades";</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>9. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Os institutos utilizam dados o IBGE de 2010, da PNAD de 2021 e 2022 e do TSE. As informações amostrais de corte religioso nem sempre estão disponíveis nas pesquisas compartilhadas publicamente ou constam nos documentos registrados no sistema <a href="https://www.tse.jus.br/eleicoes/pesquisa-eleitorais/consulta-as-pesquisas-registradas"><b>PesqeEle</b></a>, do TSE, dado que não é obrigatório, segundo o artigo 33 da <a href="https://www.tse.jus.br/legislacao/codigo-eleitoral/lei-das-eleicoes/sumario-lei-das-eleicoes-lei-nb0-9.504-de-30-de-setembro-de-1997">Lei nº 9.504/1997</a>. Para termos uma noção do universo amostrado pelos institutos: Os <i>católicos</i> variaram entre {int(df['am_cat'].agg('min'))}% e {int(df['am_cat'].agg('max'))}% das amostras selecionadas; <i>evangélicos</i>, entre {int(df['am_ev'].agg('min'))}% e {int(df['am_ev'].agg('max'))}%; <i>espíritas</i>, entre {int(df['am_espi'].agg('min'))}% e {int(df['am_espi'].agg('max'))}%; <i>candomblé/umbanda</i>, entre {int(df['am_umb_can'].agg('min'))}% e {int(df['am_umb_can'].agg('max'))}%; <i>outras religiões</i> de {int(df['am_out'].agg('min'))}% e {int(df['am_out'].agg('max'))}%, os <i>sem religião</i>, entre {int(df['am_non'].agg('min'))}% e {int(df['am_non'].agg('max'))}% e <i>os ateus</i> apresentaram variação entre {int(df['am_ateu'].agg('min'))}% e {int(df['am_ateu'].agg('max'))}%.</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>10. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas ou não publicadas;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>11. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo à {m_m} dias;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>12. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>13. Ao calcular a média móvel, os {m_m} primeiros resultados são omitidos e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas. Exitem outras outras técnicas estatíticas para a redução do ruído dos dados da série temporal, tais como <i>weighted moving average, kernel smoother</i>, entre outras;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>14. O resumo das médias móveis apresentado no primeiro e segundo turnos considera e apresenta o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>15. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel, dado que nos recortes por religião varia entre 2% até 8,5%, de acordo com institutos. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida na aba "pesquisas eleitorais utilizadas";</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>16. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>4. Devido à irregularidade na coleta e ao tamano da amostra, dados referentes a religiões demograficamente minoritárias como os ateus, religiões afro-brasileiras, judaísmo, islamismo, budismo, entre outras, apresentam margens de erro maiores, uma vez que a amostra destas religiões não é representativa do conjunto da população brasileira. Assim, quando possível, decidiu-se incluí-las na categoria "outras religiosidades";</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>5. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações de Lula, Bolsonaro e Ciro Gomes no primeiro turno das eleições presidenciais e de Lula e Bolsonaro no 2º turno;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>6. O percentual de <i>rejeição</i> dos candidatos obtivemos por meio da resposta de eleitores que declaram "não votar de jeito nenhum” em determinado candidato;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>7. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Os institutos utilizam dados o IBGE de 2010, da PNAD de 2021 e 2022 e do TSE. As informações amostrais de corte religioso nem sempre estão disponíveis nas pesquisas compartilhadas publicamente ou constam nos documentos registrados no sistema <a href="https://www.tse.jus.br/eleicoes/pesquisa-eleitorais/consulta-as-pesquisas-registradas">PesqeEle</a>, do TSE, dado que não é obrigatório, segundo o artigo 33 da <a href="https://www.tse.jus.br/legislacao/codigo-eleitoral/lei-das-eleicoes/sumario-lei-das-eleicoes-lei-nb0-9.504-de-30-de-setembro-de-1997">Lei nº 9.504/1997</a>. Para termos uma noção do universo amostrado pelos institutos: os <i>católicos</i> variaram entre {int(df['am_cat'].agg('min'))}% e {int(df['am_cat'].agg('max'))}% das amostras selecionadas; os <i>evangélicos</i>, entre {int(df['am_ev'].agg('min'))}% e {int(df['am_ev'].agg('max'))}%; os <i>espíritas</i>, entre {int(df['am_espi'].agg('min'))}% e {int(df['am_espi'].agg('max'))}%; o <i>candomblé/umbanda</i>, entre {int(df['am_umb_can'].agg('min'))}% e {int(df['am_umb_can'].agg('max'))}%; <i>outras religiões</i> de {int(df['am_out'].agg('min'))}% a {int(df['am_out'].agg('max'))}%, os <i>sem religião</i>, entre {int(df['am_non'].agg('min'))}% e {int(df['am_non'].agg('max'))}% e <i>os ateus</i> apresentaram variação entre {int(df['am_ateu'].agg('min'))}% e {int(df['am_ateu'].agg('max'))}%.</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>8. Em relação às pesquisas, no levantamento de dados para o agregador, consideramos a última data quando os entrevistadores colheram as respostas, e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>9. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo a {m_m} dias. Para o caso da rejeição geral utilizamos a média móvel de {m_m15} dias;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>10. Para obter a média móvel usamos dados de uma série temporal e aplicamos o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>11. Ao calcular a média móvel de {m_m} dias, por exemplo, os {m_m} primeiros resultados são omitidos da série temporal e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas. Exitem outras técnicas estatíticas para a redução do ruído dos dados da série temporal, tais como <i>weighted moving average, kernel smoother</i>, entre outras;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>12. O resumo das médias móveis apresentado no primeiro e no segundo turnos considera e apresenta o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel, dado que nos recortes por religião varia entre 2% até 8,5%, de acordo com os institutos. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida no item "pesquisas eleitorais utilizadas";</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>14. As imagens dos candidatos que utilizamos provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
 
         </body>
         </html>
@@ -169,12 +167,11 @@ with st.container():
             <p style='color:#000000;font-weight:700;font-size:18px;text-align: center';>
             1º turno: {len(df[df['lul_cat_1t']>=1])}<br>
             2º turno: {len(df[df['lul_cat_2t']>=1])}</p>
-            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Total de pesquisas com amostra sobre religião:</h6><p style='text-align: center';>Católicos e evangélicos: {len(df[df['lul_cat_1t']>=1])}
+            <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Total de pesquisas com amostra sobre religião:</h6><p style='text-align: center';>
+            Católicos e evangélicos: {len(df[df['lul_cat_1t']>=1])}
             <br>Espíritas: {len(df[df['lul_espi_1t']>=1])}
-            <br>Umbanda/Candomblé: {len(df[df['lul_umb_can_1t']>=1])}
             <br>Outras religiões: {len(df[df['lul_out_1t']>=1])}
             <br>Sem religião: {len(df[df['lul_non_1t']>=1])}
-            <br>Ateus: {len(df[df['lul_ateu_1t']>=1])}
             </p>
         """, unsafe_allow_html=True)
 
@@ -339,7 +336,7 @@ if options_turn == 'Primeiro Turno':
 
             fig = go.Figure()
             ## lula
-            fig.add_trace(go.Scatter(y=df.lul_ger_1t, x=df.sigla, mode='markers', name='int. voto Lula', legendrank=1,
+            fig.add_trace(go.Scatter(y=df.lul_ger_1t, x=df.sigla, mode='markers', name='Int. voto Lula', legendrank=1,
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ger_1t, #set color equal to a variable
@@ -356,7 +353,7 @@ if options_turn == 'Primeiro Turno':
 
 
             ## Bolsonaro
-            fig.add_trace(go.Scatter(y=df.bol_ger_1t, x=df.sigla, mode='markers', name='int. voto Bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_ger_1t, x=df.sigla, mode='markers', name='Int. voto Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.bol_ger_1t, #set color equal to a variable
@@ -373,7 +370,7 @@ if options_turn == 'Primeiro Turno':
 
             ## Ciro
 
-            fig.add_trace(go.Scatter(y=df.ciro_ger_1t, x=df.sigla, mode='markers', name='int. voto Ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_ger_1t, x=df.sigla, mode='markers', name='Int. voto Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_ger_1t, #set color equal to a variable
@@ -602,13 +599,13 @@ if options_turn == 'Primeiro Turno':
             ## info
             st.markdown(f"""
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais, e para os católicos, {len(df[df['lul_cat_1t']>1])} pesquisas.</h7><br>
+            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_cat_1t']>1])} para os católicos.</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Evangélica':
             fig = go.Figure()
             ## lula
-            fig.add_trace(go.Scatter(y=df[df['lul_ev_1t']>1].lul_ev_1t, x=df[df['lul_ev_1t']>1].sigla, mode='markers', name='int. voto Lula',
+            fig.add_trace(go.Scatter(y=df[df['lul_ev_1t']>1].lul_ev_1t, x=df[df['lul_ev_1t']>1].sigla, mode='markers', name='Int. voto Lula',
                                     marker=dict(
                                     size=5,
                                     color=df[df['lul_ev_1t']>1].lul_ev_1t, #set color equal to a variable
@@ -623,7 +620,7 @@ if options_turn == 'Primeiro Turno':
                         ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
             ## Bolsonaro
-            fig.add_trace(go.Scatter(y=df[df['bol_ev_1t']>1].bol_ev_1t, x=df[df['bol_ev_1t']>1].sigla, mode='markers', name='int. voto Bolsonaro',
+            fig.add_trace(go.Scatter(y=df[df['bol_ev_1t']>1].bol_ev_1t, x=df[df['bol_ev_1t']>1].sigla, mode='markers', name='Int. voto Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df[df['bol_ev_1t']>1].bol_ev_1t, #set color equal to a variable
@@ -638,7 +635,7 @@ if options_turn == 'Primeiro Turno':
                         ax = 40, ay = 0,
                         font=dict(size=20, color="black", family="Arial"))
             ## Ciro
-            fig.add_trace(go.Scatter(y=df[df['ciro_ev_1t']>1].ciro_ev_1t, x=df[df['ciro_ev_1t']>1].sigla, mode='markers', name='int. voto Ciro',
+            fig.add_trace(go.Scatter(y=df[df['ciro_ev_1t']>1].ciro_ev_1t, x=df[df['ciro_ev_1t']>1].sigla, mode='markers', name='Int. voto Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df[df['ciro_ev_1t']>1].ciro_ev_1t, #set color equal to a variable
@@ -716,13 +713,13 @@ if options_turn == 'Primeiro Turno':
             ## info
             st.markdown(f"""
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais, e para os evangélicos, {len(df[df['lul_ev_1t']>1])} pesquisas.</h7><br>
+            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_ev_1t']>1])} para os evangélicos.</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Espírita':
             fig = go.Figure()
             ## lula
-            fig.add_trace(go.Scatter(y=df[df['lul_espi_1t']>1].lul_espi_1t, x=df[df['lul_espi_1t']>1].sigla, mode='markers', name='int. voto Lula',
+            fig.add_trace(go.Scatter(y=df[df['lul_espi_1t']>1].lul_espi_1t, x=df[df['lul_espi_1t']>1].sigla, mode='markers', name='Int. voto Lula',
                                     marker=dict(
                                     size=5,
                                     color=df[df['lul_espi_1t']>1].lul_espi_1t, #set color equal to a variable
@@ -738,7 +735,7 @@ if options_turn == 'Primeiro Turno':
                         font=dict(size=20, color="black", family="Arial"))
 
             ## Bolsonaro
-            fig.add_trace(go.Scatter(y=df[df['bol_espi_1t']>1].bol_espi_1t, x=df[df['bol_espi_1t']>1].sigla, mode='markers', name='int. voto Bolsonaro',
+            fig.add_trace(go.Scatter(y=df[df['bol_espi_1t']>1].bol_espi_1t, x=df[df['bol_espi_1t']>1].sigla, mode='markers', name='Int. voto Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df[df['bol_espi_1t']>1].bol_espi_1t, #set color equal to a variable
@@ -755,7 +752,7 @@ if options_turn == 'Primeiro Turno':
 
             ## Ciro
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_espi_1t']>1].ciro_espi_1t, x=df[df['ciro_espi_1t']>1].sigla, mode='markers', name='int. voto Ciro',
+            fig.add_trace(go.Scatter(y=df[df['ciro_espi_1t']>1].ciro_espi_1t, x=df[df['ciro_espi_1t']>1].sigla, mode='markers', name='Int. voto Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df[df['ciro_espi_1t']>1].ciro_espi_1t, #set color equal to a variable
@@ -832,7 +829,7 @@ if options_turn == 'Primeiro Turno':
             ## info
             st.markdown(f"""
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais, e para os espíritas, {len(df[df['lul_espi_1t']>1])} pesquisas.</h7><br>
+            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_espi_1t']>1])} para os espíritas.</h7><br>
             """, unsafe_allow_html=True)
 
 
@@ -968,7 +965,7 @@ if options_turn == 'Primeiro Turno':
     if relig == 'Sem Religião':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df[df['lul_non_1t']>1].lul_non_1t, x=df[df['lul_non_1t']>1].sigla, mode='markers', name='int. voto Lula',
+        fig.add_trace(go.Scatter(y=df[df['lul_non_1t']>1].lul_non_1t, x=df[df['lul_non_1t']>1].sigla, mode='markers', name='Int. voto Lula',
                                 marker=dict(
                                 size=5,
                                 color=df[df['lul_non_1t']>1].lul_non_1t, #set color equal to a variable
@@ -984,7 +981,7 @@ if options_turn == 'Primeiro Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df[df['bol_non_1t']>1].bol_non_1t, x=df[df['bol_non_1t']>1].sigla, mode='markers', name='int. voto Bolsonaro',
+        fig.add_trace(go.Scatter(y=df[df['bol_non_1t']>1].bol_non_1t, x=df[df['bol_non_1t']>1].sigla, mode='markers', name='Int. voto Bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df[df['bol_non_1t']>1].bol_non_1t, #set color equal to a variable
@@ -1001,7 +998,7 @@ if options_turn == 'Primeiro Turno':
 
         ## Ciro
 
-        fig.add_trace(go.Scatter(y=df[df['ciro_non_1t']>1].ciro_non_1t, x=df[df['ciro_non_1t']>1].sigla, mode='markers', name='int. voto Ciro',
+        fig.add_trace(go.Scatter(y=df[df['ciro_non_1t']>1].ciro_non_1t, x=df[df['ciro_non_1t']>1].sigla, mode='markers', name='Int. voto Ciro',
                                 marker=dict(
                                 size=5,
                                 color=df[df['ciro_non_1t']>1].ciro_non_1t, #set color equal to a variable
@@ -1077,13 +1074,13 @@ if options_turn == 'Primeiro Turno':
         ## info
         st.markdown(f"""
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais, e para os sem religião, {len(df[df['lul_non_1t']>1])} pesquisas.</h7><br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_non_1t']>1])} para sem religião.</h7><br>
         """, unsafe_allow_html=True)
 
     if relig == 'Outras Religiosidades':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df[df['lul_out_1t']>1].lul_out_1t, x=df[df['lul_out_1t']>1].sigla, mode='markers', name='int. voto Lula',
+        fig.add_trace(go.Scatter(y=df[df['lul_out_1t']>1].lul_out_1t, x=df[df['lul_out_1t']>1].sigla, mode='markers', name='Int. voto Lula',
                                 marker=dict(
                                 size=5,
                                 color=df[df['lul_out_1t']>1].lul_out_1t, #set color equal to a variable
@@ -1099,7 +1096,7 @@ if options_turn == 'Primeiro Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df[df['bol_out_1t']>1].bol_out_1t, x=df[df['bol_out_1t']>1].sigla, mode='markers', name='int. voto Bolsonaro',
+        fig.add_trace(go.Scatter(y=df[df['bol_out_1t']>1].bol_out_1t, x=df[df['bol_out_1t']>1].sigla, mode='markers', name='Int. voto Bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df[df['bol_out_1t']>1].bol_out_1t, #set color equal to a variable
@@ -1116,7 +1113,7 @@ if options_turn == 'Primeiro Turno':
 
         ## Ciro
 
-        fig.add_trace(go.Scatter(y=df[df['ciro_out_1t']>1].ciro_out_1t, x=df[df['ciro_out_1t']>1].sigla, mode='markers', name='int. voto Ciro',
+        fig.add_trace(go.Scatter(y=df[df['ciro_out_1t']>1].ciro_out_1t, x=df[df['ciro_out_1t']>1].sigla, mode='markers', name='Int. voto Ciro',
                                 marker=dict(
                                 size=5,
                                 color=df[df['ciro_out_1t']>1].ciro_out_1t, #set color equal to a variable
@@ -1192,7 +1189,7 @@ if options_turn == 'Primeiro Turno':
         ## info
         st.markdown(f"""
         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais, e para as outras religiosidades, {len(df[df['lul_out_1t']>1])} pesquisas.</h7><br>
+        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_out_1t']>1])} para outras religiosidades.</h7><br>
         """, unsafe_allow_html=True)
     
     st.markdown("---")
@@ -1832,7 +1829,7 @@ if options_turn == 'Primeiro Turno':
                                     color=df.ciro_ger_rej_1t, #set color equal to a variable
                                     colorscale='Greens')))
 
-            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro Gomes',
+            fig.add_trace(go.Scatter(y=df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean(), x=df[df['ciro_ger_rej_1t']>1].sigla,mode='lines', name='Ciro',
                                     line=dict(color='seagreen', width=2.5)))
 
             fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1],text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
@@ -1852,7 +1849,6 @@ if options_turn == 'Primeiro Turno':
                             legend_title_text='<br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                
                 orientation="v",
                 font_family="arial",))
 
@@ -1890,7 +1886,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m15} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Mesmo com a aplicação da média móvel de 15 dias, o recorte temporal da rejeição geral de Ciro Gomes manteve-se oscilante. Trabalhamos com a hipótese de que a rejeição de Gomes associa-se a inclusão de concorrentes da 3a via como alternativas, espaço disputado por Gomes. Portanto, supomos que a variação da rejeição de Ciro Gomes seja um efeito da inclusão de novas candiaturas, tanto mais da desistência de outros concorrentes.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Mesmo com a aplicação da média móvel de 15 dias, o recorte temporal da rejeição geral de Ciro Gomes manteve-se oscilante. Trabalhamos com a hipótese de que a rejeição de Gomes associa-se à inclusão de concorrentes da 3a via como alternativas, espaço disputado por Gomes. Portanto, supomos que a variação da rejeição de Ciro Gomes seja um efeito da inclusão ou desistência de outras candiaturas.</h7><br>
             """, unsafe_allow_html=True)
         st.markdown("---")
 
@@ -1914,7 +1910,7 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df.lul_cat_rej_1t, x=df.sigla, mode='markers', name='rejeição_cat_lula',
+            fig.add_trace(go.Scatter(y=df.lul_cat_rej_1t, x=df.sigla, mode='markers', name='Rejeição Lula',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_cat_rej_1t, #set color equal to a variable
@@ -1932,7 +1928,7 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df.bol_cat_rej_1t, x=df.sigla, mode='markers', name='rejeição_cat_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_cat_rej_1t, x=df.sigla, mode='markers', name='Rejeição Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.bol_cat_rej_1t, #set color equal to a variable
@@ -1949,7 +1945,7 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df.ciro_cat_rej_1t, x=df.sigla, mode='markers', name='rejeição_cat_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_cat_rej_1t, x=df.sigla, mode='markers', name='Rejeição Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df[df['ciro_cat_rej_1t']>1].ciro_cat_rej_1t, #set color equal to a variable
@@ -1968,7 +1964,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral e de católicos por candidato à presidência (1º turno)<i><br>
+            <i>Média Móvel da rejeição de católicos por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2023,7 +2019,7 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df.lul_ev_rej_1t, x=df.sigla, mode='markers', name='rejeição_ev_lula',
+            fig.add_trace(go.Scatter(y=df.lul_ev_rej_1t, x=df.sigla, mode='markers', name='Rejeição Lula',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ev_rej_1t, #set color equal to a variable
@@ -2041,7 +2037,7 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df.bol_ev_rej_1t, x=df.sigla, mode='markers', name='rejeição_ev_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_ev_rej_1t, x=df.sigla, mode='markers', name='Rejeição Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.bol_ev_rej_1t, #set color equal to a variable
@@ -2058,7 +2054,7 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df.ciro_ev_rej_1t, x=df.sigla, mode='markers', name='rejeição_ev_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_ev_rej_1t, x=df.sigla, mode='markers', name='Rejeição Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_ev_rej_1t, #set color equal to a variable
@@ -2077,7 +2073,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral e de evangélicos por candidato à presidência (1º turno)<i><br>
+            <i>Média Móvel da rejeição de evangélicos por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2132,7 +2128,7 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df.lul_espi_rej_1t, x=df.sigla, mode='markers', name='rejeição_espi_lula',
+            fig.add_trace(go.Scatter(y=df.lul_espi_rej_1t, x=df.sigla, mode='markers', name='Rejeição Lula',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_espi_rej_1t, #set color equal to a variable
@@ -2150,7 +2146,7 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df.bol_espi_rej_1t, x=df.sigla, mode='markers', name='rejeição_espi_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_espi_rej_1t, x=df.sigla, mode='markers', name='Rejeição Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.bol_espi_rej_1t, #set color equal to a variable
@@ -2167,7 +2163,7 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df.ciro_espi_rej_1t, x=df.sigla, mode='markers', name='rejeição_espi_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_espi_rej_1t, x=df.sigla, mode='markers', name='Rejeição Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_espi_rej_1t, #set color equal to a variable
@@ -2186,7 +2182,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral e de espíritas por candidato à presidência (1º turno)<i><br>
+            <i>Média Móvel da rejeição de espíritas por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2241,7 +2237,7 @@ if options_turn == 'Primeiro Turno':
                 
             ## lula
 
-            fig.add_trace(go.Scatter(y=df.lul_out_rej_1t, x=df.sigla, mode='markers', name='rejeição_out_lula',
+            fig.add_trace(go.Scatter(y=df.lul_out_rej_1t, x=df.sigla, mode='markers', name='Rejeição Lula',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_out_rej_1t, #set color equal to a variable
@@ -2259,7 +2255,7 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df.bol_out_rej_1t, x=df.sigla, mode='markers', name='rejeição_out_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_out_rej_1t, x=df.sigla, mode='markers', name='Rejeição Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.bol_out_rej_1t, #set color equal to a variable
@@ -2276,7 +2272,7 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df.ciro_out_rej_1t, x=df.sigla, mode='markers', name='rejeição_out_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_out_rej_1t, x=df.sigla, mode='markers', name='Rejeição Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_out_rej_1t, #set color equal to a variable
@@ -2295,7 +2291,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral e de outras religiões por candidato à presidência (1º turno)<i><br>
+            <i>Média Móvel da rejeição de outras religiões por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -2350,7 +2346,7 @@ if options_turn == 'Primeiro Turno':
                     
             ## lula
 
-            fig.add_trace(go.Scatter(y=df.lul_non_rej_1t, x=df.sigla, mode='markers', name='rejeição_non_lula',
+            fig.add_trace(go.Scatter(y=df.lul_non_rej_1t, x=df.sigla, mode='markers', name='Rejeição Lula',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_non_rej_1t, #set color equal to a variable
@@ -2368,7 +2364,7 @@ if options_turn == 'Primeiro Turno':
 
             ## bolsonaro
 
-            fig.add_trace(go.Scatter(y=df.bol_non_rej_1t, x=df.sigla, mode='markers', name='rejeição_non_bolsonaro',
+            fig.add_trace(go.Scatter(y=df.bol_non_rej_1t, x=df.sigla, mode='markers', name='Rejeição Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.bol_non_rej_1t, #set color equal to a variable
@@ -2385,7 +2381,7 @@ if options_turn == 'Primeiro Turno':
 
             ## ciro gomes
 
-            fig.add_trace(go.Scatter(y=df.ciro_non_rej_1t, x=df.sigla, mode='markers', name='rejeição_non_ciro',
+            fig.add_trace(go.Scatter(y=df.ciro_non_rej_1t, x=df.sigla, mode='markers', name='Rejeição Ciro',
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_non_rej_1t, #set color equal to a variable
@@ -2404,7 +2400,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
             title=("""
-            <i>Rejeição geral dos sem religião por candidato à presidência (1º turno)<i><br>
+            <i>Média Móvel da rejeição dos sem religião por candidato à presidência (1º turno)<i><br>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
@@ -3233,7 +3229,7 @@ if options_turn == 'Segundo Turno':
                                     color=df.lul_ger_2t, #set color equal to a variable
                                     colorscale='peach')))
 
-            fig.add_trace(go.Scatter(y=df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Lula',
+            fig.add_trace(go.Scatter(y=df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Int. voto Lula',
                                     line=dict(color='firebrick', width=2.5)))
 
             fig.add_annotation(x=list(df[df['lul_ger_2t']>1].sigla)[-1], y=list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1])}%",
@@ -3249,7 +3245,7 @@ if options_turn == 'Segundo Turno':
                                     color=df.lul_ger_2t, #set color equal to a variable
                                     colorscale='ice')))
 
-            fig.add_trace(go.Scatter(y=df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Bolsonaro',
+            fig.add_trace(go.Scatter(y=df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Int. voto Bolsonaro',
                                     line=dict(color='skyblue', width=2.5)))
 
             fig.add_annotation(x=list(df[df['bol_ger_2t']>1].sigla)[-1], y=list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1])}%",
@@ -3355,7 +3351,7 @@ if options_turn == 'Segundo Turno':
                                 color=df.lul_cat_2t, #set color equal to a variable
                                 colorscale='peach')))
 
-        fig.add_trace(go.Scatter(y=df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='int. voto Lula',
+        fig.add_trace(go.Scatter(y=df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean(), x=df[df['bol_cat_2t']>1].sigla,mode='lines', name='Int. voto Lula',
                                 line=dict(color='firebrick', width=2.5)))
 
         fig.add_annotation(x=list(df[df['lul_cat_2t']>1].sigla)[-1], y=list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1])}%",
@@ -3365,7 +3361,7 @@ if options_turn == 'Segundo Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_cat_2t, x=df.sigla, mode='markers', name='int. voto bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_cat_2t, x=df.sigla, mode='markers', name='Int. voto Bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_cat_2t, #set color equal to a variable
@@ -3443,7 +3439,7 @@ if options_turn == 'Segundo Turno':
     if relig2t == 'Evangélica ':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df.lul_ev_2t, x=df.sigla, mode='markers', name='iint. voto Lula',
+        fig.add_trace(go.Scatter(y=df.lul_ev_2t, x=df.sigla, mode='markers', name='Int. voto Lula',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_ev_2t, #set color equal to a variable
@@ -3458,7 +3454,7 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = 0,
                     font=dict(size=20, color="black", family="Arial"))
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_ev_2t, x=df.sigla, mode='markers', name='int. voto Bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_ev_2t, x=df.sigla, mode='markers', name='Int. voto Bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_ev_2t, #set color equal to a variable
@@ -3536,7 +3532,7 @@ if options_turn == 'Segundo Turno':
     if relig2t == 'Sem Religião ':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df.lul_non_2t, x=df.sigla, mode='markers', name='int. voto Lula',
+        fig.add_trace(go.Scatter(y=df.lul_non_2t, x=df.sigla, mode='markers', name='Int. voto Lula',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_non_2t, #set color equal to a variable
@@ -3552,7 +3548,7 @@ if options_turn == 'Segundo Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_non_2t, x=df.sigla, mode='markers', name='int. voto Bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_non_2t, x=df.sigla, mode='markers', name='Int. voto Bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_non_2t, #set color equal to a variable
@@ -3630,7 +3626,7 @@ if options_turn == 'Segundo Turno':
     if relig2t == 'Outras Religiosidades ':
         fig = go.Figure()
         ## lula
-        fig.add_trace(go.Scatter(y=df.lul_out_2t, x=df.sigla, mode='markers', name='int. voto Lula',
+        fig.add_trace(go.Scatter(y=df.lul_out_2t, x=df.sigla, mode='markers', name='Int. voto Lula',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_out_2t, #set color equal to a variable
@@ -3646,7 +3642,7 @@ if options_turn == 'Segundo Turno':
                     font=dict(size=20, color="black", family="Arial"))
 
         ## Bolsonaro
-        fig.add_trace(go.Scatter(y=df.bol_out_2t, x=df.sigla, mode='markers', name='int. voto Bolsonaro',
+        fig.add_trace(go.Scatter(y=df.bol_out_2t, x=df.sigla, mode='markers', name='Int. voto Bolsonaro',
                                 marker=dict(
                                 size=5,
                                 color=df.lul_out_2t, #set color equal to a variable
