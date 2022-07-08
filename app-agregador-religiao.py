@@ -431,13 +431,9 @@ if options_turn == 'Primeiro Turno':
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
                             font=dict(family="arial",size=13),
-                            #legend_title_text='<br><br>',
+                            legend_title_text='<br><br>',
                             legend=dict(
-                yanchor="top",
-                y=1.13,
-                xanchor="auto",
-                x=0.4,
-                orientation="h",
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
