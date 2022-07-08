@@ -73,7 +73,7 @@ m_m15 = 15
 
 ### dados de tempo
 end_date = dt.datetime.today() # data atual
-start_date = dt.datetime(2022,1,1) # data de oito meses atras
+start_date = dt.datetime(2022,8,16) # data de oito meses atras
 
 ### dados pesquisas
 @st.cache(allow_output_mutation=True)
@@ -104,7 +104,7 @@ with st.container():
         """, unsafe_allow_html=True)
 
         ### primeiro expander, da metodologia
-        expander = st.expander("Descubra aqui como o agregador foi construído")
+        expander = st.expander('Descubra aqui como o agregador foi construído',)
         expander.markdown(f"""
         <!DOCTYPE html>
         <html>
@@ -338,6 +338,7 @@ if options_turn == 'Primeiro Turno':
             ##import image
 
             fig = go.Figure()
+
             ## lula
             fig.add_trace(go.Scatter(y=df.lul_ger_1t, x=df.sigla, mode='markers', name='Int. voto Lula', legendrank=1,
                                     marker=dict(
@@ -423,24 +424,29 @@ if options_turn == 'Primeiro Turno':
                         ax = 40, ay = -0.5,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=80),
+            fig.update_layout(autosize=True, width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=160),
             title=("""
             <i>Média móvel das intenções de voto de candidatos à presidência (1º turno)<i>
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
                             font=dict(family="arial",size=13),
-                            legend_title_text='<br><br>',
+                            #legend_title_text='<br><br>',
                             legend=dict(
-                orientation="v",
-                font_family="arial"))
+                yanchor="top",
+                y=1.13,
+                xanchor="auto",
+                x=0.4,
+                orientation="h",
+                font_family="arial",))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_fsb_2", y=31,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
-            fig.update_yaxes(range=[0,60]) ## exibe o intervalo de y a ser exibido no gráfico
+            fig.update_yaxes(range=[0,60],automargin=True) ## exibe o intervalo de y a ser exibido no gráfico
 
             # Add image
             fig.add_layout_image(
@@ -458,13 +464,13 @@ if options_turn == 'Primeiro Turno':
                 dict(
                     source=agre,
                     xref="paper", yref="paper",
-                    x=.88, y=1.05,
+                    x=.99, y=1.12,
                     sizex=0.12, sizey=0.12,
                     xanchor="right", yanchor="bottom"
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True,config={"displayModeBar": False, "showTips": False})
 
             st.markdown(f"""
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
@@ -570,6 +576,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=25,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_datafolha", y=26,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
@@ -597,7 +604,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
 
             ## info
             st.markdown(f"""
@@ -664,7 +671,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean(), x=df[df['bra_nulo_ev_1t']>1].sigla, mode='lines', name='Brancos e nulos',
                                     line=dict(color='grey', width=2.5)))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df[df['bra_nulo_ev_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -8,
@@ -684,6 +691,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_datafolha", y=27,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -711,7 +719,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
 
             ## info
             st.markdown(f"""
@@ -801,7 +809,8 @@ if options_turn == 'Primeiro Turno':
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_poderdata_2", y=22,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_poderdata", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
@@ -827,7 +836,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
 
             ## info
             st.markdown(f"""
@@ -899,7 +908,7 @@ if options_turn == 'Primeiro Turno':
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
-    #     st.plotly_chart(fig)
+    #     st.plotly_chart(fig,use_container_width=True)
 
     # if relig == 'Ateu':
     #     fig = go.Figure()
@@ -963,7 +972,7 @@ if options_turn == 'Primeiro Turno':
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
-    #     st.plotly_chart(fig)
+    #     st.plotly_chart(fig,use_container_width=True)
 
     if relig == 'Sem Religião':
         fig = go.Figure()
@@ -1027,7 +1036,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean(), x=df[df['bra_nulo_non_1t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='grey', width=2.5)))
 
-        fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bra_nulo_non_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 20,
@@ -1072,7 +1081,7 @@ if options_turn == 'Primeiro Turno':
             )
         )
 
-        st.plotly_chart(fig)
+        st.plotly_chart(fig,use_container_width=True)
 
         ## info
         st.markdown(f"""
@@ -1142,7 +1151,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean(), x=df[df['bra_nulo_out_1t']>1].sigla, mode='lines', name='Brancos e nulos',
                                 line=dict(color='grey', width=2.5)))
 
-        fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1])}%",
+        fig.add_annotation(x=list(df[df['bra_nulo_out_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
                     arrowhead=1,
                     ax = 40, ay = 20,
@@ -1187,7 +1196,7 @@ if options_turn == 'Primeiro Turno':
             )
         )
 
-        st.plotly_chart(fig)
+        st.plotly_chart(fig,use_container_width=True)
 
         ## info
         st.markdown(f"""
@@ -1285,7 +1294,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
 
             if rel == 'Evangélica':
 
@@ -1351,7 +1360,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
 
             if rel == 'Espírita':
 
@@ -1390,7 +1399,7 @@ if options_turn == 'Primeiro Turno':
                             y=1.15,
                             xanchor="auto",
                             x=0.4,
-                            orientation="h",
+                            orientation="v",
                             font_family="arial",))
                 fig.update_xaxes(tickangle = 300,title_font_family="arial")
                 fig.update_yaxes(range=[0,70])
@@ -1417,7 +1426,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
             if rel == 'Sem Religião':
 
@@ -1483,7 +1492,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
             if rel == 'Outras Religiosidades':
 
@@ -1549,7 +1558,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
             
             # if rel == 'Umbanda/Candomblé':
@@ -1616,7 +1625,7 @@ if options_turn == 'Primeiro Turno':
             #         )
             #     )
                 
-            #     st.plotly_chart(fig)
+            #     st.plotly_chart(fig,use_container_width=True)
             
 
             # if rel == 'Ateu':
@@ -1683,7 +1692,7 @@ if options_turn == 'Primeiro Turno':
             #         )
             #     )
                 
-            #     st.plotly_chart(fig)
+            #     st.plotly_chart(fig,use_container_width=True)
                 
 
         st.markdown(f"""
@@ -1883,7 +1892,7 @@ if options_turn == 'Primeiro Turno':
                     xanchor="right", yanchor="bottom"
                 )
             )
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
 
             st.markdown(f"""
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m15} dias.</h7><br>
@@ -2007,7 +2016,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
 
              # info
             st.markdown(f"""
@@ -2116,7 +2125,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
 
              # info
             st.markdown(f"""
@@ -2225,7 +2234,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
             
              # info
             st.markdown(f"""
@@ -2334,7 +2343,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
 
              # info
             st.markdown(f"""
@@ -2443,7 +2452,7 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
             # info
             st.markdown(f"""
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
@@ -2542,7 +2551,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
 
             if rel == ' Evangélica ':
 
@@ -2608,7 +2617,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
 
             if rel == ' Espírita ':
 
@@ -2674,7 +2683,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
             if rel == ' Sem Religião ':
 
@@ -2740,7 +2749,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
             if rel == ' Outras Religiosidades ':
 
@@ -2806,7 +2815,7 @@ if options_turn == 'Primeiro Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
             
             # if rel == ' Umbanda/Candomblé ':
@@ -2873,7 +2882,7 @@ if options_turn == 'Primeiro Turno':
             #         )
             #     )
                 
-            #     st.plotly_chart(fig)
+            #     st.plotly_chart(fig,use_container_width=True)
             
 
             # if rel == ' Ateu ':
@@ -2940,7 +2949,7 @@ if options_turn == 'Primeiro Turno':
             #         )
             #     )
                 
-            #     st.plotly_chart(fig)
+            #     st.plotly_chart(fig,use_container_width=True)
                 
 
         st.markdown(f"""
@@ -2952,186 +2961,186 @@ if options_turn == 'Primeiro Turno':
 ##avaliação ruim e péssima do governo bolsonaro##   FICARÁ BLOQUEADO ATÉ O INÍCIO DAS ELEIÇÕES.
 #################################################
 
-#     st.markdown(f"""
-#         <h3 style='text-align: center; color: #303030; font-family:segoe UI; text-rendering: optimizelegibility;background-color: #FFD662;'>3. Avaliação do governo Bolsonaro</h3>
-#         """, unsafe_allow_html=True)
-#     st.markdown("---")
+    # st.markdown(f"""
+    #     <h3 style='text-align: center; color: #303030; font-family:segoe UI; text-rendering: optimizelegibility;background-color: #FFD662;'>3. Avaliação do governo Bolsonaro</h3>
+    #     """, unsafe_allow_html=True)
+    # st.markdown("---")
 
-#     ####################
-#     ##resumo avaliação##
-#     ####################
+    # ####################
+    # ##resumo avaliação##
+    # ####################
 
-#     with st.container():
-#         st.markdown(f"""
-#         <br>
-#         <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EDF1FF;'>Resumo - avaliação ruim e péssima geral e por religião: </h3><br>
-#         <br>
-#         """, unsafe_allow_html=True)
-
-
-#         adm_bolsonaro = st.checkbox(' Selecione para visualizar os dados da avalização do governo Bolsonaro.')
-
-#         if adm_bolsonaro:
-
-#             ## coluna 1
-#             bol = Image.open('bolso_image.jpeg')
-#             col0,col, col1, col2, col3, col4 = st.columns(6)
-#             col0.image(bol,width=100)
-#             col.metric(label="Geral", value=f"{round(list(df[df['ava_gov_bol_GERAL']>1].ava_gov_bol_GERAL.rolling(m_m).mean())[-1],1)}%") 
-#             col1.metric(label="Católicos", value=f"{round(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1],1)}%") 
-#             col2.metric(label="Evangélicos", value=f"{round(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1],1)}%") 
-#             col3.metric(label="Outros", value=f"{round(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1],1)}%") 
-#             col4.metric(label="Sem Religião", value=f"{round(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1],1)}%")
-#             #col3.metric(label="Espíritas", value=f"{round(list(df[df['ava_gov_bol_espi']>1].ava_gov_bol_espi.rolling(m_m).mean())[-1],1)}%") 
-#             st.markdown(f"""
-#             <br>
-#             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
-#             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df[df['ava_gov_bol_GERAL']>1].data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
-#             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para a produção dos dados da <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através da soma dos percentuais das respostas 'ruim e péssimo'.</h7><br>
-#             <br>
-#             """, unsafe_allow_html=True)
-#         st.markdown("---")
-
-# ############################
-# ###Avaliação por religião###
-# ############################
-
-#     with st.container():
-#         st.markdown(f"""
-#         <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EDF1FF;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
-#         <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
-#         </svg> Avaliação ruim e péssima por religião:</h3><br>
-#         """, unsafe_allow_html=True)
-
-#         aval_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da avaliação do governo Bolsonaro')
-
-#         if aval_vote_med_move:
-
-#             fig = go.Figure()
-
-#             ## católicos
-
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat, x=df[df['ava_gov_bol_cat']>1].sigla, mode='markers', name='aval_cat',
-#                                     marker=dict(
-#                                     size=5,
-#                                     color=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat, #set color equal to a variable
-#                                     colorscale='peach')))
-
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean(), x=df[df['ava_gov_bol_cat']>1].sigla, mode='lines', name='católicos',
-#                                     line=dict(color='#802b00', width=2.5)))
-
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_cat']>1].sigla)[-1], y=list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1])}%",
-#                         showarrow=True,
-#                         arrowhead=1,
-#                         ax = 40, ay = 0,
-#                         font=dict(size=20, color="black", family="Arial"))
+    # with st.container():
+    #     st.markdown(f"""
+    #     <br>
+    #     <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EDF1FF;'>Resumo - avaliação ruim e péssima geral e por religião: </h3><br>
+    #     <br>
+    #     """, unsafe_allow_html=True)
 
 
-#             ## evangélicos
+    #     adm_bolsonaro = st.checkbox(' Selecione para visualizar os dados da avalização do governo Bolsonaro.')
 
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev, x=df[df['ava_gov_bol_ev']>1].sigla, mode='markers', name='aval_ev',
-#                                     marker=dict(
-#                                     size=5,
-#                                     color=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev, #set color equal to a variable
-#                                     colorscale='tropic')))
+    #     if adm_bolsonaro:
 
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean(), x=df[df['ava_gov_bol_ev']>1].sigla,mode='lines', name='evangélicos',
-#                                     line=dict(color='#80ccff', width=2.5)))
+    #         ## coluna 1
+    #         bol = Image.open('bolso_image.jpeg')
+    #         col0,col, col1, col2, col3, col4 = st.columns(6)
+    #         col0.image(bol,width=100)
+    #         col.metric(label="Geral", value=f"{round(list(df[df['ava_gov_bol_GERAL']>1].ava_gov_bol_GERAL.rolling(m_m).mean())[-1],1)}%") 
+    #         col1.metric(label="Católicos", value=f"{round(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1],1)}%") 
+    #         col2.metric(label="Evangélicos", value=f"{round(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1],1)}%") 
+    #         col3.metric(label="Outros", value=f"{round(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1],1)}%") 
+    #         col4.metric(label="Sem Religião", value=f"{round(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1],1)}%")
+    #         #col3.metric(label="Espíritas", value=f"{round(list(df[df['ava_gov_bol_espi']>1].ava_gov_bol_espi.rolling(m_m).mean())[-1],1)}%") 
+    #         st.markdown(f"""
+    #         <br>
+    #         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+    #         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df[df['ava_gov_bol_GERAL']>1].data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
+    #         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para a produção dos dados da <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através da soma dos percentuais das respostas 'ruim e péssimo'.</h7><br>
+    #         <br>
+    #         """, unsafe_allow_html=True)
+    #     st.markdown("---")
 
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_ev']>1].sigla)[-1], y=list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1])}%",
-#                         showarrow=True,
-#                         arrowhead=1,
-#                         ax = 40, ay = 0,
-#                         font=dict(size=20, color="black", family="Arial"))
+############################
+###Avaliação por religião###
+############################
 
-#             ## outras religiões
+    # with st.container():
+    #     st.markdown(f"""
+    #     <h3 style='text-align: left; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: #EDF1FF;'><svg xmlns="http://www.w3.org/2000/svg" width="30" height="26" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 18">
+    #     <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
+    #     </svg> Avaliação ruim e péssima por religião:</h3><br>
+    #     """, unsafe_allow_html=True)
 
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out, x=df[df['ava_gov_bol_out']>1].sigla, mode='markers', name='aval_out',
-#                                     marker=dict(
-#                                     size=5,
-#                                     color=df[df['ava_gov_bol_out']>1].ava_gov_bol_out, #set color equal to a variable
-#                                     colorscale='Greens')))
+    #     aval_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da avaliação do governo Bolsonaro')
 
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean(), x=df[df['ava_gov_bol_out']>1].sigla,mode='lines', name='outras religiões',
-#                                     line=dict(color='#808080', width=2.5)))
+    #     if aval_vote_med_move:
 
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_out']>1].sigla)[-1], y=list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1])}%",
-#                         showarrow=True,
-#                         arrowhead=1,
-#                         ax = 40, ay = 0,
-#                         font=dict(size=20, color="black", family="Arial"))
+    #         fig = go.Figure()
+
+    #         ## católicos
+
+    #         fig.add_trace(go.Scatter(y=df.ava_gov_bol_cat, x=df.sigla, mode='markers', name='aval_cat',
+    #                                 marker=dict(
+    #                                 size=5,
+    #                                 color=df.ava_gov_bol_cat, #set color equal to a variable
+    #                                 colorscale='peach')))
+
+    #         fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean(), x=df[df['ava_gov_bol_cat']>1].sigla, mode='lines', name='católicos',
+    #                                 line=dict(color='#802b00', width=2.5)))
+
+    #         fig.add_annotation(x=list(df[df['ava_gov_bol_cat']>1].sigla)[-1], y=list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_cat']>1].ava_gov_bol_cat.rolling(m_m).mean())[-1])}%",
+    #                     showarrow=True,
+    #                     arrowhead=1,
+    #                     ax = 40, ay = 0,
+    #                     font=dict(size=20, color="black", family="Arial"))
 
 
-#             ## sem religião 
+    #         ## evangélicos
 
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non, x=df[df['ava_gov_bol_non']>1].sigla, mode='markers', name='aval_sem_religião',
-#                                      marker=dict(
-#                                      size=5,
-#                                      color=df[df['ava_gov_bol_non']>1].ava_gov_bol_non, #set color equal to a variable
-#                                      colorscale='Greens')))
+    #         fig.add_trace(go.Scatter(y=df.ava_gov_bol_ev, x=df.sigla, mode='markers', name='aval_ev',
+    #                                 marker=dict(
+    #                                 size=5,
+    #                                 color=df.ava_gov_bol_ev, #set color equal to a variable
+    #                                 colorscale='tropic')))
 
-#             fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean(), x=df[df['ava_gov_bol_non']>1].sigla,mode='lines', name='aval_sem_religião',
-#                                      line=dict(color='seagreen', width=2.5)))
+    #         fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean(), x=df[df['ava_gov_bol_ev']>1].sigla,mode='lines', name='evangélicos',
+    #                                 line=dict(color='#80ccff', width=2.5)))
 
-#             fig.add_annotation(x=list(df[df['ava_gov_bol_non']>1].sigla)[-1], y=list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1])}%",
-#                          showarrow=True,
-#                          arrowhead=1,
-#                          ax = 40, ay = 0,
-#                          font=dict(size=20, color="black", family="Arial"))
+    #         fig.add_annotation(x=list(df[df['ava_gov_bol_ev']>1].sigla)[-1], y=list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_ev']>1].ava_gov_bol_ev.rolling(m_m).mean())[-1])}%",
+    #                     showarrow=True,
+    #                     arrowhead=1,
+    #                     ax = 40, ay = 0,
+    #                     font=dict(size=20, color="black", family="Arial"))
 
-#             ## detalhes
+    #         ## outras religiões
 
-#             fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
-#             title=("""
-#             <i>Avaliação negativa de Bolsonaro por religião (1º turno)<i><br>
-#             """),
-#                             xaxis_title='Mês, ano e instituto de pesquisa',
-#                             yaxis_title='Rejeição (%)',
-#                             font=dict(family="arial",size=13),
-#                             legend=dict(
-#                 yanchor="auto",
-#                 y=1.1,
-#                 xanchor="auto",
-#                 x=0.5,
-#                 orientation="h",
-#                 font_family="arial",))
+    #         fig.add_trace(go.Scatter(y=df.ava_gov_bol_out, x=df.sigla, mode='markers', name='aval_out',
+    #                                 marker=dict(
+    #                                 size=5,
+    #                                 color=df.ava_gov_bol_out, #set color equal to a variable
+    #                                 colorscale='Greens')))
 
-#             fig.add_annotation(x="mar/22_fsb", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-#             fig.add_annotation(x="mai/22_fsb", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+    #         fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean(), x=df[df['ava_gov_bol_out']>1].sigla,mode='lines', name='outras religiões',
+    #                                 line=dict(color='#808080', width=2.5)))
 
-#             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
+    #         fig.add_annotation(x=list(df[df['ava_gov_bol_out']>1].sigla)[-1], y=list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_out']>1].ava_gov_bol_out.rolling(m_m).mean())[-1])}%",
+    #                     showarrow=True,
+    #                     arrowhead=1,
+    #                     ax = 40, ay = 0,
+    #                     font=dict(size=20, color="black", family="Arial"))
 
-#             # Add image
-#             fig.add_layout_image(
-#                 dict(
-#                     source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
-#                     xref="paper", yref="paper",
-#                     x=.99, y=1.12,
-#                     sizex=0.1, sizey=0.1,
-#                     xanchor="right", yanchor="bottom"
-#                 )
-#             )
 
-#             # Add image
-#             fig.add_layout_image(
-#                 dict(
-#                     source=agre,
-#                     xref="paper", yref="paper",
-#                     x=.99, y=1.20,
-#                     sizex=0.12, sizey=0.12,
-#                     xanchor="right", yanchor="bottom"
-#                 )
-#             )
+    #         ## sem religião 
 
-#             st.plotly_chart(fig)
+    #         fig.add_trace(go.Scatter(y=df.ava_gov_bol_non, x=df.sigla, mode='markers', name='aval_sem_religião',
+    #                                  marker=dict(
+    #                                  size=5,
+    #                                  color=df.ava_gov_bol_non, #set color equal to a variable
+    #                                  colorscale='Greens')))
+
+    #         fig.add_trace(go.Scatter(y=df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean(), x=df[df['ava_gov_bol_non']>1].sigla,mode='lines', name='aval_sem_religião',
+    #                                  line=dict(color='seagreen', width=2.5)))
+
+    #         fig.add_annotation(x=list(df[df['ava_gov_bol_non']>1].sigla)[-1], y=list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['ava_gov_bol_non']>1].ava_gov_bol_non.rolling(m_m).mean())[-1])}%",
+    #                      showarrow=True,
+    #                      arrowhead=1,
+    #                      ax = 40, ay = 0,
+    #                      font=dict(size=20, color="black", family="Arial"))
+
+    #         ## detalhes
+
+    #         fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=150),
+    #         title=("""
+    #         <i>Avaliação negativa de Bolsonaro por religião (1º turno)<i><br>
+    #         """),
+    #                         xaxis_title='Mês, ano e instituto de pesquisa',
+    #                         yaxis_title='Rejeição (%)',
+    #                         font=dict(family="arial",size=13),
+    #                         legend=dict(
+    #             yanchor="auto",
+    #             y=1.1,
+    #             xanchor="auto",
+    #             x=0.5,
+    #             orientation="h",
+    #             font_family="arial",))
+
+    #         fig.add_annotation(x="mar/22_fsb", y=35,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+    #         fig.add_annotation(x="mai/22_fsb", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+    #         fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
+
+    #         # Add image
+    #         fig.add_layout_image(
+    #             dict(
+    #                 source="https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png",
+    #                 xref="paper", yref="paper",
+    #                 x=.99, y=1.12,
+    #                 sizex=0.1, sizey=0.1,
+    #                 xanchor="right", yanchor="bottom"
+    #             )
+    #         )
+
+    #         # Add image
+    #         fig.add_layout_image(
+    #             dict(
+    #                 source=agre,
+    #                 xref="paper", yref="paper",
+    #                 x=.99, y=1.20,
+    #                 sizex=0.12, sizey=0.12,
+    #                 xanchor="right", yanchor="bottom"
+    #             )
+    #         )
+
+    #         st.plotly_chart(fig,use_container_width=True)
 
             
-#             ## info
-#         st.markdown(f"""
-#         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
-#         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para a produção dos gráficos sobre a <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através do registro das respostas 'ruim e péssimo'.</h7><br>
-#         """, unsafe_allow_html=True)
-#         st.markdown("---")
+    #         ## info
+    #     st.markdown(f"""
+    #     <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+    #     <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para a produção dos gráficos sobre a <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através do registro das respostas 'ruim e péssimo'.</h7><br>
+    #     """, unsafe_allow_html=True)
+    #     st.markdown("---")
 
 
 #############################################################################################################################
@@ -3165,8 +3174,8 @@ if options_turn == 'Segundo Turno':
             col0.image(lul,width=105,channels="B")
             col.metric(label="Geral", value=f"{round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1],1),1)}%")
             col1.metric(label="Católicos", value=f"{round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_cat_2t']>1].lul_cat_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_cat_2t']>1].bol_cat_2t.rolling(m_m).mean())[-1],1),1)}")
-            col2.metric(label="Espíritas", value=f"{round(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1],1)-round(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1],1),1)}")
-            col3.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1),1)}")
+            col2.metric(label="Evangélicos", value=f"{round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_ev_2t']>1].lul_ev_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_ev_2t']>1].bol_ev_2t.rolling(m_m).mean())[-1],1),1)}")
+            col3.metric(label="Espíritas", value=f"{round(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_espi_2t']>1].lul_espi_2t.rolling(m_m).mean())[-1],1)-round(list(df[df['bol_espi_2t']>1].bol_espi_2t.rolling(m_m).mean())[-1],1),1)}")
             col4.metric(label="Outros", value=f"{round(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_out_2t']>1].lul_out_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_out_2t']>1].bol_out_2t.rolling(m_m).mean())[-1],1),1)}")
             col5.metric(label="Sem Religião", value=f"{round(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1],1)}%") #, delta=f"{round(round(list(df[df['lul_non_2t']>1].lul_non_2t.rolling(m_m).mean())[-1],1) - round(list(df[df['bol_non_2t']>1].bol_non_2t.rolling(m_m).mean())[-1],1),1)}")
             ## coluna 2
@@ -3318,7 +3327,7 @@ if options_turn == 'Segundo Turno':
 
             fig.update_yaxes(range=[0,70])
 
-            st.plotly_chart(fig)
+            st.plotly_chart(fig,use_container_width=True)
             st.markdown(f"""
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
@@ -3437,7 +3446,7 @@ if options_turn == 'Segundo Turno':
             )
         )      
 
-        st.plotly_chart(fig)
+        st.plotly_chart(fig,use_container_width=True)
 
     if relig2t == 'Evangélica ':
         fig = go.Figure()
@@ -3530,7 +3539,7 @@ if options_turn == 'Segundo Turno':
             )
         )      
 
-        st.plotly_chart(fig)
+        st.plotly_chart(fig,use_container_width=True)
 
     if relig2t == 'Sem Religião ':
         fig = go.Figure()
@@ -3624,7 +3633,7 @@ if options_turn == 'Segundo Turno':
             )
         )      
 
-        st.plotly_chart(fig)
+        st.plotly_chart(fig,use_container_width=True)
 
     if relig2t == 'Outras Religiosidades ':
         fig = go.Figure()
@@ -3718,7 +3727,7 @@ if options_turn == 'Segundo Turno':
             )
         )      
 
-        st.plotly_chart(fig)
+        st.plotly_chart(fig,use_container_width=True)
 
         # if relig2t == 'Espírita ':
     #     fig = go.Figure()
@@ -3766,7 +3775,7 @@ if options_turn == 'Segundo Turno':
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
 
-    #     st.plotly_chart(fig)
+    #     st.plotly_chart(fig,use_container_width=True)
 
     # if relig2t == 'Umbanda/Candomblé ':
 
@@ -3814,7 +3823,7 @@ if options_turn == 'Segundo Turno':
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
-    #     st.plotly_chart(fig)
+    #     st.plotly_chart(fig,use_container_width=True)
 
     # if relig2t == 'Ateu ':
     #     fig = go.Figure()
@@ -3861,7 +3870,7 @@ if options_turn == 'Segundo Turno':
     #         orientation="h"))
 
     #     fig.update_xaxes(tickangle = 280,rangeslider_visible=False)
-    #     st.plotly_chart(fig)
+    #     st.plotly_chart(fig,use_container_width=True)
 
         st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
 
@@ -3954,7 +3963,7 @@ if options_turn == 'Segundo Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
 
 
             if rel2== 'Evangélica':
@@ -4016,7 +4025,7 @@ if options_turn == 'Segundo Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
 
 
             if rel2== 'Espírita':
@@ -4078,7 +4087,7 @@ if options_turn == 'Segundo Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
 
             if rel2== 'Sem Religião':
@@ -4140,7 +4149,7 @@ if options_turn == 'Segundo Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
 
             if rel2== 'Outras Religiosidades':
@@ -4202,7 +4211,7 @@ if options_turn == 'Segundo Turno':
                     )
                 )
                 
-                st.plotly_chart(fig)
+                st.plotly_chart(fig,use_container_width=True)
             
             
             # if rel2== 'Umbanda/Candomblé':
@@ -4264,7 +4273,7 @@ if options_turn == 'Segundo Turno':
             #         )
             #     )
                 
-            #     st.plotly_chart(fig)
+            #     st.plotly_chart(fig,use_container_width=True)
             
 
             # if rel2== 'Ateu':
@@ -4326,7 +4335,7 @@ if options_turn == 'Segundo Turno':
             #         )
             #     )
                 
-            #     st.plotly_chart(fig)
+            #     st.plotly_chart(fig,use_container_width=True)
         
         st.markdown(f"""
         <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7>
