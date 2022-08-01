@@ -94,7 +94,6 @@ agre = load_image()
 ## importa e plota o quadro com a lista de pesquisas utilizadas pelo agregador##
 ################################################################################
 st.markdown("---")
-
 with st.container():
     col3,col4,col5 = st.columns([.5,4,.5])
     with col4:
@@ -112,20 +111,19 @@ with st.container():
 
         <p style='text-align: center; font-family:Segoe UI;'><b>Explicação:</b></p>
 
-        <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de dados é atualizado constantemente.</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de dados é atualizado constantemente com informações sobre a intenção de voto e a rejeição dos candidatos por religião.</p>
         <p style='text-align: justify; font-family:Segoe UI;'>2. Os institutos de pesquisa consultados são: { ', '.join(set(df['nome_instituto'].T)).title().replace('Mda','MDA').replace('Fsb','FSB').replace('Idea','Idea Big Data').replace('Voxpopuli','Vox Populi').replace('Prpesquisas','Paraná Pesquisas')};</p>
         <p style='text-align: justify; font-family:Segoe UI;'>3. O agregador de pesquisas por religião compila os dados dos levantamentos realizados pelos institutos. Não nos responsabilizamos pelas amostras ou técnicas utilizadas pelos diversos institutos;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>4. Devido à irregularidade na coleta e ao tamanho da amostra, dados referentes a segmentos demograficamente minoritários tal como candomblé/umbanda e outros, apresentam margens de erro maiores, uma vez que a amostra destas religiões não é representativa do conjunto da população brasileira. Assim, quando possível, decidiu-se incluí-las na categoria "Outros";</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>4. Devido à irregularidade na coleta e ao tamanho da amostra, dados referentes a segmentos demograficamente minoritários tal como candomblé/umbanda e outros apresentam margens de erro maiores, uma vez que a amostra destas religiões não é representativa do conjunto da população brasileira. Assim, quando possível, decidiu-se incluí-las na categoria "Outros";</p>
         <p style='text-align: justify; font-family:Segoe UI;'>5. Para a composição do banco de dados são consideradas apenas pesquisas nacionais, bem como informações de Lula, Bolsonaro e Ciro Gomes no primeiro turno das eleições presidenciais e de Lula e Bolsonaro no 2º turno;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>6. Obtivemos o percentual da <i>rejeição</i> dos candidatos por meio da resposta de eleitores que declaram "não votar de jeito nenhum” em determinado candidato;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>7. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Os institutos utilizam dados o IBGE de 2010, da PNAD de 2021 e 2022 e do TSE. As informações amostrais de corte religioso nem sempre estão disponíveis nas pesquisas compartilhadas publicamente ou constam nos documentos registrados no sistema <a href="https://www.tse.jus.br/eleicoes/pesquisa-eleitorais/consulta-as-pesquisas-registradas">PesqeEle</a>, do TSE, dado que não é obrigatório, segundo o artigo 33 da <a href="https://www.tse.jus.br/legislacao/codigo-eleitoral/lei-das-eleicoes/sumario-lei-das-eleicoes-lei-nb0-9.504-de-30-de-setembro-de-1997">Lei nº 9.504/1997</a>. Para termos uma noção do universo amostrado pelos institutos: os <i>católicos</i> variaram entre {int(df['am_cat'].agg('min'))}% e {int(df['am_cat'].agg('max'))}% dos entrevistados; os <i>evangélicos</i>, entre {int(df['am_ev'].agg('min'))}% e {int(df['am_ev'].agg('max'))}%; os <i>espíritas</i>, entre {int(df['am_espi'].agg('min'))}% e {int(df['am_espi'].agg('max'))}%; o <i>candomblé/umbanda</i>, entre {int(df['am_umb_can'].agg('min'))}% e {int(df['am_umb_can'].agg('max'))}%; <i>outras religiões</i> de {int(df['am_out'].agg('min'))}% a {int(df['am_out'].agg('max'))}%, os <i>sem religião</i>, entre {int(df['am_non'].agg('min'))}% e {int(df['am_non'].agg('max'))}% e <i>os ateus</i>, entre {int(df['am_ateu'].agg('min'))}% e {int(df['am_ateu'].agg('max'))}%.</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>8. Em relação às pesquisas, no levantamento de dados para o agregador, considerou-se a última data quando os entrevistadores colheram as respostas, e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>9. Partindo da data da última coleta das pesquisas calculou-se a média móvel de diversas variáveis correspondendo a {m_m} dias. Para o caso da rejeição geral utilizou-se a média móvel de {m_m15} dias;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>10. Para obter a média móvel foram usados dados de uma série temporal e aplicado o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>11. Ao calcular a média móvel de {m_m} dias, por exemplo, os {m_m} primeiros resultados são omitidos da série temporal e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas. Exitem outras técnicas estatíticas para a redução do ruído dos dados da série temporal, tais como <i>weighted moving average, kernel smoother</i>, entre outras;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>12. O resumo das médias móveis apresentado no primeiro e no segundo turnos considera e apresenta o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>13. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Nos recortes por religião a margem de erro varia entre 2% até 8,5%, de acordo com os institutos. Uma lista com as informações amostrais de cada pesquisa, incluíndo a margem de erro, poderá ser obtida no item "pesquisas eleitorais utilizadas";</p>
-        <p style='text-align: justify; font-family:Segoe UI;'>14. As imagens dos candidatos utilizadas provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>6. Vale destacar que os dados censitários, principais referências para a construção da amostragem das pesquisas, estão defasados. Os valores de amostragem variam conforme os critérios próprios de cada instituto de pesquisa. Os institutos utilizam dados o IBGE de 2010, da PNAD de 2021 e 2022 e do TSE. As informações de corte religioso nem sempre estão disponíveis nas pesquisas compartilhadas publicamente ou não constam nos documentos registrados no sistema <a href="https://www.tse.jus.br/eleicoes/pesquisa-eleitorais/consulta-as-pesquisas-registradas">PesqeEle</a> matido pelo do TSE, dado que não é obrigatório, segundo o artigo 33 da <a href="https://www.tse.jus.br/legislacao/codigo-eleitoral/lei-das-eleicoes/sumario-lei-das-eleicoes-lei-nb0-9.504-de-30-de-setembro-de-1997">Lei nº 9.504/1997</a>. Para termos uma noção do universo amostrado pelos institutos: os <i>católicos</i> variaram entre {int(df['am_cat'].agg('min'))}% e {int(df['am_cat'].agg('max'))}% dos entrevistados; os <i>evangélicos</i>, entre {int(df['am_ev'].agg('min'))}% e {int(df['am_ev'].agg('max'))}%; os <i>espíritas</i>, entre {int(df['am_espi'].agg('min'))}% e {int(df['am_espi'].agg('max'))}%; o <i>candomblé/umbanda</i>, entre {int(df['am_umb_can'].agg('min'))}% e {int(df['am_umb_can'].agg('max'))}%; <i>outras religiões</i>, entre {int(df['am_out'].agg('min'))}% e {int(df['am_out'].agg('max'))}%; os <i>sem religião</i>, entre {int(df['am_non'].agg('min'))}% e {int(df['am_non'].agg('max'))}%; e <i>os ateus</i>, entre {int(df['am_ateu'].agg('min'))}% e {int(df['am_ateu'].agg('max'))}%.</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>7. Em relação às pesquisas, no levantamento de dados para o agregador, considerou-se a última data quando os entrevistadores colheram as respostas e não a data da divulgação da pesquisa, que por interesses diversos, podem ser adiadas por semanas;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>8. Partindo da data da última coleta das pesquisas, calculou-se a média móvel de diversas variáveis correspondendo a {m_m} dias. Para o caso da rejeição geral utilizou-se a média móvel de {m_m15} dias;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>9. Para obter a média móvel foram usados dados de uma série temporal e aplicado o seguinte código Python <code>rolling().mean()</code>. Uma explicação detalhada da utilização deste código pode ser <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html">vista aqui</a>;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>10. Ao calcular a média móvel de {m_m} dias, por exemplo, os {m_m} primeiros resultados são omitidos da série temporal e não aparecem nos gráficos. O objetivo principal da aplicação deste método é reduzir as oscilações no intuito de deixar as linhas dos gráficos mais fluídas. Exitem outras técnicas estatíticas para a redução do ruído dos dados da série temporal, tais como <i>weighted moving average, kernel smoother</i>, entre outras;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>11. O resumo das médias móveis apresentado no primeiro e no segundo turnos considera e apresenta o último valor da média obtida para cada candidato. O dado é atualizado automaticamente à medida que novas pesquisas são inseridas no banco de dados;</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>12. Para deixar os gráficos limpos optou-se por não inserir a margem de erro na linha da média móvel. Nos recortes por religião a margem de erro varia entre 2% até 8,5%, de acordo com os institutos. Uma lista com as informações amostrais de cada pesquisa, incluindo a margem de erro, poderá ser obtida no item "pesquisas eleitorais utilizadas";</p>
+        <p style='text-align: justify; font-family:Segoe UI;'>13. As imagens dos candidatos utilizadas provêm das seguintes fontes: <a href="https://oglobo.globo.com/epoca/o-que-dizem-os-autores-dos-programas-dos-presidenciaveis-sobre-combate-as-mudancas-climaticas-23128520">Ciro Gomes</a>, <a href="https://www.dw.com/pt-br/o-brasil-na-imprensa-alem%C3%A3-29-05/a-48968730/">Lula</a>, <a href="https://www.poder360.com.br/poderdata/poderdata-lula-tem-50-contra-40-de-bolsonaro-no-2o-turno/">Bolsonaro</a>.</p>
 
         </body>
         </html>
@@ -312,9 +310,9 @@ if options_turn == 'Primeiro Turno':
 
 
         st.markdown(f"""
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df.data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df.data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
         """, unsafe_allow_html=True)
 
     st.markdown("---")
@@ -425,9 +423,8 @@ if options_turn == 'Primeiro Turno':
                         font=dict(size=20, color="black", family="Arial"))
 
             fig.update_layout(autosize=True, width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=2, t=160),
-            title=("""
-            <i>Média móvel das intenções de voto de candidatos à presidência (1º turno)<i>
-            """),
+            title="<i>Média móvel das intenções de voto de candidatos à presidência (1º turno)<i>",
+            title_xanchor="auto",
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
                             font=dict(family="arial",size=13),
@@ -466,12 +463,12 @@ if options_turn == 'Primeiro Turno':
                 )
             )
 
-            st.plotly_chart(fig, use_container_width=True,config={"displayModeBar": False, "showTips": False})
+            st.plotly_chart(fig, use_container_width=True)
 
             st.markdown(f"""
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
             """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -604,8 +601,8 @@ if options_turn == 'Primeiro Turno':
 
             ## info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_cat_1t']>1])} para os católicos.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_cat_1t']>1])} para os católicos.</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Evangélica':
@@ -719,8 +716,8 @@ if options_turn == 'Primeiro Turno':
 
             ## info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_ev_1t']>1])} para os evangélicos.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_ev_1t']>1])} para os evangélicos.</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Espírita':
@@ -836,8 +833,8 @@ if options_turn == 'Primeiro Turno':
 
             ## info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_espi_1t']>1])} para os espíritas.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_espi_1t']>1])} para os espíritas.</h7><br>
             """, unsafe_allow_html=True)
 
 
@@ -1081,8 +1078,8 @@ if options_turn == 'Primeiro Turno':
 
         ## info
         st.markdown(f"""
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_non_1t']>1])} para sem religião.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_non_1t']>1])} para sem religião.</h7><br>
         """, unsafe_allow_html=True)
 
     if relig == 'Outras Religiosidades':
@@ -1196,8 +1193,8 @@ if options_turn == 'Primeiro Turno':
 
         ## info
         st.markdown(f"""
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_out_1t']>1])} para outras religiosidades.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_out_1t']>1])} para outras religiosidades.</h7><br>
         """, unsafe_allow_html=True)
     
     st.markdown("---")
@@ -1692,8 +1689,8 @@ if options_turn == 'Primeiro Turno':
                 
 
         st.markdown(f"""
-        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7>
-        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 2: Os gráficos com linhas descontinuadas indicam que o instituto não coletou a informação em determinada pesquisa. Um exemplo pode ser visto a partir da combinação "Paraná Pesquisas" e "católicos".</h7>
+        <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7>
+        <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 2: Os gráficos com linhas descontinuadas indicam que o instituto não coletou a informação em determinada pesquisa. Um exemplo pode ser visto a partir da combinação "Paraná Pesquisas" e "católicos".</h7>
         """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -1767,9 +1764,10 @@ if options_turn == 'Primeiro Turno':
             st.markdown("---")
 
         st.markdown(f"""
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df.data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da <i>rejeição</i> dos candidatos utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df.data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da <i>rejeição</i> dos candidatos utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
         """, unsafe_allow_html=True)
 
 
@@ -1891,10 +1889,11 @@ if options_turn == 'Primeiro Turno':
             st.plotly_chart(fig,use_container_width=True)
 
             st.markdown(f"""
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m15} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Mesmo com a aplicação da média móvel de 15 dias, o recorte temporal da rejeição geral de Ciro Gomes manteve-se oscilante. Trabalhamos com a hipótese de que a rejeição de Gomes associa-se à inclusão de concorrentes da 3a via como alternativas, espaço disputado por Gomes. Portanto, supomos que a variação da rejeição de Ciro Gomes seja um efeito da inclusão ou desistência de outras candiaturas.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: <i>Método utilizado:</i> média móvel de {m_m15} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 5: Mesmo com a aplicação da média móvel de 15 dias, o recorte temporal da rejeição geral de Ciro Gomes manteve-se oscilante. Trabalhamos com a hipótese de que a rejeição de Gomes associa-se à inclusão de concorrentes da 3a via como alternativas, espaço disputado por Gomes. Portanto, supomos que a variação da rejeição de Ciro Gomes seja um efeito da inclusão ou desistência de outras candiaturas.</h7><br>
             """, unsafe_allow_html=True)
         st.markdown("---")
 
@@ -2016,9 +2015,10 @@ if options_turn == 'Primeiro Turno':
 
              # info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição de católicos utilizamos {len(df[df['lul_cat_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: <i>Método utilizado:</i> média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de católicos utilizamos {len(df[df['lul_cat_rej_1t']>1])} pesquisas eleitorais.</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Evangélica ':
@@ -2125,9 +2125,10 @@ if options_turn == 'Primeiro Turno':
 
              # info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição de evangélicos utilizamos {len(df[df['lul_ev_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: <i>Método utilizado:</i> média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de evangélicos utilizamos {len(df[df['lul_ev_rej_1t']>1])} pesquisas eleitorais.</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Espírita ':
@@ -2234,9 +2235,10 @@ if options_turn == 'Primeiro Turno':
             
              # info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição de espíritas utilizamos {len(df[df['lul_espi_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: <i>Método utilizado:</i> média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de espíritas utilizamos {len(df[df['lul_espi_rej_1t']>1])} pesquisas eleitorais.</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Outras Religiosidades ':
@@ -2343,9 +2345,10 @@ if options_turn == 'Primeiro Turno':
 
              # info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição de outras religiões utilizamos {len(df[df['lul_out_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Método utilizado: média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de outras religiões utilizamos {len(df[df['lul_out_rej_1t']>1])} pesquisas eleitorais.</h7><br>
             """, unsafe_allow_html=True)
             
         if relig == 'Sem Religião ':
@@ -2451,9 +2454,10 @@ if options_turn == 'Primeiro Turno':
             st.plotly_chart(fig,use_container_width=True)
             # info
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da rejeição dos sem religião utilizamos {len(df[df['lul_non_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Método utilizado: média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição dos sem religião utilizamos {len(df[df['lul_non_rej_1t']>1])} pesquisas eleitorais.</h7><br>
             """, unsafe_allow_html=True)
     
     st.markdown("---")
@@ -2949,7 +2953,8 @@ if options_turn == 'Primeiro Turno':
                 
 
         st.markdown(f"""
-        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso.</h7>
+        <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 1: O percentual da <i>rejeição</i> dos candidatos foi obtida pela resposta de eleitores que declaram "não votar de jeito nenhum” em determinado incumbente.</h7><br>
+        <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 12 Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso.</h7>
         """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -2990,9 +2995,9 @@ if options_turn == 'Primeiro Turno':
     #         #col3.metric(label="Espíritas", value=f"{round(list(df[df['ava_gov_bol_espi']>1].ava_gov_bol_espi.rolling(m_m).mean())[-1],1)}%") 
     #         st.markdown(f"""
     #         <br>
-    #         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
-    #         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df[df['ava_gov_bol_GERAL']>1].data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
-    #         <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para a produção dos dados da <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através da soma dos percentuais das respostas 'ruim e péssimo'.</h7><br>
+    #         <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+    #         <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia <i>{list(df[df['ava_gov_bol_GERAL']>1].data)[-1].strftime(format='%d-%m-%Y')}</i></h7><br>
+    #         <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para a produção dos dados da <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através da soma dos percentuais das respostas 'ruim e péssimo'.</h7><br>
     #         <br>
     #         """, unsafe_allow_html=True)
     #     st.markdown("---")
@@ -3133,8 +3138,8 @@ if options_turn == 'Primeiro Turno':
             
     #         ## info
     #     st.markdown(f"""
-    #     <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
-    #     <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Para a produção dos gráficos sobre a <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através do registro das respostas 'ruim e péssimo'.</h7><br>
+    #     <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado para o cálculo: média móvel de {m_m} dias.</h7><br>
+    #     <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para a produção dos gráficos sobre a <i>aprovação</i> do governo bolsonaro utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais. Destacamos a reprovação por segmento religioso através do registro das respostas 'ruim e péssimo'.</h7><br>
     #     """, unsafe_allow_html=True)
     #     st.markdown("---")
 
@@ -3207,9 +3212,9 @@ if options_turn == 'Segundo Turno':
         
         st.markdown(f"""
         <br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7> \n
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-        <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo do resumo da média móvel das intenções de voto geral ao segundo turno utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7> \n
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no resumo correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo do resumo da média móvel das intenções de voto geral ao segundo turno utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
         """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -3325,9 +3330,9 @@ if options_turn == 'Segundo Turno':
 
             st.plotly_chart(fig,use_container_width=True)
             st.markdown(f"""
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral ao segundo turno utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral ao segundo turno utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
 
             """, unsafe_allow_html=True)
     st.markdown("---")
@@ -3871,7 +3876,7 @@ if options_turn == 'Segundo Turno':
         st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
 
     st.markdown(f"""
-    <h7 style='text-align: left; color: black; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
+    <h7 style='text-align: left; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
     """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -4334,8 +4339,8 @@ if options_turn == 'Segundo Turno':
             #     st.plotly_chart(fig,use_container_width=True)
         
         st.markdown(f"""
-        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7>
-        <h7 style='text-align: center; color: black; color:#606060;font-family:arial'>Nota 2: Os gráficos com linhas descontinuadas indicam que o instituto não coletou a informação em determinada pesquisa. Um exemplo pode ser visto a partir da combinação "Paraná Pesquisas" e "católicos".</h7>
+        <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 1: Os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7>
+        <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 2: Os gráficos com linhas descontinuadas indicam que o instituto não coletou a informação em determinada pesquisa. Um exemplo pode ser visto a partir da combinação "Paraná Pesquisas" e "católicos".</h7>
         """, unsafe_allow_html=True)
 
     st.markdown("---")
