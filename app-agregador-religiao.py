@@ -30,13 +30,15 @@ st.set_page_config(
 
 
 ## compartilhamento
-st.markdown("""
-<h8 style='text-align: center; color:#54595F;font-family:Segoe UI'>Compartilhe com</h8><br>
-<a href="https://www.facebook.com/sharer/sharer.php?u=https://cebrap.org.br/agregador-de-pesquisas-eleitorais-por-religiao Agregador de Pesquisas Eleitorais por religião" title="Agregador de Pesquisas Eleitorais por religião" rel="nofollow noopener" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#3c589a;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-5 -5 42 42"><path d="M17.78 27.5V17.008h3.522l.527-4.09h-4.05v-2.61c0-1.182.33-1.99 2.023-1.99h2.166V4.66c-.375-.05-1.66-.16-3.155-.16-3.123 0-5.26 1.905-5.26 5.405v3.016h-3.53v4.09h3.53V27.5h4.223z" fill="#fff"></path></svg></span></a>
-<a href="https://twitter.com/intent/tweet?text=Agregador de Pesquisas Eleitorais por religião&nbsp;&url=https://cebrap.org.br/agregador-de-pesquisas-eleitorais-por-religiao&nbsp;&hashtags=Agregador,religião,eleições2022,datascience" title="Twitter" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg heateor_sss_s__default heateor_sss_s_twitter" style="background-color:#55acee;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-4 -4 39 39"><path d="M28 8.557a9.913 9.913 0 0 1-2.828.775 4.93 4.93 0 0 0 2.166-2.725 9.738 9.738 0 0 1-3.13 1.194 4.92 4.92 0 0 0-3.593-1.55 4.924 4.924 0 0 0-4.794 6.049c-4.09-.21-7.72-2.17-10.15-5.15a4.942 4.942 0 0 0-.665 2.477c0 1.71.87 3.214 2.19 4.1a4.968 4.968 0 0 1-2.23-.616v.06c0 2.39 1.7 4.38 3.952 4.83-.414.115-.85.174-1.297.174-.318 0-.626-.03-.928-.086a4.935 4.935 0 0 0 4.6 3.42 9.893 9.893 0 0 1-6.114 2.107c-.398 0-.79-.023-1.175-.068a13.953 13.953 0 0 0 7.55 2.213c9.056 0 14.01-7.507 14.01-14.013 0-.213-.005-.426-.015-.637.96-.695 1.795-1.56 2.455-2.55z" fill="#fff"></path></svg></span></a>
-<a href="https://api.whatsapp.com/send?text=Agregador de Pesquisas Eleitorais por religião - https://cebrap.org.br/agregador-de-pesquisas-eleitorais-por-religiao/" title="Whatsapp" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#55eb4c;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-6 -5 40 40"><path class="heateor_sss_svg_stroke heateor_sss_no_fill" stroke="#fff" stroke-width="2" fill="none" d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"></path><path d="M 7 19 l -1 6 l 6 -1" class="heateor_sss_no_fill heateor_sss_svg_stroke" stroke="#fff" stroke-width="2" fill="none"></path><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="#fff"></path></svg></span></a></div></div>
-<br>
-""",unsafe_allow_html=True)
+col3,col4,col5 = st.columns([1,.4,1])
+with col4:
+    st.markdown("""
+    <h8 style='text-align:center; color:#54595F;font-family:Segoe UI'>Compartilhe com</h8><br>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://cebrap.org.br/agregador-de-pesquisas-eleitorais-por-religiao Agregador de Pesquisas Eleitorais por religião" title="Agregador de Pesquisas Eleitorais por religião" rel="nofollow noopener" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#3c589a;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-5 -5 42 42"><path d="M17.78 27.5V17.008h3.522l.527-4.09h-4.05v-2.61c0-1.182.33-1.99 2.023-1.99h2.166V4.66c-.375-.05-1.66-.16-3.155-.16-3.123 0-5.26 1.905-5.26 5.405v3.016h-3.53v4.09h3.53V27.5h4.223z" fill="#fff"></path></svg></span></a>
+    <a href="https://twitter.com/intent/tweet?text=Agregador de Pesquisas Eleitorais por religião&nbsp;&url=https://cebrap.org.br/agregador-de-pesquisas-eleitorais-por-religiao&nbsp;&hashtags=Agregador,religião,eleições2022,datascience" title="Twitter" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg heateor_sss_s__default heateor_sss_s_twitter" style="background-color:#55acee;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-4 -4 39 39"><path d="M28 8.557a9.913 9.913 0 0 1-2.828.775 4.93 4.93 0 0 0 2.166-2.725 9.738 9.738 0 0 1-3.13 1.194 4.92 4.92 0 0 0-3.593-1.55 4.924 4.924 0 0 0-4.794 6.049c-4.09-.21-7.72-2.17-10.15-5.15a4.942 4.942 0 0 0-.665 2.477c0 1.71.87 3.214 2.19 4.1a4.968 4.968 0 0 1-2.23-.616v.06c0 2.39 1.7 4.38 3.952 4.83-.414.115-.85.174-1.297.174-.318 0-.626-.03-.928-.086a4.935 4.935 0 0 0 4.6 3.42 9.893 9.893 0 0 1-6.114 2.107c-.398 0-.79-.023-1.175-.068a13.953 13.953 0 0 0 7.55 2.213c9.056 0 14.01-7.507 14.01-14.013 0-.213-.005-.426-.015-.637.96-.695 1.795-1.56 2.455-2.55z" fill="#fff"></path></svg></span></a>
+    <a href="https://api.whatsapp.com/send?text=Agregador de Pesquisas Eleitorais por religião - https://cebrap.org.br/agregador-de-pesquisas-eleitorais-por-religiao/" title="Whatsapp" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#55eb4c;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-6 -5 40 40"><path class="heateor_sss_svg_stroke heateor_sss_no_fill" stroke="#fff" stroke-width="2" fill="none" d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"></path><path d="M 7 19 l -1 6 l 6 -1" class="heateor_sss_no_fill heateor_sss_svg_stroke" stroke="#fff" stroke-width="2" fill="none"></path><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="#fff"></path></svg></span></a></div></div>
+    <br>
+    """,unsafe_allow_html=True)
 
 ## titulo
 st.markdown("""
@@ -436,9 +438,14 @@ if options_turn == 'Primeiro Turno':
                 orientation="v",
                 font_family="arial",))
 
-            fig.add_annotation(x="mar/22_poderdata_3", y=29,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_fsb_2", y=31,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_fsb_2", y=32,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -30, ay = 50,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_ipespe", y=6,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_ipespe", y=45,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_futura", y=32,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 80,font=dict(size=10, color="black", family="Arial"))
+
+
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1052,6 +1059,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x="mar/22_poderdata_3", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_poderdata_2", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_annotation(x="jun/22_poderdata", y=20,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1167,6 +1176,8 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x="mar/22_futura", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_futura", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_annotation(x="jun/22_ipespe", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
 
         fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1810,7 +1821,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['lul_ger_rej_1t']>1].sigla)[-1], y=list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1],text=f"{int(list(df[df['lul_ger_rej_1t']>1].lul_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = -0.05,
+                        ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## bolsonaro
@@ -1844,12 +1855,12 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['ciro_ger_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1],text=f"{int(list(df[df['ciro_ger_rej_1t']>1].ciro_ger_rej_1t.rolling(m_m15).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 0,
+                        ax = 40, ay = 20,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## detalhes
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly', margin=dict(r=80, l=80, b=4, t=110),
+            fig.update_layout(width = 1100, height = 700, template = 'plotly', margin=dict(r=80, l=80, b=4, t=110),
             title=("""
             <i>Média móvel da rejeição geral de candidatos à presidência (1º turno)<i><br>
             """),
@@ -1861,8 +1872,14 @@ if options_turn == 'Primeiro Turno':
                 orientation="v",
                 font_family="arial",))
 
-            fig.add_annotation(x="mar/22_pr_pesq", y=35,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_datafolha", y=35,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_pr_pesq", y=37,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_datafolha", y=37,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -20, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_poderdata", y=37,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -20, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = -60, ay = 80,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 50,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_futura", y=56,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
+
+
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1989,6 +2006,8 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_datafolha", y=32,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_poderdata", y=30,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2060,7 +2079,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['bol_ev_rej_1t']>1].sigla)[-1], y=list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = -5,
+                        ax = 40, ay = 20,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## ciro gomes
@@ -2077,7 +2096,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['ciro_ev_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 25,
+                        ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## detalhes
@@ -2152,7 +2171,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['lul_espi_rej_1t']>1].sigla)[-1], y=list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 0,
+                        ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
 
@@ -2187,7 +2206,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['ciro_espi_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 0,
+                        ax = 40, ay = 20,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## detalhes
@@ -3293,7 +3312,7 @@ if options_turn == 'Segundo Turno':
             """),
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Intenção de voto (%)',
-                            font=dict(family="arial",size=13),
+                            font=dict(family="arial",size=12),
                             legend=dict(
                 yanchor="auto",
                 y=1.12,
@@ -3302,8 +3321,12 @@ if options_turn == 'Segundo Turno':
                 orientation="h",
                 font_family="arial"))
 
-            fig.add_annotation(x="mar/22_poderdata_3", y=32,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mar/22_poderdata_3", y=33,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="mai/22_poderdata_2", y=34,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jun/22_fsb_2", y=35,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -15, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_ipespe", y=51,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_futura", y=35,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 51,font=dict(size=10, color="black", family="Arial"))
+
 
             fig.update_xaxes(tickangle = 280,rangeslider_visible=False,title_font_family="Arial")
 
