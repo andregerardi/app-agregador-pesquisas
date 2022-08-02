@@ -507,10 +507,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['lul_cat_1t']>1].lul_cat_1t, #set color equal to a variable
-                                    colorscale='peach')))
+                                    colorscale='peach'),legendrank=2))
 
             fig.add_trace(go.Scatter(y=df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean(), x=df[df['bol_cat_1t']>1].sigla,mode='lines', name='Lula',
-                                    line=dict(color='rgba(200, 0, 0, 0.8)', width=2.5)))
+                                    line=dict(color='rgba(200, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_cat_1t']>1].sigla)[-1], y=list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_cat_1t']>1].lul_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -523,10 +523,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['bol_cat_1t']>1].lul_cat_1t, #set color equal to a variable
-                                    colorscale='ice')))
+                                    colorscale='ice'),legendrank=4))
 
             fig.add_trace(go.Scatter(y=df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean(), x=df[df['bol_cat_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
+                                    line=dict(color='skyblue', width=2.5),legendrank=3))
 
             fig.add_annotation(x=list(df[df['bol_cat_1t']>1].sigla)[-1], y=list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_cat_1t']>1].bol_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -540,10 +540,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['ciro_cat_1t']>1].ciro_cat_1t, #set color equal to a variable
-                                    colorscale='Greens')))
+                                    colorscale='Greens'),legendrank=6))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean(), x=df[df['ciro_cat_1t']>1].sigla, mode='lines', name='Ciro Gomes',
-                                    line=dict(color='seagreen', width=2.5)))
+                                    line=dict(color='seagreen', width=2.5),legendrank=5))
 
             fig.add_annotation(x=list(df[df['ciro_cat_1t']>1].sigla)[-1], y=list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_cat_1t']>1].ciro_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -557,10 +557,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t, #set color equal to a variable
-                                    colorscale='Greys')))
+                                    colorscale='Greys'),legendrank=8))
 
             fig.add_trace(go.Scatter(y=df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean(), x=df[df['bra_nulo_cat_1t']>1].sigla, mode='lines', name='Brancos, nulos',
-                                    line=dict(color='grey', width=2.5)))
+                                    line=dict(color='grey', width=2.5),legendrank=7))
 
             fig.add_annotation(x=list(df[df['bra_nulo_cat_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_cat_1t']>1].bra_nulo_cat_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -629,10 +629,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['lul_ev_1t']>1].lul_ev_1t, #set color equal to a variable
-                                    colorscale='peach')))
+                                    colorscale='peach'),legendrank=2))
 
             fig.add_trace(go.Scatter(y=df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean(), x=df[df['bol_ev_1t']>1].sigla,mode='lines', name='Lula',
-                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_ev_1t']>1].sigla)[-1], y=list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ev_1t']>1].lul_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -644,10 +644,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['bol_ev_1t']>1].bol_ev_1t, #set color equal to a variable
-                                    colorscale='ice')))
+                                    colorscale='ice'),legendrank=4))
 
             fig.add_trace(go.Scatter(y=df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean(), x=df[df['bol_ev_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
+                                    line=dict(color='skyblue', width=2.5),legendrank=3))
 
             fig.add_annotation(x=list(df[df['bol_ev_1t']>1].sigla)[-1], y=list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ev_1t']>1].bol_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -659,10 +659,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['ciro_ev_1t']>1].ciro_ev_1t, #set color equal to a variable
-                                    colorscale='Greens')))
+                                    colorscale='Greens'),legendrank=6))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean(), x=df[df['ciro_ev_1t']>1].sigla, mode='lines', name='Ciro Gomes',
-                                    line=dict(color='seagreen', width=2.5)))
+                                    line=dict(color='seagreen', width=2.5),legendrank=5))
 
             fig.add_annotation(x=list(df[df['ciro_ev_1t']>1].sigla)[-1], y=list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ev_1t']>1].ciro_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -676,10 +676,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t, #set color equal to a variable
-                                    colorscale='Greys')))
+                                    colorscale='Greys'),legendrank=8))
 
             fig.add_trace(go.Scatter(y=df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean(), x=df[df['bra_nulo_ev_1t']>1].sigla, mode='lines', name='Brancos e nulos',
-                                    line=dict(color='grey', width=2.5)))
+                                    line=dict(color='grey', width=2.5),legendrank=7))
 
             fig.add_annotation(x=list(df[df['bra_nulo_ev_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_ev_1t']>1].bra_nulo_ev_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -746,10 +746,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['lul_espi_1t']>1].lul_espi_1t, #set color equal to a variable
-                                    colorscale='peach')))
+                                    colorscale='peach'),legendrank=2))
 
             fig.add_trace(go.Scatter(y=df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean(), x=df[df['bol_espi_1t']>1].sigla,mode='lines', name='Lula',
-                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_espi_1t']>1].sigla)[-1], y=list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_espi_1t']>1].lul_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -762,10 +762,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['bol_espi_1t']>1].bol_espi_1t, #set color equal to a variable
-                                    colorscale='ice')))
+                                    colorscale='ice'),legendrank=4))
 
             fig.add_trace(go.Scatter(y=df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean(), x=df[df['bol_espi_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
+                                    line=dict(color='skyblue', width=2.5),legendrank=3))
 
             fig.add_annotation(x=list(df[df['bol_espi_1t']>1].sigla)[-1], y=list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_espi_1t']>1].bol_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -779,10 +779,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['ciro_espi_1t']>1].ciro_espi_1t, #set color equal to a variable
-                                    colorscale='Greens')))
+                                    colorscale='Greens'),legendrank=6))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean(), x=df[df['ciro_espi_1t']>1].sigla, mode='lines', name='Ciro Gomes',
-                                    line=dict(color='seagreen', width=2.5)))
+                                    line=dict(color='seagreen', width=2.5),legendrank=5))
 
             fig.add_annotation(x=list(df[df['ciro_espi_1t']>1].sigla)[-1], y=list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_espi_1t']>1].ciro_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -797,10 +797,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t, #set color equal to a variable
-                                    colorscale='Greys')))
+                                    colorscale='Greys'),legendrank=8))
 
             fig.add_trace(go.Scatter(y=df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean(), x=df[df['bra_nulo_espi_1t']>1].sigla, mode='lines', name='Brancos e nulos',
-                                    line=dict(color='grey', width=2.5)))
+                                    line=dict(color='grey', width=2.5),legendrank=7))
 
             fig.add_annotation(x=list(df[df['lul_espi_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_espi_1t']>1].bra_nulo_espi_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -995,10 +995,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['lul_non_1t']>1].lul_non_1t, #set color equal to a variable
-                                colorscale='peach')))
+                                colorscale='peach'),legendrank=2))
 
         fig.add_trace(go.Scatter(y=df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean(), x=df[df['bol_non_1t']>1].sigla,mode='lines', name='Lula',
-                                line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
         fig.add_annotation(x=list(df[df['lul_non_1t']>1].sigla)[-1], y=list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_non_1t']>1].lul_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1011,10 +1011,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['bol_non_1t']>1].bol_non_1t, #set color equal to a variable
-                                colorscale='ice')))
+                                colorscale='ice'),legendrank=4))
 
         fig.add_trace(go.Scatter(y=df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean(), x=df[df['bol_non_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                line=dict(color='skyblue', width=2.5)))
+                                line=dict(color='skyblue', width=2.5),legendrank=3))
 
         fig.add_annotation(x=list(df[df['bol_non_1t']>1].sigla)[-1], y=list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_non_1t']>1].bol_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1028,10 +1028,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['ciro_non_1t']>1].ciro_non_1t, #set color equal to a variable
-                                colorscale='Greens')))
+                                colorscale='Greens'),legendrank=6))
 
         fig.add_trace(go.Scatter(y=df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean(), x=df[df['ciro_non_1t']>1].sigla, mode='lines', name='Ciro Gomes',
-                                line=dict(color='seagreen', width=2.5)))
+                                line=dict(color='seagreen', width=2.5),legendrank=5))
 
         fig.add_annotation(x=list(df[df['ciro_non_1t']>1].sigla)[-1], y=list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_non_1t']>1].ciro_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1045,10 +1045,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t, #set color equal to a variable
-                                colorscale='Greys')))
+                                colorscale='Greys'),legendrank=8))
 
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean(), x=df[df['bra_nulo_non_1t']>1].sigla, mode='lines', name='Brancos e nulos',
-                                line=dict(color='grey', width=2.5)))
+                                line=dict(color='grey', width=2.5),legendrank=7))
 
         fig.add_annotation(x=list(df[df['bra_nulo_non_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_non_1t']>1].bra_nulo_non_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1114,10 +1114,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['lul_out_1t']>1].lul_out_1t, #set color equal to a variable
-                                colorscale='peach')))
+                                colorscale='peach'),legendrank=2))
 
         fig.add_trace(go.Scatter(y=df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean(), x=df[df['bol_out_1t']>1].sigla,mode='lines', name='Lula',
-                                line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
         fig.add_annotation(x=list(df[df['lul_out_1t']>1].sigla)[-1], y=list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_out_1t']>1].lul_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1130,10 +1130,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['bol_out_1t']>1].bol_out_1t, #set color equal to a variable
-                                colorscale='ice')))
+                                colorscale='ice'),legendrank=4))
 
         fig.add_trace(go.Scatter(y=df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean(), x=df[df['bol_out_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                line=dict(color='skyblue', width=2.5)))
+                                line=dict(color='skyblue', width=2.5),legendrank=3))
 
         fig.add_annotation(x=list(df[df['bol_out_1t']>1].sigla)[-1], y=list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_out_1t']>1].bol_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1147,10 +1147,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['ciro_out_1t']>1].ciro_out_1t, #set color equal to a variable
-                                colorscale='Greens')))
+                                colorscale='Greens'),legendrank=6))
 
         fig.add_trace(go.Scatter(y=df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean(), x=df[df['ciro_out_1t']>1].sigla, mode='lines', name='Ciro Gomes',
-                                line=dict(color='seagreen', width=2.5)))
+                                line=dict(color='seagreen', width=2.5),legendrank=5))
 
         fig.add_annotation(x=list(df[df['ciro_out_1t']>1].sigla)[-1], y=list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_out_1t']>1].ciro_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1164,10 +1164,10 @@ if options_turn == 'Primeiro Turno':
                                 marker=dict(
                                 size=5,
                                 color=df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t, #set color equal to a variable
-                                colorscale='Greys')))
+                                colorscale='Greys'),legendrank=8))
 
         fig.add_trace(go.Scatter(y=df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean(), x=df[df['bra_nulo_out_1t']>1].sigla, mode='lines', name='Brancos e nulos',
-                                line=dict(color='grey', width=2.5)))
+                                line=dict(color='grey', width=2.5),legendrank=7))
 
         fig.add_annotation(x=list(df[df['bra_nulo_out_1t']>1].sigla)[-1], y=list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nulo_out_1t']>1].bra_nulo_out_1t.rolling(m_m).mean())[-1])}%",
                     showarrow=True,
@@ -1893,7 +1893,7 @@ if options_turn == 'Primeiro Turno':
             paper_bgcolor='rgb(255, 255, 255)',
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
-                            legend_title_text='<br><br><br><br><br><br><br>',
+                            legend_title_text='<br><br><br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
                 orientation="v",
@@ -2024,6 +2024,7 @@ if options_turn == 'Primeiro Turno':
             paper_bgcolor='rgb(255, 255, 255)',
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
+                            legend_title_text='<br><br><br><br><br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
                 
@@ -2079,10 +2080,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ev_rej_1t, #set color equal to a variable
-                                    colorscale='peach')))
+                                    colorscale='peach'),legendrank=2))
 
             fig.add_trace(go.Scatter(y=df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean(), x=df[df['lul_ev_rej_1t']>1].sigla, mode='lines', name='Lula',
-                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_ev_rej_1t']>1].sigla)[-1], y=list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ev_rej_1t']>1].lul_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2097,10 +2098,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.bol_ev_rej_1t, #set color equal to a variable
-                                    colorscale='ice')))
+                                    colorscale='ice'),legendrank=4))
 
             fig.add_trace(go.Scatter(y=df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean(), x=df[df['bol_ev_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
+                                    line=dict(color='skyblue', width=2.5),legendrank=3))
 
             fig.add_annotation(x=list(df[df['bol_ev_rej_1t']>1].sigla)[-1], y=list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ev_rej_1t']>1].bol_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2114,10 +2115,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_ev_rej_1t, #set color equal to a variable
-                                    colorscale='Greens')))
+                                    colorscale='Greens'),legendrank=6))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean(), x=df[df['ciro_ev_rej_1t']>1].sigla,mode='lines', name='Ciro',
-                                    line=dict(color='seagreen', width=2.5)))
+                                    line=dict(color='seagreen', width=2.5),legendrank=5))
 
             fig.add_annotation(x=list(df[df['ciro_ev_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ev_rej_1t']>1].ciro_ev_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2135,13 +2136,11 @@ if options_turn == 'Primeiro Turno':
             paper_bgcolor='rgb(255, 255, 255)',
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
+                            legend_title_text='<br><br><br><br><br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.1,
-                xanchor="auto",
-                x=0.4,
-                orientation="h",
+                
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_datafolha", y=38,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -2191,10 +2190,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.lul_espi_rej_1t, #set color equal to a variable
-                                    colorscale='peach')))
+                                    colorscale='peach'),legendrank=2))
 
             fig.add_trace(go.Scatter(y=df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean(), x=df[df['lul_espi_rej_1t']>1].sigla, mode='lines', name='Lula',
-                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_espi_rej_1t']>1].sigla)[-1], y=list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2209,10 +2208,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.bol_espi_rej_1t, #set color equal to a variable
-                                    colorscale='ice')))
+                                    colorscale='ice'),legendrank=4))
 
             fig.add_trace(go.Scatter(y=df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean(), x=df[df['bol_espi_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
+                                    line=dict(color='skyblue', width=2.5),legendrank=3))
 
             fig.add_annotation(x=list(df[df['bol_espi_rej_1t']>1].sigla)[-1], y=list(df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_espi_rej_1t']>1].bol_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2226,10 +2225,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_espi_rej_1t, #set color equal to a variable
-                                    colorscale='Greens')))
+                                    colorscale='Greens'),legendrank=6))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean(), x=df[df['ciro_espi_rej_1t']>1].sigla,mode='lines', name='Ciro',
-                                    line=dict(color='seagreen', width=2.5)))
+                                    line=dict(color='seagreen', width=2.5),legendrank=5))
 
             fig.add_annotation(x=list(df[df['ciro_espi_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2247,13 +2246,11 @@ if options_turn == 'Primeiro Turno':
             paper_bgcolor='rgb(255, 255, 255)',
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
+                            legend_title_text='<br><br><br><br><br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.1,
-                xanchor="auto",
-                x=0.4,
-                orientation="h",
+    
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_datafolha", y=30,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -2303,10 +2300,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.lul_out_rej_1t, #set color equal to a variable
-                                    colorscale='peach')))
+                                    colorscale='peach'),legendrank=2))
 
             fig.add_trace(go.Scatter(y=df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean(), x=df[df['lul_out_rej_1t']>1].sigla, mode='lines', name='Lula',
-                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_out_rej_1t']>1].sigla)[-1], y=list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_out_rej_1t']>1].lul_out_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2321,10 +2318,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.bol_out_rej_1t, #set color equal to a variable
-                                    colorscale='ice')))
+                                    colorscale='ice'),legendrank=4))
 
             fig.add_trace(go.Scatter(y=df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean(), x=df[df['bol_out_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
+                                    line=dict(color='skyblue', width=2.5),legendrank=2))
 
             fig.add_annotation(x=list(df[df['bol_out_rej_1t']>1].sigla)[-1], y=list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_out_rej_1t']>1].bol_out_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2338,10 +2335,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_out_rej_1t, #set color equal to a variable
-                                    colorscale='Greens')))
+                                    colorscale='Greens'),legendrank=6))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean(), x=df[df['ciro_out_rej_1t']>1].sigla,mode='lines', name='Ciro',
-                                    line=dict(color='seagreen', width=2.5)))
+                                    line=dict(color='seagreen', width=2.5),legendrank=5))
 
             fig.add_annotation(x=list(df[df['ciro_out_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_out_rej_1t']>1].ciro_out_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2359,13 +2356,10 @@ if options_turn == 'Primeiro Turno':
             paper_bgcolor='rgb(255, 255, 255)',
                             xaxis_title='Mês, ano e instituto de pesquisa',
                             yaxis_title='Rejeição (%)',
+                            legend_title_text='<br><br><br><br><br><br>',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.1,
-                xanchor="auto",
-                x=0.5,
-                orientation="h",
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_datafolha", y=30,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -2415,10 +2409,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.lul_non_rej_1t, #set color equal to a variable
-                                    colorscale='peach')))
+                                    colorscale='peach'),legendrank=2))
 
             fig.add_trace(go.Scatter(y=df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean(), x=df[df['lul_non_rej_1t']>1].sigla, mode='lines', name='Lula',
-                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5)))
+                                    line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_non_rej_1t']>1].sigla)[-1], y=list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2433,10 +2427,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.bol_non_rej_1t, #set color equal to a variable
-                                    colorscale='ice')))
+                                    colorscale='ice'),legendrank=4))
 
             fig.add_trace(go.Scatter(y=df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean(), x=df[df['bol_non_rej_1t']>1].sigla,mode='lines', name='Bolsonaro',
-                                    line=dict(color='skyblue', width=2.5)))
+                                    line=dict(color='skyblue', width=2.5),legendrank=3))
 
             fig.add_annotation(x=list(df[df['bol_non_rej_1t']>1].sigla)[-1], y=list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_non_rej_1t']>1].bol_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2450,10 +2444,10 @@ if options_turn == 'Primeiro Turno':
                                     marker=dict(
                                     size=5,
                                     color=df.ciro_non_rej_1t, #set color equal to a variable
-                                    colorscale='Greens')))
+                                    colorscale='Greens'),legendrank=6))
 
             fig.add_trace(go.Scatter(y=df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean(), x=df[df['ciro_non_rej_1t']>1].sigla,mode='lines', name='Ciro',
-                                    line=dict(color='seagreen', width=2.5)))
+                                    line=dict(color='seagreen', width=2.5),legendrank=5))
 
             fig.add_annotation(x=list(df[df['ciro_non_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
@@ -2470,14 +2464,11 @@ if options_turn == 'Primeiro Turno':
             plot_bgcolor='rgb(255, 255, 255)',
             paper_bgcolor='rgb(255, 255, 255)',
                             xaxis_title='Mês, ano e instituto de pesquisa',
+                            legend_title_text='<br><br><br><br><br><br>',
                             yaxis_title='Rejeição (%)',
                             font=dict(family="arial",size=13),
                             legend=dict(
-                yanchor="auto",
-                y=1.1,
-                xanchor="auto",
-                x=0.4,
-                orientation="h",
+                orientation="v",
                 font_family="arial",))
 
             fig.add_annotation(x="mar/22_datafolha", y=35,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
@@ -3302,13 +3293,13 @@ if options_turn == 'Segundo Turno':
 
             fig = go.Figure()
             ## lula
-            fig.add_trace(go.Scatter(y=df.lul_ger_2t, x=df.sigla, mode='markers', name='Lula - geral',
+            fig.add_trace(go.Scatter(y=df.lul_ger_2t, x=df.sigla, mode='markers', name='Int. voto Lula',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ger_2t, #set color equal to a variable
                                     colorscale='peach'),legendrank=2))
 
-            fig.add_trace(go.Scatter(y=df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Int. voto Lula',
+            fig.add_trace(go.Scatter(y=df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Lula',
                                     line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
             fig.add_annotation(x=list(df[df['lul_ger_2t']>1].sigla)[-1], y=list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['lul_ger_2t']>1].lul_ger_2t.rolling(m_m).mean())[-1])}%",
@@ -3318,13 +3309,13 @@ if options_turn == 'Segundo Turno':
                         font=dict(size=20, color="black", family="Arial"))
 
             ## Bolsonaro
-            fig.add_trace(go.Scatter(y=df.bol_ger_2t, x=df.sigla, mode='markers', name='Bolsonaro - geral',
+            fig.add_trace(go.Scatter(y=df.bol_ger_2t, x=df.sigla, mode='markers', name='Int. voto Bolsonaro',
                                     marker=dict(
                                     size=5,
                                     color=df.lul_ger_2t, #set color equal to a variable
                                     colorscale='ice'),legendrank=4))
 
-            fig.add_trace(go.Scatter(y=df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Int. voto Bolsonaro',
+            fig.add_trace(go.Scatter(y=df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean(), x=df[df['bol_ger_2t']>1].sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5),legendrank=3))
 
             fig.add_annotation(x=list(df[df['bol_ger_2t']>1].sigla)[-1], y=list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1] ,text=f"{int(list(df[df['bol_ger_2t']>1].bol_ger_2t.rolling(m_m).mean())[-1])}%",
