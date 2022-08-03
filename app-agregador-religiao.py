@@ -164,7 +164,7 @@ with st.container():
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Institutos analisados:</h6> <p style='text-align: center';>{', '.join(set(df['nome_instituto'].T)).title()}</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Institutos por tipo de sondagem:</h6> <p style='text-align: center';>
                 <i>Telefone:</i> {', '.join(set(df[df['tipo_coleta']=='telefone'].nome_instituto)).title().replace('Mda','MDA').replace('Fsb','FSB').replace('Idea','Idea Big Data').replace('Voxpopuli','Vox Populi').replace('Prpesquisas','Paraná Pesquisas')}<br>
-                <br><i>Presencial:</i> {', '.join(set(df[df['tipo_coleta']=='presencial'].nome_instituto)).title().replace('Mda','MDA').replace('Fsb','FSB').replace('Idea','Idea Big Data').replace('Voxpopuli','Vox Populi').replace('Prpesquisas','Paraná Pesquisas')} ;</p>
+                <br><i>Presencial:</i> {', '.join(set(df[df['tipo_coleta']=='presencial'].nome_instituto)).title().replace('Mda','MDA').replace('Fsb','FSB').replace('Idea','Idea Big Data').replace('Voxpopuli','Vox Populi').replace('Prpesquisas','Paraná Pesquisas')}</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Número de pesquisas segundo método de coleta:</h6><p style='text-align: center';>
                 Telefone: {df[df['tipo_coleta']=='telefone'].tipo_coleta.value_counts()[0]}
                 <br>Presencial: {df[df['tipo_coleta']=='presencial'].tipo_coleta.value_counts()[0]}</p>
@@ -447,7 +447,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_fsb_2", y=32,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -30, ay = 50,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jun/22_fsb_2", y=32,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -30, ay = 50,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=6,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=45,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=32,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 80,font=dict(size=10, color="black", family="Arial"))
@@ -589,7 +589,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=25,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_datafolha", y=26,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jun/22_datafolha", y=26,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -706,7 +706,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_datafolha", y=27,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jun/22_datafolha", y=27,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -827,7 +827,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=22,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_poderdata", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jun/22_poderdata", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1075,7 +1075,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x="mar/22_poderdata_3", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_poderdata_2", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_annotation(x="jun/22_poderdata", y=20,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        #fig.add_annotation(x="jun/22_poderdata", y=20,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -1194,7 +1194,7 @@ if options_turn == 'Primeiro Turno':
 
         fig.add_annotation(x="mar/22_futura", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_futura", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_annotation(x="jun/22_ipespe", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        #fig.add_annotation(x="jun/22_ipespe", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -1904,8 +1904,8 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_pr_pesq", y=37,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_datafolha", y=37,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -20, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_poderdata", y=37,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -20, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            #fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = -60, ay = 80,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jun/22_poderdata", y=37,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -20, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = -60, ay = 80,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 50,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=56,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
 
@@ -2036,7 +2036,7 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_datafolha", y=32,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_poderdata", y=30,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jun/22_poderdata", y=30,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
 
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -3361,7 +3361,7 @@ if options_turn == 'Segundo Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=33,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=34,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_annotation(x="jun/22_fsb_2", y=35,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -15, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            #fig.add_annotation(x="jun/22_fsb_2", y=35,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -15, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=52,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=35,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 56,font=dict(size=10, color="black", family="Arial"))
 
