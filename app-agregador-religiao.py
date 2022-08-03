@@ -432,7 +432,7 @@ if options_turn == 'Primeiro Turno':
                         ax = 40, ay = -0.5,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(autosize=True, width = 1100, height = 800, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=2, t=160),
+            fig.update_layout(autosize=True, width = 1100, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=2, t=160),
             title="<i>Média móvel das intenções de voto de candidatos à presidência (1º turno)<i>",
             title_xanchor="auto",
             plot_bgcolor='rgb(255, 255, 255)',
@@ -1550,7 +1550,7 @@ if options_turn == 'Primeiro Turno':
                 fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
-                fig.update_layout(width = 800, height = 800, template = 'plotly_white+gridon', margin=dict(r=70, l=80, b=4, t=160),
+                fig.update_layout(width = 800, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=70, l=80, b=4, t=160),
                         title=(f"""
                         Intenção de voto 'geral' e de '{rel}' por candidato segundo inst. '{inst.title()}' (1º turno)
                         <br>
@@ -1619,7 +1619,7 @@ if options_turn == 'Primeiro Turno':
             #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
-            #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=150),
+            #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
             #             Intenção de voto 'geral' de adeptos da '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
@@ -1686,7 +1686,7 @@ if options_turn == 'Primeiro Turno':
             #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
-            #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=150),
+            #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
             #             Intenção de voto 'geral' de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
@@ -1888,7 +1888,7 @@ if options_turn == 'Primeiro Turno':
 
             ## detalhes
 
-            fig.update_layout(width = 1100, height = 700, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=110),
+            fig.update_layout(width = 1100, height = 700, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=110),
             title=("""
             <i>Média móvel da rejeição geral de candidatos à presidência (1º turno)<i><br>
             """),
@@ -2832,7 +2832,7 @@ if options_turn == 'Primeiro Turno':
                 fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
-                fig.update_layout(width = 800, height = 800, template = 'plotly_white+gridon', margin=dict(r=70, l=80, b=4, t=160),
+                fig.update_layout(width = 800, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=70, l=80, b=4, t=160),
                         title=(f"""
                         Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
                         <br>
@@ -2901,7 +2901,7 @@ if options_turn == 'Primeiro Turno':
             #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
-            #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=150),
+            #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
             #             Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
@@ -2968,7 +2968,7 @@ if options_turn == 'Primeiro Turno':
             #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
-            #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=150),
+            #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
             #             Rejeição 'geral' e de '{rel}' por candidato segundo '{inst.title()}' (1º turno)
             #             <br>
@@ -3151,7 +3151,7 @@ if options_turn == 'Primeiro Turno':
 
     #         ## detalhes
 
-    #         fig.update_layout(width = 1100, height = 800, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=150),
+    #         fig.update_layout(width = 1100, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
     #         title=("""
     #         <i>Avaliação negativa de Bolsonaro por religião (1º turno)<i><br>
     #         """),
@@ -3344,7 +3344,7 @@ if options_turn == 'Segundo Turno':
                         ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
-            fig.update_layout(width = 1100, height = 800, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=2, t=150),
+            fig.update_layout(width = 1100, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=2, t=150),
             title=("""
             <i>Média móvel das intenções de voto de candidatos à presidência (2º turno)<i><br>
             """),
@@ -3469,7 +3469,7 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = -8,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+gridon',margin=dict(r=80, l=80, b=2, t=150),
+        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+xgridoff',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
                             <i>Média móvel das intenções de voto de católicos por candidato à presidência (2º turno)<i><br>
                             """,
@@ -3562,7 +3562,7 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = -8,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+gridon',margin=dict(r=80, l=80, b=2, t=150),
+        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+xgridoff',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
                             <i>Média móvel das intenções de voto de evangélicos por candidato à presidência (2º turno)<i><br>
                             """,
@@ -3656,7 +3656,7 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = -8,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+gridon',margin=dict(r=80, l=80, b=2, t=150),
+        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+xgridoff',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
                             <i>Média móvel das intenções de voto dos sem religião por candidato à presidência (2º turno)<i><br>
                             """,
@@ -3750,7 +3750,7 @@ if options_turn == 'Segundo Turno':
                     ax = 40, ay = -8,
                     font=dict(size=20, color="black", family="Arial"))
 
-        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+gridon',margin=dict(r=80, l=80, b=2, t=150),
+        fig.update_layout(width = 1100, height = 800, template = 'plotly_white+xgridoff',margin=dict(r=80, l=80, b=2, t=150),
                             title="""
                             <i>Média móvel das intenções de voto de católicos por candidato à presidência (2º turno)<i><br>
                             """,
@@ -4242,7 +4242,7 @@ if options_turn == 'Segundo Turno':
                 fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot'),legendrank=4))
                 
-                fig.update_layout(width = 800, height = 800, template = 'plotly_white+gridon', margin=dict(r=70, l=80, b=4, t=160),
+                fig.update_layout(width = 800, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=70, l=80, b=4, t=160),
                         title=(f"""
                         Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
                         <br>
@@ -4306,7 +4306,7 @@ if options_turn == 'Segundo Turno':
             #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
             #
-            #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=150),
+            #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
             #             Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
             #             <br>
@@ -4368,7 +4368,7 @@ if options_turn == 'Segundo Turno':
             #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
 
-            #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+gridon', margin=dict(r=80, l=80, b=4, t=150),
+            #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
             #             title=(f"""
             #             Intenção de voto 'geral' e de '{rel2}' por candidato segundo '{inst2.title()}' (2º turno)
             #             <br>
