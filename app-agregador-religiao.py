@@ -89,6 +89,8 @@ def load_data():
     list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
     ## retorna o banco filtrado
     df = banco.query('nome_instituto in @list_of_institutions')
+    ## resseta o index
+    df = df.reset_index(drop=True)
     return df
 df = load_data()
 
@@ -149,7 +151,7 @@ with st.container():
         @st.cache
         def convert_df(df):
             # IMPORTANT: Cache the conversion to prevent computation on every rerun
-            return df.to_csv().encode('utf-8-sig')
+            return df.to_csv(index=None).encode('utf-8-sig')
 
         csv = convert_df(lista)
 
