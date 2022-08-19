@@ -13,7 +13,6 @@ import datetime as dt
 import plotly.express as px
 
 
-
 ########################################################################
 ##configuração da página, texto exibido na aba e dados no item 'about'##
 ########################################################################
@@ -365,7 +364,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.lul_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Lula',
                                     line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.lul_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.lul_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -382,7 +381,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.bol_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5),legendrank=3))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bol_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.bol_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -399,7 +398,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.ciro_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5),legendrank=5))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.ciro_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.ciro_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 20,
@@ -434,7 +433,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos NS e NR',
                                     line=dict(color='grey', width=2.5),legendrank=7))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nul_ns_nr_ger_1t']>1].bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nul_ns_nr_ger_1t']>1].bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -0.5,
@@ -459,7 +458,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_ipespe", y=6,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=45,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=32,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 80,font=dict(size=10, color="black", family="Arial"))
-
+            fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -601,6 +600,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_ipespe", y=9,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=46,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -50,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_datafolha", y=29,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 60,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -718,6 +718,10 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=28,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             #fig.add_annotation(x="jun/22_datafolha", y=27,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_ipespe", y=5,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_ipespe", y=31,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 80,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="jul/22_fsb_2", y=46,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1087,6 +1091,10 @@ if options_turn == 'Primeiro Turno':
         fig.add_annotation(x="mar/22_poderdata_3", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_poderdata_2", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         #fig.add_annotation(x="jun/22_poderdata", y=20,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_annotation(x="jul/22_fsb_2", y=7,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_annotation(x="jul/22_fsb_2", y=54,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
+        fig.add_annotation(x="jul/22_fsb_2", y=20,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -1206,6 +1214,7 @@ if options_turn == 'Primeiro Turno':
         fig.add_annotation(x="mar/22_futura", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_futura", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         #fig.add_annotation(x="jun/22_ipespe", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -1919,6 +1928,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = -60, ay = 80,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 50,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=56,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
 
 
@@ -3375,6 +3385,7 @@ if options_turn == 'Segundo Turno':
             #fig.add_annotation(x="jun/22_fsb_2", y=35,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -15, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=52,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=35,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 56,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
