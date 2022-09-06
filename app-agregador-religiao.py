@@ -458,7 +458,12 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_ipespe", y=6,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=45,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=32,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 80,font=dict(size=10, color="black", family="Arial"))
+            #linha inicio campanha
             fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_ipec_2", y=57,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+
 
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -493,6 +498,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -600,7 +606,12 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_ipespe", y=9,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=46,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -50,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_datafolha", y=29,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 60,font=dict(size=10, color="black", family="Arial"))
+            #linha inicio campanha
             fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_ipec_2", y=60,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -634,6 +645,7 @@ if options_turn == 'Primeiro Turno':
             st.markdown(f"""
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_cat_1t']>1])} para os católicos.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Evangélica':
@@ -721,7 +733,11 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_ipespe", y=5,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=31,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 80,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_fsb_2", y=46,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -40,font=dict(size=10, color="black", family="Arial"))
+            #linha inicio campanha
             fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_poderdata_3", y=57,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -755,6 +771,7 @@ if options_turn == 'Primeiro Turno':
             st.markdown(f"""
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_ev_1t']>1])} para os evangélicos.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Espírita':
@@ -842,7 +859,11 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_poderdata_3", y=28,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_poderdata_2", y=22,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            #fig.add_annotation(x="jun/22_poderdata", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            #linha inicio campanha
+            fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_poderdata_3", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -874,6 +895,7 @@ if options_turn == 'Primeiro Turno':
             st.markdown(f"""
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_espi_1t']>1])} para os espíritas.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
 
 
@@ -1094,8 +1116,11 @@ if options_turn == 'Primeiro Turno':
         fig.add_annotation(x="jul/22_fsb_2", y=7,text="Candidatura<br>Ciro (PDT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="jul/22_fsb_2", y=54,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="jul/22_fsb_2", y=20,text="Candidatura<br>Bolsonaro (PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        #linha inicio campanha
         fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
-
+        #linha debate
+        fig.add_annotation(x="ago/22_fsb_4", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_fsb_4"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1127,6 +1152,7 @@ if options_turn == 'Primeiro Turno':
         st.markdown(f"""
         <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
         <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_non_1t']>1])} para sem religião.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
         """, unsafe_allow_html=True)
 
     if relig == 'Outras Religiosidades':
@@ -1214,7 +1240,11 @@ if options_turn == 'Primeiro Turno':
         fig.add_annotation(x="mar/22_futura", y=20,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_annotation(x="mai/22_futura", y=20,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         #fig.add_annotation(x="jun/22_ipespe", y=22,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        #linha inicio campanha
         fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+        #linha debate
+        fig.add_annotation(x="ago/22_ipec_2", y=70,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -1247,6 +1277,7 @@ if options_turn == 'Primeiro Turno':
         st.markdown(f"""
         <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: Método utilizado: média móvel de {m_m} dias.</h7><br>
         <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais e {len(df[df['lul_out_1t']>1])} para outras religiosidades.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
         """, unsafe_allow_html=True)
     
     st.markdown("---")
@@ -1929,7 +1960,9 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_ipespe", y=38,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 50,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=56,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
-
+            #linha debate
+            fig.add_annotation(x="ago/22_ipec_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -1965,6 +1998,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição utilizamos {len(df[df['lul_ger_rej_1t']>1])} pesquisas eleitorais.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 5: Mesmo com a aplicação da média móvel de 15 dias, o recorte temporal da rejeição geral de Ciro Gomes manteve-se oscilante. Trabalhamos com a hipótese de que a rejeição de Gomes associa-se à inclusão de concorrentes da 3a via como alternativas, espaço disputado por Gomes. Portanto, supomos que a variação da rejeição de Ciro Gomes seja um efeito da inclusão ou desistência de outras candiaturas.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 6: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
         st.markdown("---")
 
@@ -2058,7 +2092,10 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="mar/22_datafolha", y=32,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=32,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             #fig.add_annotation(x="jun/22_poderdata", y=30,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-
+            fig.add_vline(x=str("ago/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_ipec_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2092,6 +2129,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: <i>Método utilizado:</i> média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de católicos utilizamos {len(df[df['lul_cat_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 5: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Evangélica ':
@@ -2169,6 +2207,10 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_datafolha", y=38,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=35,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_ipec_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2202,6 +2244,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: <i>Método utilizado:</i> média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de evangélicos utilizamos {len(df[df['lul_ev_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 5: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Espírita ':
@@ -2222,7 +2265,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['lul_espi_rej_1t']>1].sigla)[-1], y=list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_espi_rej_1t']>1].lul_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = -8,
+                        ax = 40, ay = 8,
                         font=dict(size=20, color="black", family="Arial"))
 
 
@@ -2257,7 +2300,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['ciro_espi_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_espi_rej_1t']>1].ciro_espi_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 20,
+                        ax = 40, ay = -8,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## detalhes
@@ -2279,7 +2322,12 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_datafolha", y=30,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-
+            fig.add_vline(x=str("ago/22_datafolha"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_poderdata_3", y=75,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            
+            
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
             # Add image
@@ -2312,6 +2360,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: <i>Método utilizado:</i> média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de espíritas utilizamos {len(df[df['lul_espi_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
 
         if relig == 'Outras Religiosidades ':
@@ -2388,6 +2437,10 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_datafolha", y=30,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=25,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_datafolha"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_poderdata_3", y=85,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2421,6 +2474,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Método utilizado: média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição de outras religiões utilizamos {len(df[df['lul_out_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
             
         if relig == 'Sem Religião ':
@@ -2497,6 +2551,10 @@ if options_turn == 'Primeiro Turno':
 
             fig.add_annotation(x="mar/22_datafolha", y=35,text="Moro<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="mai/22_futura", y=29,text="Dória<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_datafolha"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_poderdata_3", y=75,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2529,6 +2587,7 @@ if options_turn == 'Primeiro Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Método utilizado: média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df[df['lul_ger_rej_1t']>1].data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: Para o cálculo da rejeição dos sem religião utilizamos {len(df[df['lul_non_rej_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
     
     st.markdown("---")
@@ -3386,6 +3445,9 @@ if options_turn == 'Segundo Turno':
             fig.add_annotation(x="jul/22_ipespe", y=52,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=35,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 56,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            #linha debate
+            fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -3418,7 +3480,7 @@ if options_turn == 'Segundo Turno':
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral ao segundo turno utilizou-se {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
-
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -3506,6 +3568,11 @@ if options_turn == 'Segundo Turno':
                 orientation="v",
                 font_family="arial"))
 
+        fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+        #linha debate
+        fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
 
@@ -3530,7 +3597,15 @@ if options_turn == 'Segundo Turno':
                 sizex=0.12, sizey=0.12,
                 xanchor="right", yanchor="bottom"
             )
-        )      
+        )
+
+        st.plotly_chart(fig,use_container_width=True)
+        st.markdown(f"""
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral ao segundo turno utilizou-se {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
+            """, unsafe_allow_html=True)
 
         st.plotly_chart(fig,use_container_width=True)
 
@@ -3598,6 +3673,12 @@ if options_turn == 'Segundo Turno':
                 
                 orientation="v",
                 font_family="arial"))
+            
+        fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+        #linha debate
+        fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+                
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
@@ -3693,6 +3774,11 @@ if options_turn == 'Segundo Turno':
                 orientation="v",
                 font_family="arial"))
 
+        fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+        #linha debate
+        fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
 
@@ -3786,6 +3872,11 @@ if options_turn == 'Segundo Turno':
                 
                 orientation="v",
                 font_family="arial"))
+
+        fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+        #linha debate
+        fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
