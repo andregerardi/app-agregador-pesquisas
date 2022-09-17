@@ -462,7 +462,10 @@ if options_turn == 'Primeiro Turno':
             fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
             fig.add_annotation(x="ago/22_ipec_2", y=57,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=57,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
 
 
@@ -610,7 +613,10 @@ if options_turn == 'Primeiro Turno':
             fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
             fig.add_annotation(x="ago/22_ipec_2", y=60,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=60,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -737,7 +743,10 @@ if options_turn == 'Primeiro Turno':
             fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
             fig.add_annotation(x="ago/22_poderdata_3", y=57,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=57,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1120,7 +1129,10 @@ if options_turn == 'Primeiro Turno':
         fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
         #linha debate
         fig.add_annotation(x="ago/22_fsb_4", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_vline(x=str("ago/22_fsb_4"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+        fig.add_vline(x=str("ago/22_fsb_4"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+        #linha 7 de setembro
+        fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -1243,8 +1255,11 @@ if options_turn == 'Primeiro Turno':
         #linha inicio campanha
         fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
         #linha debate
-        fig.add_annotation(x="ago/22_ipec_2", y=70,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+        fig.add_annotation(x="ago/22_ipec_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("ago/22_ipec_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+        #linha 7 de setembro
+        fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
@@ -1961,13 +1976,16 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x="jul/22_futura", y=56,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("ago/22_fsb"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
-            fig.add_annotation(x="ago/22_ipec_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_annotation(x="ago/22_ipec_2", y=75,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=75,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
-            fig.update_yaxes(range=[0,70])
+            fig.update_yaxes(range=[0,80])
 
             # Add image
             fig.add_layout_image(
@@ -2096,6 +2114,9 @@ if options_turn == 'Primeiro Turno':
             #linha debate
             fig.add_annotation(x="ago/22_ipec_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2210,7 +2231,10 @@ if options_turn == 'Primeiro Turno':
             fig.add_vline(x=str("ago/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
             fig.add_annotation(x="ago/22_ipec_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_vline(x=str("ago/22_ipec_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2440,7 +2464,10 @@ if options_turn == 'Primeiro Turno':
             fig.add_vline(x=str("ago/22_datafolha"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
             fig.add_annotation(x="ago/22_poderdata_3", y=85,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=85,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -2495,7 +2522,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['lul_non_rej_1t']>1].sigla)[-1], y=list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 0,
+                        ax = 40, ay = 20,
                         font=dict(size=20, color="black", family="Arial"))
 
 
@@ -2530,7 +2557,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['ciro_non_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 0,
+                        ax = 40, ay = -15,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## detalhes
@@ -2555,6 +2582,9 @@ if options_turn == 'Primeiro Turno':
             #linha debate
             fig.add_annotation(x="ago/22_poderdata_3", y=75,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("ago/22_poderdata_3"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=70,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -3447,7 +3477,10 @@ if options_turn == 'Segundo Turno':
             fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
             fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_vline(x=str("ago/22_quaest_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            #linha 7 de setembro
+            fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -3571,7 +3604,11 @@ if options_turn == 'Segundo Turno':
         fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
         #linha debate
         fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)       
+        #linha 7 de setembro
+        fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
@@ -3600,14 +3637,7 @@ if options_turn == 'Segundo Turno':
         )
 
         st.plotly_chart(fig,use_container_width=True)
-        st.markdown(f"""
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral ao segundo turno utilizou-se {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
-            """, unsafe_allow_html=True)
 
-        st.plotly_chart(fig,use_container_width=True)
 
     if relig2t == 'Evangélica ':
         fig = go.Figure()
@@ -3677,7 +3707,10 @@ if options_turn == 'Segundo Turno':
         fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
         #linha debate
         fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+        #linha 7 de setembro
+        fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
                 
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
@@ -3777,7 +3810,10 @@ if options_turn == 'Segundo Turno':
         fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
         #linha debate
         fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+        #linha 7 de setembro
+        fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
@@ -3876,7 +3912,10 @@ if options_turn == 'Segundo Turno':
         fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
         #linha debate
         fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
-        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.2, line_dash="dot", line_color="black", opacity=.5)
+        fig.add_vline(x=str("ago/22_quaest_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+        #linha 7 de setembro
+        fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
@@ -4052,7 +4091,10 @@ if options_turn == 'Segundo Turno':
         st.caption('**Obs.:** Em alguns casos, a combinção de dados retornará um gráfico em branco. \n Isso indica que instituto de pesquisa selecionado não coletou dados da categoria.')
 
     st.markdown(f"""
-    <h7 style='text-align: left; color:#606060;font-family:arial'>1) *Método utilizado:* média móvel de {m_m} dias.</h7>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral ao segundo turno utilizou-se {len(df[df['lul_ger_2t']>1])} pesquisas eleitorais.</h7><br>
+        <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
     """, unsafe_allow_html=True)
     st.markdown("---")
 
