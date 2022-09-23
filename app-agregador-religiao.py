@@ -2522,7 +2522,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['lul_non_rej_1t']>1].sigla)[-1], y=list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_non_rej_1t']>1].lul_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = 20,
+                        ax = 40, ay = -20,
                         font=dict(size=20, color="black", family="Arial"))
 
 
@@ -2557,7 +2557,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_annotation(x=list(df[df['ciro_non_rej_1t']>1].sigla)[-1], y=list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_non_rej_1t']>1].ciro_non_rej_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
-                        ax = 40, ay = -15,
+                        ax = 40, ay = 20,
                         font=dict(size=20, color="black", family="Arial"))
 
             ## detalhes
