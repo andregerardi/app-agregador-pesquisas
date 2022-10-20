@@ -3474,13 +3474,20 @@ if options_turn == 'Segundo Turno':
             #fig.add_annotation(x="jun/22_fsb_2", y=35,text="Datena<br>desiste",showarrow=True,arrowhead=1,yanchor="bottom",ax = -15, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_ipespe", y=52,text="Candidatura<br>Lula (PT)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = -30,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="jul/22_futura", y=35,text="Candidatura<br>Bolsonaro<br>(PL)",showarrow=True,arrowhead=1,yanchor="bottom",ax = 0, ay = 56,font=dict(size=10, color="black", family="Arial"))
-            fig.add_vline(x=str("ago/22_quaest"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
+            fig.add_vline(x=str("ago/22_quaest"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
             #linha debate
             fig.add_annotation(x="ago/22_quaest_2", y=65,text="1º Debate<br>na TV",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("ago/22_quaest_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
             #linha 7 de setembro
             fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+            ##linha 2o turno
+            fig.add_annotation(x="out/22_ipec", y=65,text="Pesquisas<br>Segundo turno",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            
+            fig.add_annotation(x="out/22_ipec", y=58,text="Votos 1º turno<br>Lula=48,4%",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="out/22_ipec", y=30,text="Votos 1º turno<br>Bolsonaro=43,2%",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+
+            fig.add_vline(x=str("out/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
             fig.update_xaxes(tickangle = 300,rangeslider_visible=False,title_font_family="Arial")
 
@@ -3608,7 +3615,9 @@ if options_turn == 'Segundo Turno':
         #linha 7 de setembro
         fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
-
+        ##linha 2o turno
+        fig.add_annotation(x="out/22_ipec", y=65,text="Pesquisas<br>Segundo turno",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("out/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
@@ -3711,7 +3720,9 @@ if options_turn == 'Segundo Turno':
         #linha 7 de setembro
         fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
-                
+        ##linha 2o turno
+        fig.add_annotation(x="out/22_ipec", y=65,text="Pesquisas<br>Segundo turno",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("out/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
@@ -3814,6 +3825,9 @@ if options_turn == 'Segundo Turno':
         #linha 7 de setembro
         fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+        ##linha 2o turno
+        fig.add_annotation(x="out/22_ipec", y=65,text="Pesquisas<br>Segundo turno",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("out/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
@@ -3916,6 +3930,9 @@ if options_turn == 'Segundo Turno':
         #linha 7 de setembro
         fig.add_annotation(x="set/22_datafolha_2", y=65,text="7 de<br>setembro",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
         fig.add_vline(x=str("set/22_datafolha_2"), line_width=.3, line_dash="dot", line_color="black", opacity=.5)
+        ##linha 2o turno
+        fig.add_annotation(x="out/22_ipec", y=65,text="Pesquisas<br>Segundo turno",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+        fig.add_vline(x=str("out/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
 
         fig.update_xaxes(tickangle = 300,rangeslider_visible=False)
         fig.update_yaxes(range=[0,70])
