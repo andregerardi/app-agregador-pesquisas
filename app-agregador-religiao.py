@@ -93,6 +93,19 @@ def load_data():
     return df
 df = load_data()
 
+@st.cache(allow_output_mutation=True)
+def geral_primeiro_turno():
+    ## importa o banco
+    banco = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')[['nome_instituto','sigla','data','lul_ger_1t','bol_ger_1t','ciro_ger_1t','bra_nul_ns_nr_ger_1t']][0:145]
+    ## lista de instituições a se considerar no banco (retirei 'prpesquisas')
+    list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
+    ## retorna o banco filtrado
+    df = banco.query('nome_instituto in @list_of_institutions')
+    ## resseta o index
+    df = df.reset_index(drop=True)
+    return df
+dfx = geral_primeiro_turno()
+
 ##import image logo
 @st.cache(allow_output_mutation=True)
 def load_image():
@@ -348,20 +361,6 @@ if options_turn == 'Primeiro Turno':
 
         int_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da intenção de voto geral')
 
-        ### cria banco para o primeiro turno
-        @st.cache(allow_output_mutation=True)
-        def dados_primeiro_turno():
-            ## importa o banco
-            banco = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')[0:145]
-            ## lista de instituições a se considerar no banco (retirei 'prpesquisas')
-            list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
-            ## retorna o banco filtrado
-            df = banco.query('nome_instituto in @list_of_institutions')
-            ## resseta o index
-            df = df.reset_index(drop=True)
-            return df
-        df = dados_primeiro_turno()
-
         if int_vote_med_move:
 
             ##import image
@@ -369,16 +368,16 @@ if options_turn == 'Primeiro Turno':
             fig = go.Figure()
 
             ## lula
-            fig.add_trace(go.Scatter(y=df.lul_ger_1t, x=df.sigla, mode='markers', name='Int. voto Lula',
+            fig.add_trace(go.Scatter(y=dfx.lul_ger_1t, x=dfx.sigla, mode='markers', name='Int. voto Lula',
                                     marker=dict(
                                     size=5,
-                                    color=df.lul_ger_1t, #set color equal to a variable
+                                    color=dfx.lul_ger_1t, #set color equal to a variable
                                     colorscale='peach'),legendrank=2))
 
-            fig.add_trace(go.Scatter(y=df.lul_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Lula',
+            fig.add_trace(go.Scatter(y=dfx.lul_ger_1t.rolling(m_m).mean(), x=dfx.sigla,mode='lines', name='Lula',
                                     line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.lul_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(dfx.sigla)[-1], y=list(dfx.lul_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(dfx[dfx['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -386,16 +385,16 @@ if options_turn == 'Primeiro Turno':
 
 
             ## Bolsonaro
-            fig.add_trace(go.Scatter(y=df.bol_ger_1t, x=df.sigla, mode='markers', name='Int. voto Bolsonaro',
+            fig.add_trace(go.Scatter(y=dfx.bol_ger_1t, x=dfx.sigla, mode='markers', name='Int. voto Bolsonaro',
                                     marker=dict(
                                     size=5,
-                                    color=df.bol_ger_1t, #set color equal to a variable
+                                    color=dfx.bol_ger_1t, #set color equal to a variable
                                     colorscale='ice'),legendrank=4))
 
-            fig.add_trace(go.Scatter(y=df.bol_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Bolsonaro',
+            fig.add_trace(go.Scatter(y=dfx.bol_ger_1t.rolling(m_m).mean(), x=dfx.sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5),legendrank=3))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bol_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(dfx.sigla)[-1], y=list(dfx.bol_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(dfx[dfx['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -403,16 +402,16 @@ if options_turn == 'Primeiro Turno':
 
             ## Ciro
 
-            fig.add_trace(go.Scatter(y=df.ciro_ger_1t, x=df.sigla, mode='markers', name='Int. voto Ciro',
+            fig.add_trace(go.Scatter(y=dfx.ciro_ger_1t, x=dfx.sigla, mode='markers', name='Int. voto Ciro',
                                     marker=dict(
                                     size=5,
-                                    color=df.ciro_ger_1t, #set color equal to a variable
+                                    color=dfx.ciro_ger_1t, #set color equal to a variable
                                     colorscale='Greens'),legendrank=6))
 
-            fig.add_trace(go.Scatter(y=df.ciro_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Ciro Gomes',
+            fig.add_trace(go.Scatter(y=dfx.ciro_ger_1t.rolling(m_m).mean(), x=dfx.sigla, mode='lines', name='Ciro Gomes',
                                     line=dict(color='seagreen', width=2.5),legendrank=5))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(dfx.sigla)[-1], y=list(dfx[dfx['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(dfx[dfx['ciro_ger_1t']>1].ciro_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 20,
@@ -421,16 +420,16 @@ if options_turn == 'Primeiro Turno':
 
             # ## Brancos e Nulos e não sabe e não respondeu
 
-            # fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t, x=df.sigla, mode='markers', name='brancos_nulos_ns_nr',
+            # fig.add_trace(go.Scatter(y=dfx.bra_nul_ns_nr_ger_1t, x=dfx.sigla, mode='markers', name='brancos_nulos_ns_nr',
             #                         marker=dict(
             #                         size=5,
-            #                         color=df.bra_nul_ns_nr_ger_1t, #set color equal to a variable
+            #                         color=dfx.bra_nul_ns_nr_ger_1t, #set color equal to a variable
             #                         colorscale='Greys')))
 
-            # fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos, NS e NR',
+            # fig.add_trace(go.Scatter(y=dfx.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=dfx.sigla, mode='lines', name='Brancos, nulos, NS e NR',
             #                         line=dict(color='grey', width=2.5)))
 
-            # fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1] ,text=f"{int(list(df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
+            # fig.add_annotation(x=list(dfx.sigla)[-1], y=list(dfx.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1] ,text=f"{int(list(dfx.bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
             #             showarrow=True,
             #             arrowhead=1,
             #             ax = 40, ay = -8,
@@ -438,16 +437,16 @@ if options_turn == 'Primeiro Turno':
 
             ## Brancos e Nulos, NS e NR
 
-            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t, x=df.sigla, mode='markers', name='Brancos, nulos NS e NR',
+            fig.add_trace(go.Scatter(y=dfx.bra_nul_ns_nr_ger_1t, x=dfx.sigla, mode='markers', name='Brancos, nulos NS e NR',
                                     marker=dict(
                                     size=5,
-                                    color=df.bra_nul_ns_nr_ger_1t, #set color equal to a variable
+                                    color=dfx.bra_nul_ns_nr_ger_1t, #set color equal to a variable
                                     colorscale='Greys'),legendrank=8))
 
-            fig.add_trace(go.Scatter(y=df.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=df.sigla, mode='lines', name='Brancos, nulos NS e NR',
+            fig.add_trace(go.Scatter(y=dfx.bra_nul_ns_nr_ger_1t.rolling(m_m).mean(), x=dfx.sigla, mode='lines', name='Brancos, nulos NS e NR',
                                     line=dict(color='grey', width=2.5),legendrank=7))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bra_nul_ns_nr_ger_1t']>1].bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bra_nul_ns_nr_ger_1t']>1].bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(dfx.sigla)[-1], y=list(dfx[dfx['bra_nul_ns_nr_ger_1t']>1].bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(dfx[dfx['bra_nul_ns_nr_ger_1t']>1].bra_nul_ns_nr_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = -0.5,
@@ -513,8 +512,8 @@ if options_turn == 'Primeiro Turno':
 
             st.markdown(f"""
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: *Método utilizado:* média móvel de {m_m} dias.</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(df.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
-            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(df[df['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: Os valores indicados no gráfico correspondem a última média da série temporal registrada no dia *{list(dfx.data)[-1].strftime(format='%d-%m-%Y')}*</h7><br>
+            <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: Para o cálculo da média móvel da intenção de voto geral utilizamos {len(dfx[dfx['lul_ger_1t']>1])} pesquisas eleitorais.</h7><br>
             <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 4: A linha pontilhada indica o período de início da campanha eleitoral oficial (15/08).</h7><br>
             """, unsafe_allow_html=True)
     st.markdown("---")
