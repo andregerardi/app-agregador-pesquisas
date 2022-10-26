@@ -348,6 +348,20 @@ if options_turn == 'Primeiro Turno':
 
         int_vote_med_move = st.checkbox('Selecione para visualizar o gráfico da intenção de voto geral')
 
+        ### cria banco para o primeiro turno
+        @st.cache(allow_output_mutation=True)
+        def dados_primeiro_turno():
+            ## importa o banco
+            banco = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')[0:145]
+            ## lista de instituições a se considerar no banco (retirei 'prpesquisas')
+            list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
+            ## retorna o banco filtrado
+            df = banco.query('nome_instituto in @list_of_institutions')
+            ## resseta o index
+            df = df.reset_index(drop=True)
+            return df
+        df = dados_primeiro_turno()
+
         if int_vote_med_move:
 
             ##import image
@@ -364,7 +378,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.lul_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Lula',
                                     line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.lul_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['lul_ger_1t']>1].lul_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
@@ -381,7 +395,7 @@ if options_turn == 'Primeiro Turno':
             fig.add_trace(go.Scatter(y=df.bol_ger_1t.rolling(m_m).mean(), x=df.sigla,mode='lines', name='Bolsonaro',
                                     line=dict(color='skyblue', width=2.5),legendrank=3))
 
-            fig.add_annotation(x=list(df.sigla)[-1], y=list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1])}%",
+            fig.add_annotation(x=list(df.sigla)[-1], y=list(df.bol_ger_1t.rolling(m_m).mean())[-1],text=f"{int(list(df[df['bol_ger_1t']>1].bol_ger_1t.rolling(m_m).mean())[-1])}%",
                         showarrow=True,
                         arrowhead=1,
                         ax = 40, ay = 0,
