@@ -174,7 +174,7 @@ with st.container():
                 <br><i>Presencial:</i> {', '.join(set(df[df['tipo_coleta']=='presencial'].nome_instituto)).title().replace('Mda','MDA').replace('Fsb','FSB').replace('Idea','Idea Big Data').replace('Voxpopuli','Vox Populi').replace('Prpesquisas','Paraná Pesquisas')}</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Total de pesquisas mapeadas:</h6> 
             <p style='color:#000000;font-weight:700;font-size:18px;text-align: center';>
-            {len(df)}<br>
+            {len(df)-1}<br>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Número de pesquisas segundo método de coleta:</h6><p style='text-align: center';>
                 Telefone: {df[df['tipo_coleta']=='telefone'].tipo_coleta.value_counts()[0]}
                 <br>Presencial: {df[df['tipo_coleta']=='presencial'].tipo_coleta.value_counts()[0]}</p>
