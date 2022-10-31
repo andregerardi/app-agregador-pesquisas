@@ -3528,7 +3528,7 @@ if options_turn == 'Segundo Turno':
             fig.add_annotation(x="out/22_ipec", y=30,text="Votos 1º turno:<br>Bolsonaro=43,2%",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("out/22_ipec"), line_width=.5, line_dash="dot", line_color="black", opacity=.5)
             ##resultado 2o turno
-            fig.add_annotation(x="out/22_datafolha_6", y=65,text="<b>Resultado<br>das eleições</b>",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
+            fig.add_annotation(x="out/22_datafolha_6", y=65,text="<b>Resultado<br>2º turno</b>",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="out/22_datafolha_6", y=58,text="Votos 2º turno:<br>Lula=50,9%",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_annotation(x="out/22_datafolha_6", y=30,text="Votos 2º turno:<br>Bolsonaro=49,1%",showarrow=False,arrowhead=1,yanchor="bottom",ax = 0, ay = 40,font=dict(size=10, color="black", family="Arial"))
             fig.add_vline(x=str("out/22_datafolha_6"), line_width=.5, line_dash="dot", line_color="black", opacity=.4)
