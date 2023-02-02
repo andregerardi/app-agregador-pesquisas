@@ -6,4 +6,4 @@ Para acessar o app [clique aqui](https://share.streamlit.io/andregerardi/app-agr
 
 Projeto encerrado em 31/10/2022.
 
-Total de pesquisas no banco: 156
+Total de pesquisas no banco: 175
