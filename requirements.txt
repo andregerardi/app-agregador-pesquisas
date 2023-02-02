@@ -1,10 +1,5 @@
 streamlit
-pandas
 pillow
 matplotlib
-pip==22.3.1
 openpyxl
 plotly
-datetime
-plotly
-PIL
