@@ -81,7 +81,7 @@ start_date = dt.datetime(2022,8,16) # data de oito meses atras
 ### dados pesquisas
 ## retirei do banco as pesquisas da 'prpesquisas' em função dos questionamentos públicos quanto ao método
 
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def load_data():
     ## importa o banco
     banco =  pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
@@ -92,10 +92,7 @@ def load_data():
     ## resseta o index
     df = df.reset_index(drop=True)
     return df
-#df = load_data()
-
-import copy
-df = copy.deepcopy(load_data())
+df = load_data()
 
 ##import image logo
 @st.cache(allow_output_mutation=True)
