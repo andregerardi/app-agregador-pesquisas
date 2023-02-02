@@ -92,7 +92,10 @@ def load_data():
     ## resseta o index
     df = df.reset_index(drop=True)
     return df
-df = load_data()
+#df = load_data()
+
+import copy
+df = copy.deepcopy(load_data())
 
 ##import image logo
 @st.cache(allow_output_mutation=True)
