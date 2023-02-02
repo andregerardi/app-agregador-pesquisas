@@ -82,9 +82,7 @@ start_date = dt.datetime(2022,8,16) # data de oito meses atras
 ## retirei do banco as pesquisas da 'prpesquisas' em função dos questionamentos públicos quanto ao método
 
 @st.cache(allow_output_mutation=True)
-def load_data():
-    ## importa o banco
-    banco =  pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
+def load_data(banco):
     ## lista de instituições a se considerar no banco (retirei 'prpesquisas')
     list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
     ## retorna o banco filtrado
@@ -92,7 +90,10 @@ def load_data():
     ## resseta o index
     df = df.reset_index(drop=True)
     return df
-df = load_data()
+
+banco_ =  pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
+
+df = load_data(banco_)
 
 ##import image logo
 @st.cache(allow_output_mutation=True)
