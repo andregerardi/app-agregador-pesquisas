@@ -82,17 +82,16 @@ start_date = dt.datetime(2022,8,16) # data de oito meses atras
 ## retirei do banco as pesquisas da 'prpesquisas' em função dos questionamentos públicos quanto ao método
 
 ##import image logo
-@st.cache(allow_output_mutation=True,persist=True)
+#@st.cache(allow_output_mutation=True,persist=True)
 def load_image():
     agre = Image.open('palacio-da-alvorada-interior-black-so-agregador-branco.jpg')
     return agre
 agre = load_image()
 
 #@st.cache(allow_output_mutation=True,persist=True)
-@st.experimental_memo
 def load_dados():
     ## importa o banco
-    banco =  pd.read_excel(r'./resultados_pesquisas_lula_bolsonaro_religião.xlsx')
+    banco =  pd.read_excel(r'resultados_pesquisas_lula_bolsonaro_religião.xlsx')
     ## lista de instituições a se considerar no banco (retirei 'prpesquisas')
     list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
     ## retorna o banco filtrado
