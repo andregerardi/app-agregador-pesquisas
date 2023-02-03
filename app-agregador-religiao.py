@@ -101,8 +101,6 @@ def load_dados():
     return df
 df = load_dados()
 
-df = pd.read_excel('resultados_pesquisas_lula_bolsonaro_religião.xlsx')
-agre = Image.open('palacio-da-alvorada-interior-black-so-agregador-branco.jpg')
 
 
 ###############################################################################
