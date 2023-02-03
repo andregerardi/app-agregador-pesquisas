@@ -88,10 +88,11 @@ def load_image():
     return agre
 agre = load_image()
 
-@st.cache(allow_output_mutation=True,persist=True)
-def load_dados(end: str):
+#@st.cache(allow_output_mutation=True,persist=True)
+@st.experimental_memo
+def load_dados():
     ## importa o banco
-    banco =  pd.read_excel(end)
+    banco =  pd.read_excel(r'./resultados_pesquisas_lula_bolsonaro_religião.xlsx')
     ## lista de instituições a se considerar no banco (retirei 'prpesquisas')
     list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
     ## retorna o banco filtrado
@@ -99,9 +100,7 @@ def load_dados(end: str):
     ## resseta o index
     df = df.reset_index(drop=True)
     return df
-
-end = './resultados_pesquisas_lula_bolsonaro_religião.xlsx'
-df = load_dados(end)
+df = load_dados()
 
 
 
