@@ -91,7 +91,7 @@ agre = load_image()
 @st.cache(allow_output_mutation=True)
 def load_dados():
     ## importa o banco
-    banco =  pd.read_excel(r'resultados_pesquisas_lula_bolsonaro_religião.xlsx')
+    banco =  pd.read_excel(r'./resultados_pesquisas_lula_bolsonaro_religião.xlsx')
     ## lista de instituições a se considerar no banco (retirei 'prpesquisas')
     list_of_institutions = ['fsb','futura','mda','voxpopuli','quaest','ipec','poderdata','datafolha','idea','ipespe']
     ## retorna o banco filtrado
