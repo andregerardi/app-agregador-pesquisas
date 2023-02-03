@@ -7,10 +7,8 @@ import datetime as dt
 import matplotlib.pyplot as plt
 from matplotlib import image as image
 from PIL import Image
-import openpyxl
 import plotly.graph_objects as go
 import datetime as dt
-import plotly.express as px
 
 
 ########################################################################
@@ -100,7 +98,6 @@ def load_dados():
     df = df.reset_index(drop=True)
     return df
 df = load_dados()
-
 
 
 ###############################################################################
