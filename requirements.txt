@@ -5,4 +5,4 @@ matplotlib==3.4.3
 pip
 openpyxl
 plotly
-python=3.9.7
+python
