@@ -145,7 +145,7 @@ with st.container():
         expander3.write("""#### Lista de pesquisas""")
         lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança', 'tipo_coleta']]
         lista = lista.fillna(0).astype({'nome_instituto': 'str', 
-                                        'data': 'datetime64', 
+                                        
                                         'registro_tse': 'str', 
                                         'entrevistados':'int',
                                         'margem_erro':'str',
