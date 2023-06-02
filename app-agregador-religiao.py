@@ -143,7 +143,14 @@ with st.container():
         ### lista de pesquisas
         expander3 = st.expander("Verifique as pesquisas eleitorais utilizadas")
         expander3.write("""#### Lista de pesquisas""")
-        lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança', 'tipo_coleta']].fillna(0).astype({'nome_instituto': 'str', 'data': 'datetime64', 'registro_tse': 'str', 'entrevistados':'int','margem_erro':'str','confiança':'int', 'tipo_coleta':'str'})
+        lista = df[['nome_instituto', 'data', 'registro_tse','entrevistados', 'margem_erro', 'confiança', 'tipo_coleta']]
+        lista = lista.fillna(0).astype({'nome_instituto': 'str', 
+                                        'data': 'datetime64', 
+                                        'registro_tse': 'str', 
+                                        'entrevistados':'int',
+                                        'margem_erro':'str',
+                                        'confiança':'int', 
+                                        'tipo_coleta':'str'})
         expander3.dataframe(lista)
 
         @st.cache
