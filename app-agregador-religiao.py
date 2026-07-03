@@ -510,7 +510,7 @@ with st.container():
     st.markdown("<div class='turn-band'><span class='lbl'>Explore os dados por turno</span></div>", unsafe_allow_html=True)
     options_turn = st.radio(
         label="",
-        options=['Primeiro Turno', 'Segundo Turno'],
+        options=['--Selecione o Turno--','Primeiro Turno', 'Segundo Turno'],
         horizontal=True,
         label_visibility="collapsed",
     )
