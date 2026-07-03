@@ -514,7 +514,7 @@ with st.container():
 
     options_turn = st.radio(
         label="",
-        options=["--Selecione o Turno--", "Primeiro Turno", "Segundo Turno"],
+        options=["Primeiro Turno", "Segundo Turno"],
         horizontal=True,
         label_visibility="collapsed",
     )
