@@ -4940,5 +4940,3 @@ Site publicado em: 15/05/2022.<br>
 Lançamento: 03/08/2022.<br>
 Última atualização: {end_date.strftime(format='%d/%m/%Y')}
 """, unsafe_allow_html=True)
-
-", unsafe_allow_html=True)
