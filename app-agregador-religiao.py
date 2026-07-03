@@ -26,18 +26,6 @@ st.set_page_config(
  )
 
 #####---####3
-
-st.set_page_config(
-     page_title="Agregador de pesquisas eleitorais por religião",
-     page_icon="chart_with_upwards_trend",
-     layout="wide",
-     initial_sidebar_state="expanded",
-     menu_items={
-         'About': "##### Cientista de dados: Dirceu André Gerardi. \n **E-mail:** andregerardi3@gmail.com"
-     }
- )
-
-#####---####3
 premium_css = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
@@ -105,7 +93,136 @@ h4[style*="background-color"]{
   padding: 16px 22px !important;
   border-radius: var(--radius) !important;
   box-shadow: var(--shadow-md) !important;
-
+  border-left: 5px solid var(--accent) !important;
+}
+ 
+/* ---------- Cabeçalhos de seção (h3 com background: #e6e6e6, #EAE6DA, #EDF1FF, #FFD662...) ---------- */
+h3[style*="background-color"]{
+  background: var(--surface) !important;
+  color: var(--primary) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  padding: 14px 20px !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-left: 5px solid var(--accent) !important;
+  margin-top: 1.2rem !important;
+}
+h3[style*="background-color"] svg{ fill: var(--accent) !important; vertical-align: middle; margin-right: 6px; }
+ 
+/* ---------- Títulos de turno (h2) ---------- */
+h2[style]{
+  font-family:'Plus Jakarta Sans', sans-serif !important;
+  font-weight:800 !important;
+  color: #fff !important;
+  background: linear-gradient(120deg, var(--primary) 0%, var(--primary-2) 100%) !important;
+  padding: 18px !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-md) !important;
+  text-align:center !important;
+}
+ 
+/* ---------- Sub-cabeçalhos (h6, usados nas "Estatísticas") ---------- */
+h6[style]{
+  font-family:'Plus Jakarta Sans', sans-serif !important;
+  color: var(--primary) !important;
+  font-weight:700 !important;
+  border-bottom: 2px solid var(--accent-soft) !important;
+  padding-bottom: 4px !important;
+}
+ 
+/* ---------- Notas de rodapé dos gráficos (tag <h7>, custom, usada no projeto original) ---------- */
+h7[style]{
+  display:block !important;
+  font-family:'Inter', sans-serif !important;
+  color: var(--muted) !important;
+  font-size: .8rem !important;
+  line-height:1.55rem !important;
+  border-left: 2px solid var(--border) !important;
+  padding-left: 10px !important;
+}
+ 
+/* ---------- st.metric ---------- */
+[data-testid="stMetric"]{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 8px;
+  box-shadow: var(--shadow-sm);
+  text-align:center;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+[data-testid="stMetric"]:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); }
+[data-testid="stMetricLabel"]{ color: var(--muted) !important; font-weight:600 !important; }
+[data-testid="stMetricValue"]{
+  color: var(--primary) !important;
+  font-family:'Plus Jakarta Sans', sans-serif !important;
+  font-weight:800 !important;
+}
+ 
+/* ---------- Expanders (st.expander) ---------- */
+details{
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+summary{
+  font-family:'Plus Jakarta Sans', sans-serif !important;
+  font-weight:600 !important;
+  color: var(--primary) !important;
+}
+ 
+/* ---------- Checkbox ---------- */
+[data-testid="stCheckbox"] label p{
+  font-weight:600 !important;
+  color: var(--primary) !important;
+}
+ 
+/* ---------- Selectbox ---------- */
+[data-testid="stSelectbox"] > div > div{
+  border-radius: 10px !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+ 
+/* ---------- DataFrame ---------- */
+[data-testid="stDataFrame"]{
+  border-radius: var(--radius) !important;
+  overflow:hidden !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+ 
+/* ---------- Botão de download ---------- */
+[data-testid="stDownloadButton"] button{
+  background: var(--primary) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-weight:600 !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+[data-testid="stDownloadButton"] button:hover{
+  background: var(--accent) !important;
+  color: var(--primary) !important;
+}
+ 
+/* ---------- Divisórias (st.markdown("---")) ---------- */
+hr{
+  border: none !important;
+  border-top: 1px solid var(--border) !important;
+  margin: 1.6rem 0 !important;
+}
+ 
+/* ---------- st.caption (rodapé "Última atualização") ---------- */
+[data-testid="stCaptionContainer"]{
+  color: var(--muted) !important;
+  text-align:center !important;
+}
+</style>
+"""
+st.markdown(premium_css, unsafe_allow_html=True)
 #####---####3
 
 ## titulo
