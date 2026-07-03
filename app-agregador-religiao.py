@@ -3667,8 +3667,10 @@ if options_turn == 'Segundo Turno':
         <br>
         """, unsafe_allow_html=True)
     st.markdown("---")
-
-
+    st.markdown(f"""
+        <h3 style='text-align: center; color: #303030; font-family:segoe UI; text-rendering: optimizelegibility;background-color: #FFD662;'>1. Intenção de voto:</h3>
+        """, unsafe_allow_html=True)
+    st.markdown("---")
 ##################
 ##resumo#########
 #################
