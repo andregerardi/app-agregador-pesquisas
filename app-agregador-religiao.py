@@ -105,7 +105,7 @@ p[style]{ line-height:1.7 !important; }
 }
 .hero .sub{
   color:rgba(255,255,255,.72);
-  font-size:1.02rem; font-weight:400;
+  font-size:1.02rem; font-weight:500;
   max-width:640px; margin:0 auto;
 }
 .hero .share{ margin-top:26px; }
