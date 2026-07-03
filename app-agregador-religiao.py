@@ -514,7 +514,7 @@ with st.container():
 
     options_turn = st.radio(
         label="",
-        options=["--Selecione o Turno--", "Primeiro Turno", "Segundo Turno"],
+        options=["Primeiro Turno", "Segundo Turno"],
         horizontal=True,
         label_visibility="collapsed",
         index=0
@@ -522,7 +522,7 @@ with st.container():
      
 st.markdown("---")
 
-if options_turn == "--Selecione o Turno--":
+if options_turn == "":
     st.info("Selecione um turno para visualizar os dados.")
 
 ############-#########
