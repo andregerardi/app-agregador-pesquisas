@@ -469,7 +469,7 @@ with st.container():
             <p style='color:#000000;font-weight:700;font-size:18px;text-align: center';>
             {len(df)-1}<br>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Número de pesquisas segundo método de coleta:</h6><p style='text-align: center';>
-                Telefone: {df[df['tipo_coleta'] == 'telefone'].tipo_coleta.value_counts().iloc[0]}
+                Telefone: {df[df['tipo_coleta'] == 'telefone'].tipo_coleta.value_counts().shape[0]}
                 <br>Presencial: {df[df['tipo_coleta']=='presencial'].tipo_coleta.value_counts()[0]}</p>
             <h6 style='text-align: center; color: rgb(37, 117, 232);font-family:Segoe UI;'>Contador de pesquisas para dados gerais:</h6> 
             <p style='color:#000000;font-weight:700;font-size:18px;text-align: center';>
