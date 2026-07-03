@@ -518,12 +518,15 @@ with st.container():
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
 ########################################################################
  
-     with st.container():
-         col3,col4,col5 = st.columns([.5,1.5,.5])
-         with col4:
-             st.markdown("<h4 style='text-align: center; color: #ffffff; font-family:font-family:poppins-sans-serif; background-color: rgb(0, 165, 200, 100);'>Selecione o turno da eleição para visualizar os dados:</h4>", unsafe_allow_html=True)
-             options_turn = st.selectbox('',options=['--clique para selecionar--','Primeiro Turno', 'Segundo Turno'])
-     st.markdown("---")
+with st.container():
+    st.markdown("<div class='turn-band'><span class='lbl'>Explore os dados por turno</span></div>", unsafe_allow_html=True)
+    options_turn = st.radio(
+        label="",
+        options=['--clique para selecionar--', 'Primeiro Turno', 'Segundo Turno'],
+        horizontal=True,
+        label_visibility="collapsed",
+    )
+st.markdown("---")
 
 ############-#########
 
