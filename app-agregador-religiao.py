@@ -30,13 +30,300 @@ st.set_page_config(
  )
 
 #####---####3
+
+premium_css = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+ 
+:root{
+  --bg: #F7F6F3;            /* papel quente, estilo editorial */
+  --surface: #FFFFFF;
+  --ink: #1A1A2E;
+  --muted: #6E6E85;
+  --primary: #14213D;       /* navy profundo */
+  --primary-2: #233A63;
+  --accent: #FF6B35;        /* laranja elétrico — remete ao FA7A35 original */
+  --accent-2: #00A8CC;      /* ciano — remete ao rgb(0,165,200) original */
+  --border: #E9E7E0;
+  --shadow-sm: 0 1px 3px rgba(20,33,61,.08), 0 4px 14px rgba(20,33,61,.05);
+  --shadow-md: 0 8px 30px rgba(20,33,61,.12);
+  --radius: 16px;
+}
+ 
+/* ---------- Base ---------- */
+html, body, [class*="css"]{
+  font-family:'Inter',-apple-system,sans-serif !important;
+  color:var(--ink) !important;
+}
+.stApp{
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(0,168,204,.07), transparent 60%),
+    var(--bg) !important;
+}
+.block-container{ padding-top:1.4rem !important; padding-bottom:3rem !important; max-width:1250px !important; }
+p[style]{ line-height:1.7 !important; }
+ 
+/* ---------- Hero (usa as classes do BLOCO B) ---------- */
+.hero{
+  background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 60%, #2E4A7A 100%);
+  border-radius:24px;
+  padding:52px 40px 44px 40px;
+  text-align:center;
+  box-shadow:var(--shadow-md);
+  position:relative;
+  overflow:hidden;
+  margin-bottom:8px;
+}
+.hero::before{
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(600px 200px at 20% 0%, rgba(255,107,53,.18), transparent 60%),
+    radial-gradient(500px 220px at 85% 100%, rgba(0,168,204,.20), transparent 60%);
+  pointer-events:none;
+}
+.hero .kicker{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent-2);
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.15);
+  padding:6px 14px; border-radius:999px;
+  margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Fraunces',serif !important;
+  font-weight:800;
+  font-size:clamp(1.8rem, 4vw, 2.9rem);
+  line-height:1.12;
+  color:#fff !important;
+  margin:0 0 14px 0;
+  letter-spacing:-.01em;
+}
+.hero .sub{
+  color:rgba(255,255,255,.72);
+  font-size:1.02rem; font-weight:400;
+  max-width:640px; margin:0 auto;
+}
+.hero .share{ margin-top:26px; }
+.hero .share span.lbl{
+  display:block; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(255,255,255,.45); margin-bottom:10px;
+}
+.hero .share a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:42px; height:42px; border-radius:12px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.16);
+  margin:0 5px;
+  transition:transform .15s ease, background .15s ease;
+}
+.hero .share a:hover{ transform:translateY(-3px); background:rgba(255,255,255,.18); }
+.hero .share svg{ width:20px; height:20px; }
+ 
+/* ---------- Faixa do seletor de turno (BLOCO C) ---------- */
+.turn-band{
+  text-align:center;
+  margin:6px 0 2px 0;
+}
+.turn-band .lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted);
+}
+/* radio horizontal vira "pills" */
+div[role="radiogroup"]{
+  display:flex !important; justify-content:center; gap:10px; flex-wrap:wrap;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:6px;
+  width:fit-content; margin:10px auto 0 auto;
+  box-shadow:var(--shadow-sm);
+}
+div[role="radiogroup"] label{
+  border-radius:999px !important;
+  padding:8px 22px !important;
+  margin:0 !important;
+  cursor:pointer;
+  transition:background .15s ease;
+}
+div[role="radiogroup"] label:has(input:checked){
+  background:var(--primary);
+  box-shadow:var(--shadow-sm);
+}
+div[role="radiogroup"] label:has(input:checked) p{ color:#fff !important; font-weight:700 !important; }
+div[role="radiogroup"] label p{ color:var(--ink) !important; font-weight:600 !important; }
+div[role="radiogroup"] label > div:first-child{ display:none !important; } /* esconde a bolinha */
+ 
+/* ---------- Títulos de turno (h2 inline) ---------- */
+h2[style]{
+  font-family:'Fraunces',serif !important;
+  font-weight:800 !important;
+  font-size:1.9rem !important;
+  color:var(--primary) !important;
+  background:transparent !important;
+  text-align:center !important;
+  position:relative;
+  padding-bottom:14px !important;
+}
+h2[style]::after{
+  content:'';
+  display:block; width:64px; height:4px; border-radius:2px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  margin:12px auto 0 auto;
+}
+ 
+/* ---------- Seções numeradas (h3 centrado com fundo #FFD662) ---------- */
+h3[style*="FFD662"]{
+  background:transparent !important;
+  color:var(--primary) !important;
+  font-family:'Fraunces',serif !important;
+  font-weight:700 !important;
+  font-size:1.45rem !important;
+  text-align:center !important;
+  border:none !important;
+  padding:8px 0 !important;
+}
+ 
+/* ---------- Cabeçalhos de bloco (h3 com fundos cinza/bege/azul) ---------- */
+h3[style*="e6e6e6"], h3[style*="EAE6DA"], h3[style*="EDF1FF"]{
+  background:var(--surface) !important;
+  color:var(--primary) !important;
+  font-family:'Inter',sans-serif !important;
+  font-weight:700 !important;
+  font-size:1.05rem !important;
+  padding:15px 20px 15px 22px !important;
+  border-radius:var(--radius) !important;
+  border:1px solid var(--border) !important;
+  border-left:4px solid var(--accent) !important;
+  box-shadow:var(--shadow-sm) !important;
+  margin-top:1.1rem !important;
+}
+h3[style*="EAE6DA"]{ border-left-color:var(--accent-2) !important; }
+h3[style] svg{ fill:var(--accent) !important; vertical-align:-6px; margin-right:8px; width:24px; height:22px; }
+h3[style*="EAE6DA"] svg{ fill:var(--accent-2) !important; }
+ 
+/* ---------- Banner "Informações sobre o agregador" (h4 laranja) ---------- */
+h4[style*="background-color"]{
+  background:var(--primary) !important;
+  color:#fff !important;
+  font-family:'Inter',sans-serif !important;
+  font-weight:700 !important;
+  font-size:1rem !important;
+  letter-spacing:.02em;
+  padding:15px 22px !important;
+  border-radius:var(--radius) !important;
+  box-shadow:var(--shadow-sm) !important;
+  border-left:4px solid var(--accent) !important;
+}
+h4[style*="background-color"] b{ color:#fff !important; }
+ 
+/* ---------- h6 das estatísticas ---------- */
+h6[style]{
+  font-family:'JetBrains Mono',monospace !important;
+  font-size:.72rem !important;
+  font-weight:700 !important;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent-2) !important;
+  border:none !important;
+}
+ 
+/* ---------- Notas <h7> ---------- */
+h7[style]{
+  display:block !important;
+  font-size:.78rem !important;
+  line-height:1.5rem !important;
+  color:var(--muted) !important;
+  border-left:2px solid var(--border) !important;
+  padding-left:10px !important;
+}
+ 
+/* ---------- st.metric: cards ---------- */
+[data-testid="stMetric"]{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px 8px;
+  box-shadow:var(--shadow-sm);
+  text-align:center;
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+[data-testid="stMetric"]:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--accent);
+}
+[data-testid="stMetricLabel"]{
+  color:var(--muted) !important;
+  font-size:.72rem !important; font-weight:700 !important;
+  letter-spacing:.08em; text-transform:uppercase;
+}
+[data-testid="stMetricValue"]{
+  font-family:'Fraunces',serif !important;
+  font-weight:800 !important;
+  color:var(--primary) !important;
+}
+ 
+/* ---------- Fotos dos candidatos: circulares ---------- */
+[data-testid="stImage"] img{
+  border-radius:50% !important;
+  border:3px solid var(--surface);
+  box-shadow:var(--shadow-sm);
+}
+ 
+/* ---------- Expanders ---------- */
+details{
+  background:var(--surface) !important;
+  border:1px solid var(--border) !important;
+  border-radius:var(--radius) !important;
+  box-shadow:var(--shadow-sm) !important;
+  overflow:hidden;
+}
+summary{ font-weight:600 !important; color:var(--primary) !important; }
+summary:hover{ color:var(--accent) !important; }
+ 
+/* ---------- Checkbox ---------- */
+[data-testid="stCheckbox"] label p{ font-weight:600 !important; color:var(--primary) !important; }
+ 
+/* ---------- Selectbox ---------- */
+[data-testid="stSelectbox"] > div > div{
+  border-radius:12px !important;
+  border:1px solid var(--border) !important;
+  background:var(--surface) !important;
+  box-shadow:var(--shadow-sm) !important;
+}
+ 
+/* ---------- DataFrame / download ---------- */
+[data-testid="stDataFrame"]{ border-radius:var(--radius) !important; overflow:hidden !important; box-shadow:var(--shadow-sm) !important; }
+[data-testid="stDownloadButton"] button{
+  background:var(--primary) !important; color:#fff !important;
+  border:none !important; border-radius:12px !important; font-weight:600 !important;
+}
+[data-testid="stDownloadButton"] button:hover{ background:var(--accent) !important; }
+ 
+/* ---------- Gráficos Plotly: moldura de card ---------- */
+[data-testid="stPlotlyChart"]{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:10px;
+  box-shadow:var(--shadow-sm);
+}
+ 
+/* ---------- Divisórias ---------- */
+hr{ border:none !important; border-top:1px solid var(--border) !important; margin:2rem 0 !important; }
+ 
+/* ---------- Caption final ---------- */
+[data-testid="stCaptionContainer"]{ color:var(--muted) !important; text-align:center !important; }
+</style>
+"""
+st.markdown(premium_css, unsafe_allow_html=True)
+ 
 #####---####3
 
-
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║ BLOCO B — Hero header                                                ║       
-# ╚══════════════════════════════════════════════════════════════════════╝
- 
 st.markdown("""
 <br>
 <h1 style='text-align: center; color:#303030;font-family:Segoe UI'>Agregador de pesquisas eleitorais por religião</h1>
