@@ -26,34 +26,6 @@ st.set_page_config(
  )
 
 #####---####3
-from ctypes import alignment
-from ctypes.wintypes import RGB
-from lib2to3.pgen2.pgen import DFAState
-import streamlit as st
-import pandas as pd
-import datetime as dt
-import matplotlib.pyplot as plt
-from matplotlib import image as image
-from PIL import Image
-import plotly.graph_objects as go
-import datetime as dt
-
-
-########################################################################
-##configuração da página, texto exibido na aba e dados no item 'about'##
-########################################################################
-
-st.set_page_config(
-     page_title="Agregador de pesquisas eleitorais por religião",
-     page_icon="chart_with_upwards_trend",
-     layout="wide",
-     initial_sidebar_state="expanded",
-     menu_items={
-         'About': "##### Cientista de dados: Dirceu André Gerardi. \n **E-mail:** andregerardi3@gmail.com"
-     }
- )
-
-#####---####3
 premium_css = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
