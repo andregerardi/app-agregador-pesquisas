@@ -506,15 +506,15 @@ with st.container():
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
 ########################################################################
  
-options_turn = st.radio(
+options_turn = st.selectbox(
     "",
-    ["-- Selecione um turno --", "Primeiro Turno", "Segundo Turno"],
-    index=0,
-    label_visibility="collapsed"
+    ["Primeiro Turno", "Segundo Turno"],
+    index=None,
+    placeholder="Selecione um turno..."
 )
 
-if options_turn == "-- Selecione um turno --":
-    st.stop()  # Não mostra mais nada abaixo
+if options_turn is None:
+    st.stop()
 
 ############-#########
 
