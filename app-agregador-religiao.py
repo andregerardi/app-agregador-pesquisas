@@ -34,7 +34,8 @@ st.set_page_config(
 premium_css = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
- 
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Poppins:wght@600;700;800&display=swap');
+
 :root{
   --bg: #F7F6F3;            /* papel quente, estilo editorial */
   --surface: #FFFFFF;
@@ -63,54 +64,65 @@ html, body, [class*="css"]{
 .block-container{ padding-top:1.4rem !important; padding-bottom:3rem !important; max-width:1250px !important; }
 p[style]{ line-height:1.7 !important; }
  
-/* ---------- Banner principal ---------- */
+/* ---------- Hero (usa as classes do BLOCO B) ---------- */
 .hero{
-  background: var(--primary);
-  color: #fff;
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 26px 30px;
-  margin-bottom: 1.2rem;
+  background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 60%, #2E4A7A 100%);
+  border-radius:24px;
+  padding:52px 40px 44px 40px;
+  text-align:center;
+  box-shadow:var(--shadow-md);
+  position:relative;
+  overflow:hidden;
+  margin-bottom:8px;
 }
-
 .hero::before{
-  display:none;
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(600px 200px at 20% 0%, rgba(255,107,53,.18), transparent 60%),
+    radial-gradient(500px 220px at 85% 100%, rgba(0,168,204,.20), transparent 60%);
+  pointer-events:none;
 }
-
 .hero .kicker{
   display:inline-block;
-  margin-bottom:.8rem;
-  padding:4px 10px;
-  background:rgba(255,255,255,.12);
-  border-radius:999px;
-  font-family:'JetBrains Mono', monospace;
-  font-size:.72rem;
-  font-weight:700;
-  letter-spacing:.12em;
-  color:#fff;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent-2);
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.15);
+  padding:6px 14px; border-radius:999px;
+  margin-bottom:18px;
 }
-
 .hero h1{
-  font-family:'Fraunces', serif !important;
-  font-size:2.1rem;
+  font-family:'Poppins', sans-serif !important;
   font-weight:800;
-  line-height:1.2;
+  font-size:clamp(1.8rem, 4vw, 2.9rem);
+  line-height:1.12;
   color:#fff !important;
-  margin:0 0 .7rem;
+  margin:0 0 14px 0;
+  letter-spacing:-.02em;
 }
-
 .hero .sub{
-  color:rgba(255,255,255,.92);
-  font-size:1rem;
-  line-height:1.6;
-  max-width:900px;
-  margin:0;
+  color:rgba(255,255,255,.72);
+  font-size:1.02rem; font-weight:400;
+  max-width:640px; margin:0 auto;
 }
-
-.hero .share{
-  display:none;
+.hero .share{ margin-top:26px; }
+.hero .share span.lbl{
+  display:block; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(255,255,255,.45); margin-bottom:10px;
 }
+.hero .share a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:42px; height:42px; border-radius:12px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.16);
+  margin:0 5px;
+  transition:transform .15s ease, background .15s ease;
+}
+.hero .share a:hover{ transform:translateY(-3px); background:rgba(255,255,255,.18); }
+.hero .share svg{ width:20px; height:20px; }
  
 /* ---------- Faixa do seletor de turno (BLOCO C) ---------- */
 .turn-band{
