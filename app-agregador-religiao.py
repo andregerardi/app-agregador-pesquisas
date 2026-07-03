@@ -1,16 +1,3 @@
-from ctypes import alignment
-from ctypes.wintypes import RGB
-from lib2to3.pgen2.pgen import DFAState
-import streamlit as st
-import pandas as pd
-import datetime as dt
-import matplotlib.pyplot as plt
-from matplotlib import image as image
-from PIL import Image
-import plotly.graph_objects as go
-import datetime as dt
-
-
 ########################################################################
 ##configuração da página, texto exibido na aba e dados no item 'about'##
 ########################################################################
@@ -73,8 +60,6 @@ with col4:
     <a href="https://api.whatsapp.com/send?text=Agregador de Pesquisas Eleitorais por religião - https://cebrap.org.br/agregador-de-pesquisas-eleitorais-por-religiao/" title="Whatsapp" rel="nofollow noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle"><span class="heateor_sss_svg" style="background-color:#55eb4c;width:50px;height:50px;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;box-sizing:content-box"><svg style="display:block;" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-6 -5 40 40"><path class="heateor_sss_svg_stroke heateor_sss_no_fill" stroke="#fff" stroke-width="2" fill="none" d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"></path><path d="M 7 19 l -1 6 l 6 -1" class="heateor_sss_no_fill heateor_sss_svg_stroke" stroke="#fff" stroke-width="2" fill="none"></path><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="#fff"></path></svg></span></a></div></div>
     <br>
     """,unsafe_allow_html=True)
-
-######--####
 
 
 ##retira o made streamlit no fim da página##
@@ -245,14 +230,6 @@ with st.container():
 ########################################################################
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
 ########################################################################
-
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║ BLOCO C — Seletor de turno em "pills"                                  ║
-# ║ SUBSTITUI: o container do seletor (o st.markdown do h4 azul + o        ║
-# ║ st.selectbox). A variável continua sendo options_turn com os MESMOS    ║
-# ║ valores ('Primeiro Turno' / 'Segundo Turno'), então TODOS os           ║
-# ║ if options_turn == ... do resto do arquivo continuam funcionando.      ║
-# ╚══════════════════════════════════════════════════════════════════════╝
  
 with st.container():
     col3,col4,col5 = st.columns([.5,1.5,.5])
@@ -260,6 +237,7 @@ with st.container():
         st.markdown("<h4 style='text-align: center; color: #ffffff; font-family:font-family:poppins-sans-serif; background-color: rgb(0, 165, 200, 100);'>Selecione o turno da eleição para visualizar os dados:</h4>", unsafe_allow_html=True)
         options_turn = st.selectbox('',options=['--clique para selecionar--','Primeiro Turno', 'Segundo Turno'])
 st.markdown("---")
+
 ############-#########
 
 ########################
