@@ -190,7 +190,7 @@ h3[style*="FFD662"]{
 }
  
 /* ---------- Cabeçalhos de bloco (h3 com fundos cinza/bege/azul) ---------- */
-h3[style*="e6e6e6"], h3[style*="EAE6DA"], h3[style*="EDF1FF"]{
+[data-testid="stMarkdownContainer"] h3{
   background:var(--surface) !important;
   color:var(--primary) !important;
   font-family:'Inter',sans-serif !important;
