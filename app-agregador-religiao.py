@@ -26,9 +26,14 @@ st.set_page_config(
  )
 
 #####---####3
+
 premium_css = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+ 
+/* Impede que o navegador aplique estilização nativa de dark mode
+   (inputs, scrollbar, etc.) por cima do nosso tema */
+html{ color-scheme: light !important; }
  
 :root{
   --bg: #F4F5F9;
@@ -45,12 +50,11 @@ premium_css = """
   --radius: 14px;
 }
  
-/* ---------- Tipografia base ---------- */
+/* ---------- Base geral: cobre QUALQUER texto solto do Streamlit ---------- */
 html, body, [class*="css"]{
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
   color: var(--ink) !important;
 }
-p[style]{ line-height:1.65 !important; }
  
 .stApp{ background: var(--bg) !important; }
  
@@ -59,6 +63,20 @@ p[style]{ line-height:1.65 !important; }
   padding-bottom: 3rem !important;
   max-width: 1250px !important;
 }
+ 
+/* ---------- Rede de segurança: força cor de texto em TODOS os textos
+   renderizados pelo Streamlit (markdown, labels de widgets, listas),
+   independente de tema claro/escuro do navegador ---------- */
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stMarkdownContainer"] span,
+[data-testid="stMarkdownContainer"] strong,
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] label,
+.stMarkdown, .stText, label{
+  color: var(--ink) !important;
+}
+p[style]{ line-height:1.65 !important; color: var(--ink) !important; }
  
 /* ---------- Título principal (h1) ---------- */
 h1[style]{
@@ -83,10 +101,12 @@ h4[style]:not([style*="background-color"]){
   margin-top: 0 !important;
 }
  
-/* ---------- Banners h4 COM background (ex: "Informações sobre o agregador") ---------- */
+/* ---------- Banners h4 COM background (ex: "Informações sobre o agregador") ----------
+   Texto branco aqui é INTENCIONAL — o fundo é sempre escuro (gradiente navy),
+   nunca depende do tema do navegador, então não fica invisível. */
 h4[style*="background-color"]{
   background: linear-gradient(120deg, var(--primary) 0%, var(--primary-2) 100%) !important;
-  color: #fff !important;
+  color: #ffffff !important;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: .02em !important;
@@ -95,8 +115,9 @@ h4[style*="background-color"]{
   box-shadow: var(--shadow-md) !important;
   border-left: 5px solid var(--accent) !important;
 }
+h4[style*="background-color"] b{ color:#ffffff !important; }
  
-/* ---------- Cabeçalhos de seção (h3 com background: #e6e6e6, #EAE6DA, #EDF1FF, #FFD662...) ---------- */
+/* ---------- Cabeçalhos de seção (h3 com background) ---------- */
 h3[style*="background-color"]{
   background: var(--surface) !important;
   color: var(--primary) !important;
@@ -115,7 +136,7 @@ h3[style*="background-color"] svg{ fill: var(--accent) !important; vertical-alig
 h2[style]{
   font-family:'Plus Jakarta Sans', sans-serif !important;
   font-weight:800 !important;
-  color: #fff !important;
+  color: #ffffff !important;
   background: linear-gradient(120deg, var(--primary) 0%, var(--primary-2) 100%) !important;
   padding: 18px !important;
   border-radius: var(--radius) !important;
@@ -132,7 +153,7 @@ h6[style]{
   padding-bottom: 4px !important;
 }
  
-/* ---------- Notas de rodapé dos gráficos (tag <h7>, custom, usada no projeto original) ---------- */
+/* ---------- Notas de rodapé dos gráficos (tag <h7>) ---------- */
 h7[style]{
   display:block !important;
   font-family:'Inter', sans-serif !important;
@@ -145,7 +166,7 @@ h7[style]{
  
 /* ---------- st.metric ---------- */
 [data-testid="stMetric"]{
-  background: var(--surface);
+  background: var(--surface) !important;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px 8px;
@@ -154,14 +175,14 @@ h7[style]{
   transition: transform .15s ease, box-shadow .15s ease;
 }
 [data-testid="stMetric"]:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); }
-[data-testid="stMetricLabel"]{ color: var(--muted) !important; font-weight:600 !important; }
+[data-testid="stMetricLabel"] p{ color: var(--muted) !important; font-weight:600 !important; }
 [data-testid="stMetricValue"]{
   color: var(--primary) !important;
   font-family:'Plus Jakarta Sans', sans-serif !important;
   font-weight:800 !important;
 }
  
-/* ---------- Expanders (st.expander) ---------- */
+/* ---------- Expanders ---------- */
 details{
   background: var(--surface) !important;
   border: 1px solid var(--border) !important;
@@ -173,6 +194,7 @@ summary{
   font-weight:600 !important;
   color: var(--primary) !important;
 }
+summary p{ color: var(--primary) !important; }
  
 /* ---------- Checkbox ---------- */
 [data-testid="stCheckbox"] label p{
@@ -180,12 +202,14 @@ summary{
   color: var(--primary) !important;
 }
  
-/* ---------- Selectbox ---------- */
+/* ---------- Selectbox (inclui texto da opção selecionada) ---------- */
 [data-testid="stSelectbox"] > div > div{
   border-radius: 10px !important;
   border: 1px solid var(--border) !important;
   box-shadow: var(--shadow-sm) !important;
+  background: var(--surface) !important;
 }
+[data-testid="stSelectbox"] * { color: var(--ink) !important; }
  
 /* ---------- DataFrame ---------- */
 [data-testid="stDataFrame"]{
@@ -197,7 +221,7 @@ summary{
 /* ---------- Botão de download ---------- */
 [data-testid="stDownloadButton"] button{
   background: var(--primary) !important;
-  color: #fff !important;
+  color: #ffffff !important;
   border-radius: 10px !important;
   border: none !important;
   font-weight:600 !important;
@@ -207,19 +231,21 @@ summary{
   background: var(--accent) !important;
   color: var(--primary) !important;
 }
+[data-testid="stDownloadButton"] button p{ color: inherit !important; }
  
-/* ---------- Divisórias (st.markdown("---")) ---------- */
+/* ---------- Divisórias ---------- */
 hr{
   border: none !important;
   border-top: 1px solid var(--border) !important;
   margin: 1.6rem 0 !important;
 }
  
-/* ---------- st.caption (rodapé "Última atualização") ---------- */
+/* ---------- st.caption ---------- */
 [data-testid="stCaptionContainer"]{
   color: var(--muted) !important;
   text-align:center !important;
 }
+[data-testid="stCaptionContainer"] * { color: var(--muted) !important; }
 </style>
 """
 st.markdown(premium_css, unsafe_allow_html=True)
