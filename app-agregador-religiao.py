@@ -189,23 +189,33 @@ h3[style*="FFD662"]{
   padding:8px 0 !important;
 }
  
-/* ---------- Cabeçalhos de bloco (h3 com fundos cinza/bege/azul) ---------- */
-[data-testid="stMarkdownContainer"] h3{
-  background:var(--surface) !important;
-  color:var(--primary) !important;
-  font-family:'Inter',sans-serif !important;
-  font-weight:700 !important;
-  font-size:1.05rem !important;
-  padding:15px 20px 15px 22px !important;
-  border-radius:var(--radius) !important;
-  border:1px solid var(--border) !important;
-  border-left:4px solid var(--accent) !important;
-  box-shadow:var(--shadow-sm) !important;
-  margin-top:1.1rem !important;
+h3{
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  padding: 15px 20px 15px 22px !important;
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--border) !important;
+  border-left: 4px solid var(--accent) !important;
+  box-shadow: var(--shadow-sm) !important;
+  margin-top: 1.1rem !important;
 }
-h3[style*="EAE6DA"]{ border-left-color:var(--accent-2) !important; }
-h3[style] svg{ fill:var(--accent) !important; vertical-align:-6px; margin-right:8px; width:24px; height:22px; }
-h3[style*="EAE6DA"] svg{ fill:var(--accent-2) !important; }
+
+/* garante que qualquer conteúdo interno não “desapareça” */
+h3 *{
+  color: inherit !important;
+}
+
+/* SVG seguro */
+h3 svg{
+  fill: var(--accent) !important;
+  vertical-align: -6px;
+  margin-right: 8px;
+  width: 24px;
+  height: 22px;
+}
  
 /* ---------- Banner "Informações sobre o agregador" (h4 laranja) ---------- */
 h4[style*="background-color"]{
@@ -319,6 +329,17 @@ hr{ border:none !important; border-top:1px solid var(--border) !important; margi
  
 /* ---------- Caption final ---------- */
 [data-testid="stCaptionContainer"]{ color:var(--muted) !important; text-align:center !important; }
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg: #0E1117;
+    --surface: #1A1D24;
+    --ink: #E6E6E6;
+    --muted: #A0A0B2;
+    --primary: #E6E6E6;
+    --border: #2A2E39;
+  }
+}
 </style>
 """
 st.markdown(premium_css, unsafe_allow_html=True)
