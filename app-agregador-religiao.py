@@ -15,6 +15,23 @@ import datetime as dt
 ##configuração da página, texto exibido na aba e dados no item 'about'##
 ########################################################################
 
+from ctypes import alignment
+from ctypes.wintypes import RGB
+from lib2to3.pgen2.pgen import DFAState
+import streamlit as st
+import pandas as pd
+import datetime as dt
+import matplotlib.pyplot as plt
+from matplotlib import image as image
+from PIL import Image
+import plotly.graph_objects as go
+import datetime as dt
+
+
+########################################################################
+##configuração da página, texto exibido na aba e dados no item 'about'##
+########################################################################
+
 st.set_page_config(
      page_title="Agregador de pesquisas eleitorais por religião",
      page_icon="chart_with_upwards_trend",
