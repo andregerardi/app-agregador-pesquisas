@@ -348,7 +348,7 @@ st.markdown(premium_css, unsafe_allow_html=True)
 
 st.markdown("""
      <div class="hero">
-       <span class="kicker">Eleições 2022</span>
+       <span class="kicker">Eleições Nacionais</span>
        <h1>Agregador de pesquisas eleitorais<br>por religião</h1>
        <p class="sub">Consolidação das pesquisas de intenção de voto e rejeição para as eleições presidenciais de 2022, com recorte por segmento religioso.</p>
        <div class="share">
