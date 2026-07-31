@@ -2,9 +2,6 @@
 ##configuração da página, texto exibido na aba e dados no item 'about'##
 ########################################################################
 
-from ctypes import alignment
-from ctypes.wintypes import RGB
-from lib2to3.pgen2.pgen import DFAState
 import streamlit as st
 import pandas as pd
 import datetime as dt
@@ -523,6 +520,584 @@ with st.container():
         <h6 style='text-align: center; color: #54595F;'>Coordenação:</h6><p style='text-align: center;'>Dirceu André Gerardi<br>(FGV LAW/FGV PROJETOS/CEBRAP)<br><a href="mailto: andregerardi3@gmail.com">email<br></a><br>Ronaldo de Almeida<br>(UNICAMP/CEBRAP/LAR)<br><a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
         """, unsafe_allow_html=True)
     st.markdown("---")
+
+########################################################################
+######## ELEIÇÕES 2026 - CARGA DE DADOS E FUNÇÕES DE VISUALIZAÇÃO ######
+########################################################################
+
+## ---------------------------------------------------------------------
+## 1) Configurações do banco de 2026
+## ---------------------------------------------------------------------
+## arquivo local (deve ficar na mesma pasta do app)
+ARQUIVO_2026 = 'agregador-pesquisas-eleitorais-2026-final.xlsx'
+
+## planilha do Google aberta para edição (usada primeiro, quando acessível).
+## Se a leitura on-line falhar, o app carrega automaticamente o arquivo local acima.
+URL_2026 = 'https://docs.google.com/spreadsheets/d/1XrwMEJYBt5-l7U8S6sUUBU80sd1xQqlA/export?format=xlsx'
+
+## institutos excluídos do banco de 2026 (mesmo critério adotado em 2022)
+INSTITUTOS_FORA_2026 = ['prpesquisas']
+
+## candidatos de 2026: Ciro Gomes foi suprimido; entram Caiado, Zema e Renan.
+## Para alterar o nome exibido, a cor da linha ou a escala dos pontos, edite aqui.
+CAND_2026 = {
+    'lul':    {'nome': 'Lula',           'cor': 'rgba(215, 0, 0, 0.8)', 'escala': 'peach'},
+    'bol':    {'nome': 'Bolsonaro',      'cor': 'royalblue',            'escala': 'ice'},
+    'caiado': {'nome': 'Ronaldo Caiado', 'cor': '#FF6B35',              'escala': 'Oranges'},
+    'zema':   {'nome': 'Romeu Zema',     'cor': 'seagreen',             'escala': 'Greens'},
+    'renan':  {'nome': 'Renan',          'cor': '#7B4FBF',              'escala': 'Purples'},
+}
+
+## segmentos religiosos (sufixos das colunas da planilha)
+SEG_2026 = {
+    'ger':     'Geral',
+    'cat':     'Católicos',
+    'ev':      'Evangélicos',
+    'espi':    'Espíritas',
+    'umb_can': 'Umbanda/Candomblé',
+    'out':     'Outras religiosidades',
+    'non':     'Sem religião',
+    'ateu':    'Ateus',
+}
+
+## imagens de perfil (opcionais). Basta acrescentar o arquivo na pasta e mapear aqui.
+IMG_2026 = {
+    'lul': 'lula_perfil.jpg',
+    'bol': 'bolso_image.jpeg',
+}
+
+
+@st.cache_data(ttl=600, show_spinner='Carregando os dados das eleições de 2026...')
+def load_dados_2026():
+    """Carrega o banco de 2026 (Google Sheets com fallback para o arquivo local)."""
+    origem = 'planilha do Google'
+    try:
+        banco = pd.read_excel(URL_2026)
+    except Exception:
+        banco = pd.read_excel(ARQUIVO_2026)
+        origem = 'arquivo local'
+
+    banco.columns = [str(c).strip() for c in banco.columns]
+
+    if 'nome_instituto' in banco.columns:
+        banco['nome_instituto'] = banco['nome_instituto'].astype(str).str.strip().str.lower()
+        banco = banco[~banco['nome_instituto'].isin(INSTITUTOS_FORA_2026)]
+
+    if 'data' in banco.columns:
+        banco['data'] = pd.to_datetime(banco['data'], errors='coerce')
+        banco = banco.sort_values('data')
+
+    banco = banco.reset_index(drop=True)
+    return banco, origem
+
+
+## ---------------------------------------------------------------------
+## 2) Funções auxiliares (tolerantes a colunas vazias/ausentes)
+## ---------------------------------------------------------------------
+def tem_dados_2026(dfx, col):
+    """True quando a coluna existe e possui ao menos um valor numérico maior que 1."""
+    if col not in dfx.columns:
+        return False
+    return (pd.to_numeric(dfx[col], errors='coerce') > 1).sum() > 0
+
+
+def serie_2026(dfx, col):
+    """Devolve (eixo x, série y) apenas com as pesquisas que coletaram o dado."""
+    y = pd.to_numeric(dfx[col], errors='coerce')
+    mask = y > 1
+    return dfx.loc[mask, 'sigla'], y[mask]
+
+
+def mm_2026(y):
+    """Média móvel de m_m pesquisas. min_periods=1 evita série vazia enquanto o banco é pequeno."""
+    return y.rolling(m_m, min_periods=1).mean()
+
+
+def ultimo_valor_2026(dfx, col):
+    """Última média móvel registrada para a coluna (ou None, se não houver dado)."""
+    if not tem_dados_2026(dfx, col):
+        return None
+    _, y = serie_2026(dfx, col)
+    if len(y) == 0:
+        return None
+    return round(float(mm_2026(y).iloc[-1]), 1)
+
+
+def candidatos_com_dados_2026(dfx, sufixo):
+    """Lista de prefixos de candidatos que possuem dados para o sufixo informado."""
+    return [p for p in CAND_2026 if tem_dados_2026(dfx, f'{p}_{sufixo}')]
+
+
+def religioes_disponiveis_2026(dfx, molde):
+    """Religiões com dados; 'molde' é uma string com {seg}, ex.: '{seg}_1t'."""
+    disponiveis = []
+    for seg, rotulo in SEG_2026.items():
+        if seg == 'ger':
+            continue
+        if any(tem_dados_2026(dfx, f'{p}_' + molde.format(seg=seg)) for p in CAND_2026):
+            disponiveis.append(rotulo)
+    return disponiveis
+
+
+def seg_por_rotulo_2026(rotulo):
+    for seg, nome in SEG_2026.items():
+        if nome == rotulo:
+            return seg
+    return None
+
+
+def marca_dagua_2026(fig, y_logo=1.05, y_agre=1.05, x_logo=.99, x_agre=.87):
+    fig.add_layout_image(dict(
+        source='https://cebrap.org.br/wp-content/themes/cebrap/images/logo-nav.png',
+        xref='paper', yref='paper', x=x_logo, y=y_logo,
+        sizex=0.1, sizey=0.1, xanchor='right', yanchor='bottom'))
+    fig.add_layout_image(dict(
+        source=agre, xref='paper', yref='paper', x=x_agre, y=y_agre,
+        sizex=0.12, sizey=0.12, xanchor='right', yanchor='bottom'))
+    return fig
+
+
+## ---------------------------------------------------------------------
+## 3) Blocos visuais reaproveitáveis
+## ---------------------------------------------------------------------
+def resumo_2026(dfx, turno='1t', rejeicao=False):
+    """Métricas (geral e por religião) de cada candidato, exibidas em checkbox."""
+    sufixo_final = f'rej_{turno}' if rejeicao else turno
+
+    for pref, cfg in CAND_2026.items():
+        disponiveis = [(rotulo, f'{pref}_{seg}_{sufixo_final}')
+                       for seg, rotulo in SEG_2026.items()
+                       if tem_dados_2026(dfx, f'{pref}_{seg}_{sufixo_final}')]
+        if not disponiveis:
+            continue
+
+        chave = f'chk_2026_{pref}_{sufixo_final}'
+        if not st.checkbox(cfg['nome'], key=chave):
+            continue
+
+        colunas = st.columns(len(disponiveis) + 1)
+
+        ## imagem do candidato (quando houver arquivo disponível)
+        try:
+            colunas[0].image(Image.open(IMG_2026[pref]), width=100)
+        except Exception:
+            colunas[0].markdown(
+                f"<p style='font-family:Segoe UI;font-weight:700;color:#303030;'>{cfg['nome']}</p>",
+                unsafe_allow_html=True)
+
+        for i, (rotulo, col) in enumerate(disponiveis, start=1):
+            valor = ultimo_valor_2026(dfx, col)
+            colunas[i].metric(label=rotulo, value=f'{valor}%' if valor is not None else '—')
+        st.markdown('---')
+
+
+def grafico_linhas_2026(dfx, sufixo, titulo, y_max=70, col_bra_nulo=None, nota_extra=''):
+    """Gráfico de média móvel com todos os candidatos que possuem dados para o sufixo."""
+    presentes = candidatos_com_dados_2026(dfx, sufixo)
+    if not presentes:
+        st.info('Ainda não há pesquisas com esse recorte no banco de 2026.')
+        return
+
+    fig = go.Figure()
+    rank = 1
+    for pref in presentes:
+        cfg = CAND_2026[pref]
+        x, y = serie_2026(dfx, f'{pref}_{sufixo}')
+        media = mm_2026(y)
+
+        fig.add_trace(go.Scatter(
+            x=x, y=y, mode='markers', name=f"Pesquisas - {cfg['nome']}",
+            marker=dict(size=6, color=y, colorscale=cfg['escala']), legendrank=rank + 1))
+
+        fig.add_trace(go.Scatter(
+            x=x, y=media, mode='lines+markers', name=cfg['nome'],
+            line=dict(color=cfg['cor'], width=2.5), legendrank=rank))
+
+        fig.add_annotation(
+            x=list(x)[-1], y=float(media.iloc[-1]),
+            text=f'{media.iloc[-1]:.0f}%', showarrow=True, arrowhead=1, ax=40, ay=0,
+            font=dict(size=18, color='black', family='Arial'))
+        rank += 2
+
+    if col_bra_nulo and tem_dados_2026(dfx, col_bra_nulo):
+        x, y = serie_2026(dfx, col_bra_nulo)
+        fig.add_trace(go.Scatter(
+            x=x, y=y, mode='markers', name='Pesquisas - brancos, nulos, NS e NR',
+            marker=dict(size=6, color=y, colorscale='Greys'), legendrank=rank + 1))
+        fig.add_trace(go.Scatter(
+            x=x, y=mm_2026(y), mode='lines+markers', name='Brancos, nulos, NS e NR',
+            line=dict(color='grey', width=2.5), legendrank=rank))
+
+    fig.update_layout(
+        autosize=True, width=1100, height=800, template='plotly_white+xgridoff',
+        margin=dict(r=80, l=80, b=2, t=160),
+        title=f'<i>{titulo}<i>',
+        plot_bgcolor='rgb(255, 255, 255)', paper_bgcolor='rgb(255, 255, 255)',
+        xaxis_title='Mês, ano e instituto de pesquisa',
+        yaxis_title='Intenção de voto (%)',
+        font=dict(family='arial', size=13),
+        legend=dict(yanchor='auto', y=1.10, xanchor='auto', x=0.35,
+                    orientation='h', font_family='arial'))
+    fig.update_xaxes(tickangle=300, rangeslider_visible=False, title_font_family='Arial')
+    fig.update_yaxes(range=[0, y_max])
+    marca_dagua_2026(fig)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    ultima_data = pd.to_datetime(dfx['data']).dropna()
+    ultima_data = ultima_data.iloc[-1].strftime('%d-%m-%Y') if len(ultima_data) else 's/d'
+    st.markdown(f"""
+    <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 1: método utilizado: média móvel de {m_m} pesquisas.</h7><br>
+    <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 2: os valores indicados no gráfico correspondem à última média da série temporal, registrada em {ultima_data}.</h7><br>
+    <h7 style='text-align: left; color:#606060;font-family:arial'>Nota 3: enquanto o banco de 2026 é pequeno, a média móvel é calculada com as pesquisas disponíveis.</h7><br>
+    {nota_extra}
+    """, unsafe_allow_html=True)
+
+
+def grafico_instituto_2026(dfx, instituto, seg, turno):
+    """Compara, por instituto, o resultado geral e o do segmento religioso escolhido."""
+    fonte = dfx[dfx['nome_instituto'] == instituto]
+    rotulo = SEG_2026.get(seg, seg)
+
+    fig = go.Figure()
+    plotou = False
+    rank = 1
+    for pref, cfg in CAND_2026.items():
+        col_rel = f'{pref}_{seg}_{turno}'
+        col_ger = f'{pref}_ger_{turno}'
+        if not tem_dados_2026(fonte, col_rel):
+            continue
+        plotou = True
+        fig.add_trace(go.Scatter(
+            x=fonte['sigla'], y=pd.to_numeric(fonte[col_rel], errors='coerce'),
+            mode='lines+markers', name=f"{cfg['nome']} - {rotulo.lower()}",
+            line=dict(color=cfg['cor'], width=2.5), legendrank=rank))
+        if tem_dados_2026(fonte, col_ger):
+            fig.add_trace(go.Scatter(
+                x=fonte['sigla'], y=pd.to_numeric(fonte[col_ger], errors='coerce'),
+                mode='lines+markers', name=f"{cfg['nome']} - geral",
+                line=dict(color=cfg['cor'], width=1, dash='dot'), legendrank=rank + 1))
+        rank += 2
+
+    if not plotou:
+        st.info(f'O instituto {instituto.title()} não divulgou dados de {rotulo.lower()} nesse turno.')
+        return
+
+    fig.update_layout(
+        width=800, height=800, template='plotly_white+xgridoff',
+        margin=dict(r=70, l=80, b=4, t=160),
+        title=f"Intenção de voto 'geral' e de '{rotulo.lower()}' por candidato segundo '{instituto.title()}'",
+        plot_bgcolor='rgb(255, 255, 255)', paper_bgcolor='rgb(255, 255, 255)',
+        xaxis_title='Mês, ano e instituto de pesquisa',
+        yaxis_title='Intenção de voto (%)',
+        font=dict(family='arial', size=13),
+        legend=dict(yanchor='auto', y=1.13, xanchor='auto', x=0.35,
+                    orientation='h', font_family='arial'))
+    fig.update_xaxes(tickangle=300, title_font_family='arial')
+    fig.update_yaxes(range=[0, 70])
+    marca_dagua_2026(fig, y_logo=1.03, y_agre=1.08, x_logo=1.05, x_agre=1.05)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def cabecalho_2026(texto, cor='#e6e6e6', alinhamento='left'):
+    st.markdown(f"""
+    <h3 style='text-align: {alinhamento}; color: #303030; font-family:Segoe UI; text-rendering: optimizelegibility; background-color: {cor};'>{texto}</h3><br>
+    """, unsafe_allow_html=True)
+
+
+## ---------------------------------------------------------------------
+## 4) Página completa das eleições de 2026
+## ---------------------------------------------------------------------
+def render_2026():
+    df26, origem_26 = load_dados_2026()
+
+    st.markdown("""
+    <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility;'>Eleições 2026</h2>
+    """, unsafe_allow_html=True)
+
+    ## ------------------ informações do banco de 2026 ------------------
+    with st.container():
+        col3, col4, col5 = st.columns([.5, 4, .5])
+        with col4:
+            expander_26 = st.expander('Informações sobre o banco de 2026')
+            institutos_26 = ', '.join(sorted(set(df26['nome_instituto']))).title()
+            expander_26.markdown(f"""
+            <p style='text-align: justify; font-family:Segoe UI;'>1. O banco de 2026 é atualizado continuamente e reúne as pesquisas nacionais com recorte religioso;</p>
+            <p style='text-align: justify; font-family:Segoe UI;'>2. Candidatos acompanhados: { ', '.join([c['nome'] for c in CAND_2026.values()]) };</p>
+            <p style='text-align: justify; font-family:Segoe UI;'>3. Institutos considerados: {institutos_26};</p>
+            <p style='text-align: justify; font-family:Segoe UI;'>4. Total de pesquisas mapeadas: {len(df26)};</p>
+            <p style='text-align: justify; font-family:Segoe UI;'>5. Fonte dos dados: {origem_26}.</p>
+            """, unsafe_allow_html=True)
+
+            expander_lista_26 = st.expander('Verifique as pesquisas eleitorais utilizadas (2026)')
+            colunas_lista = [c for c in ['nome_instituto', 'data', 'registro_tse', 'entrevistados',
+                                         'margem_erro', 'confiança', 'tipo_coleta'] if c in df26.columns]
+            lista_26 = df26[colunas_lista].fillna(0)
+            expander_lista_26.dataframe(lista_26)
+            expander_lista_26.download_button(
+                label='Baixe a lista em CSV',
+                data=lista_26.to_csv(index=None).encode('utf-8-sig'),
+                file_name='lista_2026.csv',
+                mime='text/csv',
+                key='download_lista_2026')
+            expander_lista_26.caption('*Fontes*: TSE e Institutos de Pesquisa')
+
+    st.markdown('---')
+
+    ## ------------------ seletor de turno ------------------
+    with st.container():
+        st.markdown(
+            "<div class='turn-band'><span class='lbl'>Explore os dados por turno</span></div>",
+            unsafe_allow_html=True)
+
+        turno_26 = st.radio(
+            label='',
+            options=['Primeiro Turno', 'Segundo Turno'],
+            horizontal=True,
+            label_visibility='collapsed',
+            key='turno_2026')
+
+    st.markdown('---')
+
+    ####################
+    ## primeiro turno ##
+    ####################
+    if turno_26 == 'Primeiro Turno':
+
+        st.markdown("""
+        <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility;'>Primeiro Turno</h2><br>
+        """, unsafe_allow_html=True)
+        st.markdown('---')
+
+        cabecalho_2026('1. Intenção de voto:', cor='#FFD662', alinhamento='center')
+        st.markdown('---')
+
+        ## resumo por candidato
+        with st.container():
+            cabecalho_2026('Resumo - intenção de voto geral e por religião segundo candidato:')
+            resumo_2026(df26, turno='1t')
+
+        ## intenção de voto geral
+        with st.container():
+            cabecalho_2026('Intenção de voto geral:')
+            if st.checkbox('Selecione para visualizar o gráfico da intenção de voto geral',
+                           key='graf_ger_1t_2026'):
+                grafico_linhas_2026(
+                    df26, 'ger_1t',
+                    'Média móvel das intenções de voto de candidatos à presidência (1º turno)',
+                    y_max=70, col_bra_nulo='bra_nul_ns_nr_ger_1t')
+        st.markdown('---')
+
+        ## intenção de voto por religião
+        with st.container():
+            cabecalho_2026('Intenção de voto por religião:')
+            opcoes_rel = religioes_disponiveis_2026(df26, '{seg}_1t')
+            relig_26 = st.selectbox('Selecione a religião:',
+                                    options=['--Escolha a opção--'] + opcoes_rel,
+                                    key='rel_1t_2026')
+            if relig_26 != '--Escolha a opção--':
+                seg = seg_por_rotulo_2026(relig_26)
+                grafico_linhas_2026(
+                    df26, f'{seg}_1t',
+                    f'Média móvel das intenções de voto entre {relig_26.lower()} (1º turno)',
+                    y_max=80)
+        st.markdown('---')
+
+        ## por instituto
+        with st.container():
+            cabecalho_2026('Intenção de voto por instituto de pesquisa:')
+            col1_26, col2_26 = st.columns(2)
+            with col1_26:
+                inst_26 = st.selectbox('Selecione o instituto de pesquisa:',
+                                       options=['--Escolha o instituto--'] + sorted(set(df26['nome_instituto'])),
+                                       key='inst_1t_2026')
+            with col2_26:
+                rel_inst_26 = st.selectbox('Escolha a religião:',
+                                           options=['--Escolha a religião--'] + religioes_disponiveis_2026(df26, '{seg}_1t'),
+                                           key='rel_inst_1t_2026')
+            if inst_26 != '--Escolha o instituto--' and rel_inst_26 != '--Escolha a religião--':
+                grafico_instituto_2026(df26, inst_26, seg_por_rotulo_2026(rel_inst_26), '1t')
+        st.markdown('---')
+
+        ## rejeição
+        cabecalho_2026('2. Rejeição', cor='#FFD662', alinhamento='center')
+        st.markdown('---')
+
+        with st.container():
+            cabecalho_2026('Resumo - rejeição geral e por religião segundo candidato:')
+            resumo_2026(df26, turno='1t', rejeicao=True)
+
+        with st.container():
+            cabecalho_2026('Rejeição geral:')
+            if st.checkbox('Selecione para visualizar o gráfico da rejeição',
+                           key='graf_rej_1t_2026'):
+                grafico_linhas_2026(
+                    df26, 'ger_rej_1t',
+                    'Média móvel da rejeição dos candidatos à presidência (1º turno)',
+                    y_max=100)
+        st.markdown('---')
+
+        with st.container():
+            cabecalho_2026('Rejeição por religião:')
+            opcoes_rej = religioes_disponiveis_2026(df26, '{seg}_rej_1t')
+            rel_rej_26 = st.selectbox('Selecione a religião:',
+                                      options=['--Escolha a opção--'] + opcoes_rej,
+                                      key='rel_rej_1t_2026')
+            if rel_rej_26 != '--Escolha a opção--':
+                seg = seg_por_rotulo_2026(rel_rej_26)
+                grafico_linhas_2026(
+                    df26, f'{seg}_rej_1t',
+                    f'Média móvel da rejeição entre {rel_rej_26.lower()} (1º turno)',
+                    y_max=100)
+        st.markdown('---')
+
+    ###################
+    ## segundo turno ##
+    ###################
+    if turno_26 == 'Segundo Turno':
+
+        st.markdown("""
+        <h2 style='text-align: center; color: #303030; font-family:tahoma; text-rendering: optimizelegibility;'>Segundo Turno</h2><br>
+        """, unsafe_allow_html=True)
+        st.markdown('---')
+
+        cabecalho_2026('1. Intenção de voto:', cor='#FFD662', alinhamento='center')
+        st.markdown('---')
+
+        with st.container():
+            cabecalho_2026('Resumo - intenção de voto por candidato:')
+            resumo_2026(df26, turno='2t')
+
+        with st.container():
+            cabecalho_2026('Intenção de voto geral:')
+            if st.checkbox('Clique para visualizar', key='graf_ger_2t_2026'):
+                grafico_linhas_2026(
+                    df26, 'ger_2t',
+                    'Média móvel das intenções de voto de candidatos à presidência (2º turno)',
+                    y_max=80, col_bra_nulo='bra_nul_ns_nr_ger_2t')
+        st.markdown('---')
+
+        with st.container():
+            cabecalho_2026('Intenção de voto por religião:')
+            opcoes_rel_2t = religioes_disponiveis_2026(df26, '{seg}_2t')
+            relig_2t_26 = st.selectbox('Selecione a religião:',
+                                       options=['--Escolha a opção--'] + opcoes_rel_2t,
+                                       key='rel_2t_2026')
+            if relig_2t_26 != '--Escolha a opção--':
+                seg = seg_por_rotulo_2026(relig_2t_26)
+                grafico_linhas_2026(
+                    df26, f'{seg}_2t',
+                    f'Média móvel das intenções de voto entre {relig_2t_26.lower()} (2º turno)',
+                    y_max=90)
+        st.markdown('---')
+
+        with st.container():
+            cabecalho_2026('Intenção de voto por instituto de pesquisa:')
+            col1_2t, col2_2t = st.columns(2)
+            with col1_2t:
+                inst_2t_26 = st.selectbox('Selecione o instituto de pesquisa:',
+                                          options=['--Escolha o instituto--'] + sorted(set(df26['nome_instituto'])),
+                                          key='inst_2t_2026')
+            with col2_2t:
+                rel_inst_2t_26 = st.selectbox('Escolha a religião:',
+                                              options=['--Escolha a religião--'] + religioes_disponiveis_2026(df26, '{seg}_2t'),
+                                              key='rel_inst_2t_2026')
+            if inst_2t_26 != '--Escolha o instituto--' and rel_inst_2t_26 != '--Escolha a religião--':
+                grafico_instituto_2026(df26, inst_2t_26, seg_por_rotulo_2026(rel_inst_2t_26), '2t')
+        st.markdown('---')
+
+    st.markdown("""
+    <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 1: os gráficos reproduzem os dados divulgados pelos institutos de pesquisa a partir do recorte religioso. Em alguns casos os institutos não coletam tais informações.</h7><br>
+    <h7 style='text-align: center; color:#606060;font-family:arial'>Nota 2: os recortes e candidatos sem pesquisas registradas no banco não são exibidos.</h7>
+    """, unsafe_allow_html=True)
+
+    st.caption(f"""
+    <br><br>
+    Site publicado em: 15/05/2022.<br>
+    Lançamento: 03/08/2022.<br>
+    Última atualização: {end_date.strftime(format='%d/%m/%Y')}
+    """, unsafe_allow_html=True)
+
+
+########################################################################
+######## SELETOR DE ELEIÇÃO (2022 / 2026) ##############################
+########################################################################
+
+st.markdown("""
+<style>
+.election-band{ text-align:center; margin:6px 0 2px 0; }
+.election-band .lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted,#6E6E85);
+}
+div[data-testid="stButton"] > button{
+  border-radius:999px !important;
+  padding:10px 26px !important;
+  font-weight:700 !important;
+  width:100%;
+  border:1px solid var(--border,#E9E7E0) !important;
+  background:var(--surface,#FFFFFF) !important;
+  color:var(--ink,#1A1A2E) !important;
+  box-shadow:0 1px 3px rgba(20,33,61,.08);
+  transition:transform .15s ease, border-color .15s ease;
+}
+div[data-testid="stButton"] > button:hover{
+  transform:translateY(-2px);
+  border-color:var(--accent,#FF6B35) !important;
+}
+div[data-testid="stButton"] > button[kind="primary"]{
+  background:var(--primary,#14213D) !important;
+  color:#FFFFFF !important;
+  border-color:var(--primary,#14213D) !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+## guarda a eleição escolhida entre os reruns do Streamlit
+if 'eleicao' not in st.session_state:
+    st.session_state['eleicao'] = None
+
+
+def _escolhe_eleicao(ano):
+    st.session_state['eleicao'] = ano
+
+
+with st.container():
+    st.markdown(
+        "<div class='election-band'><span class='lbl'>Escolha a eleição</span></div>",
+        unsafe_allow_html=True)
+
+    col_a, col_b, col_c, col_d = st.columns([1.2, 1, 1, 1.2])
+    with col_b:
+        st.button('Eleições 2022', key='btn_eleicao_2022',
+                  on_click=_escolhe_eleicao, args=('2022',),
+                  type='primary' if st.session_state['eleicao'] == '2022' else 'secondary')
+    with col_c:
+        st.button('Eleições 2026', key='btn_eleicao_2026',
+                  on_click=_escolhe_eleicao, args=('2026',),
+                  type='primary' if st.session_state['eleicao'] == '2026' else 'secondary')
+
+st.markdown('---')
+
+## nenhuma eleição escolhida ainda: o app para aqui
+if st.session_state['eleicao'] is None:
+    st.markdown("""
+    <p style='text-align:center; font-family:Segoe UI; color:#6E6E85;'>
+    Selecione <b>Eleições 2022</b> ou <b>Eleições 2026</b> para explorar os dados por turno.</p>
+    """, unsafe_allow_html=True)
+    st.stop()
+
+## bloco das eleições de 2026: renderiza a página própria e encerra a execução
+if st.session_state['eleicao'] == '2026':
+    render_2026()
+    st.stop()
+
+########################################################################
+######## BLOCO DAS ELEIÇÕES 2022 (código original, abaixo) #############
+########################################################################
+
 
 ########################################################################
 #### seletor para escolher o perído do primeiro ou do segundo turno#####
