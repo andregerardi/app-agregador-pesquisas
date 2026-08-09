@@ -545,7 +545,7 @@ with st.container():
         <a href="mailto:andregerardi3@gmail.com">email</a>
         </p>
         """, unsafe_allow_html=True)
-    st.markdown("---")
+         st.markdown("---")
 
 ########################################################################
 ######## ELEIÇÕES 2026 - CARGA DE DADOS E FUNÇÕES DE VISUALIZAÇÃO ######
