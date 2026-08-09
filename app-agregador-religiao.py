@@ -266,15 +266,28 @@ h7[style]{
 }
 [data-testid="stMetricLabel"]{
   color:var(--muted) !important;
-  font-size:.72rem !important; font-weight:700 !important;
-  letter-spacing:.08em; text-transform:uppercase;
+  font-size:.70rem !important; font-weight:700 !important;
+  letter-spacing:.06em; text-transform:uppercase;
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  line-height:1.15 !important;
 }
-[data-testid="stMetricValue"]{
+[data-testid="stMetricLabel"] p{
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}
+[data-testid="stMetricValue"],
+[data-testid="stMetricValue"] > div{
   font-family:'Fraunces',serif !important;
   font-weight:800 !important;
+  font-size:1.6rem !important;
   color:var(--primary) !important;
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
 }
- 
 /* ---------- Fotos dos candidatos: circulares ---------- */
 [data-testid="stImage"] img{
   border-radius:50% !important;
