@@ -520,8 +520,7 @@ with st.container():
         expander2.markdown(f"""
         <p style='text-align: center; font-family:Segoe UI;'>ALMEIDA, Ronaldo de; GERARDI, Dirceu André. <b>Agregador de pesquisas eleitorais por religião</b>: consolidação de dados de pesquisas eleitorais com recorte religioso às eleições presidenciais de 2022. APP versão 1.0. São Paulo, 2022. Disponível em: https://www.larunicamp.com.br. Acesso em: 00/00/000.</p>
         """, unsafe_allow_html=True)
-
-     with col3:
+    with col3:
         expander5 = st.expander("Sobre nós")
         expander5.markdown("""
         <h6 style='text-align: center; color: #41AF50;'>
@@ -545,7 +544,7 @@ with st.container():
         <a href="mailto:andregerardi3@gmail.com">email</a>
         </p>
         """, unsafe_allow_html=True)
-         st.markdown("---")
+     st.markdown("---")
 
 ########################################################################
 ######## ELEIÇÕES 2026 - CARGA DE DADOS E FUNÇÕES DE VISUALIZAÇÃO ######
