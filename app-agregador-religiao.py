@@ -521,12 +521,29 @@ with st.container():
         <p style='text-align: center; font-family:Segoe UI;'>ALMEIDA, Ronaldo de; GERARDI, Dirceu André. <b>Agregador de pesquisas eleitorais por religião</b>: consolidação de dados de pesquisas eleitorais com recorte religioso às eleições presidenciais de 2022. APP versão 1.0. São Paulo, 2022. Disponível em: https://www.larunicamp.com.br. Acesso em: 00/00/000.</p>
         """, unsafe_allow_html=True)
 
-    with col3:
+     with col3:
         expander5 = st.expander("Sobre nós")
-        expander5.markdown(f"""
-        <h6 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao <br> Religião como política: moralidades, ativismos e laicidades<\br><br>Processo FAPESP: 2022/16673-3<\br>
-        <br>Laboratório de Antroplogia da Religião (LAR/Unicanp)<br>
-        <h6 style='text-align: center; color: #54595F;'>Coordenação:</h6>email<br></a><br>Ronaldo de Almeida<br>(UNICAMP/CEBRAP/LAR)<br><a href="mailto: ronaldormalmeida@gmail.com"><p style='text-align: center;'>email</a>Dirceu André Gerardi<br>(FGV LAW/FGV PROJETOS)<br><a href="mailto: andregerardi3@gmail.com"></p></p>
+        expander5.markdown("""
+        <h6 style='text-align: center; color: #41AF50;'>
+        Projeto vinculado a<br>
+        "Religião como política: moralidades, ativismos e laicidades"<br>
+        Processo FAPESP: 2022/16673-3<br><br>
+        Laboratório de Antropologia da Religião (LAR/Unicamp)
+        </h6>
+
+        <h6 style='text-align: center; color: #54595F;'>Coordenação:</h6>
+
+        <p style='text-align: center;'>
+        Ronaldo de Almeida<br>
+        (UNICAMP/CEBRAP/LAR)<br>
+        <a href="mailto:ronaldormalmeida@gmail.com">email</a>
+        </p>
+
+        <p style='text-align: center;'>
+        Dirceu André Gerardi<br>
+        (FGV LAW/FGV PROJETOS)<br>
+        <a href="mailto:andregerardi3@gmail.com">email</a>
+        </p>
         """, unsafe_allow_html=True)
     st.markdown("---")
 
