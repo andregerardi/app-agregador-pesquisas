@@ -567,7 +567,7 @@ SEG_2026 = {
     'cat':     'Católicos',
     'ev':      'Evangélicos',
     'espi':    'Espíritas',
-    'umb_can': 'Umbanda/Candomblé',
+    'umb_can': 'Umb./Cand.',
     'out':     'Outros',
     'non':     'Sem religião',
     'ateu':    'Ateus',
