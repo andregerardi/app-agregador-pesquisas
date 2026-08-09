@@ -576,7 +576,7 @@ SEG_2026 = {
 ## imagens de perfil (opcionais). Basta acrescentar o arquivo na pasta e mapear aqui.
 IMG_2026 = {
     'lul': 'lula_perfil.jpg',
-    'bol': 'bolso_image.jpeg',
+    'bol': 'flavio_pefil.jpg',
 }
 
 
