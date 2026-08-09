@@ -518,15 +518,15 @@ with st.container():
     with col2:
         expander2 = st.expander("Veja como citar o agregador")
         expander2.markdown(f"""
-        <p style='text-align: center; font-family:Segoe UI;'>GERARDI, Dirceu André; ALMEIDA, Ronaldo de. <b>Agregador de pesquisas eleitorais por religião</b>: consolidação de dados de pesquisas eleitorais com recorte religioso às eleições presidenciais de 2022. APP versão 1.0. São Paulo, 2022. Disponível em: https://cebrap.org.br/projetos/. Acesso em: 00/00/000.</p>
+        <p style='text-align: center; font-family:Segoe UI;'>GERARDI, Dirceu André; ALMEIDA, Ronaldo de. <b>Agregador de pesquisas eleitorais por religião</b>: consolidação de dados de pesquisas eleitorais com recorte religioso às eleições presidenciais de 2022. APP versão 1.0. São Paulo, 2022. Disponível em: https://www.larunicamp.com.br. Acesso em: 00/00/000.</p>
         """, unsafe_allow_html=True)
 
     with col3:
         expander5 = st.expander("Sobre nós")
         expander5.markdown(f"""
-        <h6 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao <br> Núcleo de Religiões no Mundo Contemporâneo (Cebrap)<br>
+        <h6 style='text-align: center; color: #41AF50;'>Projeto vinclulado ao <br> Religião como política: moralidades, ativismos e laicidades<br>Processo FAPESP: 2022/16673-3
         <br>Laboratório de Antroplogia da Religião (LAR/Unicanp)<br>
-        <h6 style='text-align: center; color: #54595F;'>Coordenação:</h6><p style='text-align: center;'>Dirceu André Gerardi<br>(FGV LAW/FGV PROJETOS/CEBRAP)<br><a href="mailto: andregerardi3@gmail.com">email<br></a><br>Ronaldo de Almeida<br>(UNICAMP/CEBRAP/LAR)<br><a href="mailto: ronaldormalmeida@gmail.com">email</a></p></p>
+        <h6 style='text-align: center; color: #54595F;'>Coordenação:</h6><p style='text-align: center;'>email<br></a><br>Ronaldo de Almeida<br>(UNICAMP/CEBRAP/LAR)<br><a href="mailto: ronaldormalmeida@gmail.com">email</a>Dirceu André Gerardi<br>(FGV LAW/FGV PROJETOS)<br><a href="mailto: andregerardi3@gmail.com"></p></p>
         """, unsafe_allow_html=True)
     st.markdown("---")
 
