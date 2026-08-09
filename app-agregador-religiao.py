@@ -533,7 +533,7 @@ ARQUIVO_2026 = 'agregador-pesquisas-eleitorais-2026-final.xlsx'
 
 ## planilha do Google aberta para edição (usada primeiro, quando acessível).
 ## Se a leitura on-line falhar, o app carrega automaticamente o arquivo local acima.
-URL_2026 = 'https://docs.google.com/spreadsheets/d/1XrwMEJYBt5-l7U8S6sUUBU80sd1xQqlA/export?format=xlsx'
+#URL_2026 = 'https://docs.google.com/spreadsheets/d/1XrwMEJYBt5-l7U8S6sUUBU80sd1xQqlA/export?format=xlsx'
 
 ## institutos excluídos do banco de 2026 (mesmo critério adotado em 2022)
 INSTITUTOS_FORA_2026 = ['prpesquisas']
@@ -572,7 +572,7 @@ def load_dados_2026():
     """Carrega o banco de 2026 (Google Sheets com fallback para o arquivo local)."""
     origem = 'planilha do Google'
     try:
-        banco = pd.read_excel(URL_2026)
+        banco = pd.read_excel(ARQUIVO_2026)
     except Exception:
         banco = pd.read_excel(ARQUIVO_2026)
         origem = 'arquivo local'
