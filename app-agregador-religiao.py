@@ -673,7 +673,7 @@ def marca_dagua_2026(fig, y_logo=1.05, y_agre=1.05, x_logo=.99, x_agre=.87):
 ## ---------------------------------------------------------------------
 ## 3) Blocos visuais reaproveitáveis
 ## ---------------------------------------------------------------------
-def resumo_2026(dfx, turno='1t', rejeicao=False):
+def resumo_2026(dfx, turno='1t', rejeicao=False, por_linha=4):
     """Métricas (geral e por religião) de cada candidato, exibidas em checkbox."""
     sufixo_final = f'rej_{turno}' if rejeicao else turno
 
@@ -688,19 +688,27 @@ def resumo_2026(dfx, turno='1t', rejeicao=False):
         if not st.checkbox(cfg['nome'], key=chave):
             continue
 
-        colunas = st.columns(len(disponiveis) + 1)
+        col_img, col_dados = st.columns([1, 6])
 
-        ## imagem do candidato (quando houver arquivo disponível)
-        try:
-            colunas[0].image(Image.open(IMG_2026[pref]), width=100)
-        except Exception:
-            colunas[0].markdown(
-                f"<p style='font-family:Segoe UI;font-weight:700;color:#303030;'>{cfg['nome']}</p>",
-                unsafe_allow_html=True)
+        with col_img:
+            try:
+                st.image(Image.open(IMG_2026[pref]), width=110)
+            except Exception:
+                st.markdown(
+                    f"<p style='font-family:Segoe UI;font-weight:700;color:#303030;'>{cfg['nome']}</p>",
+                    unsafe_allow_html=True)
 
-        for i, (rotulo, col) in enumerate(disponiveis, start=1):
-            valor = ultimo_valor_2026(dfx, col)
-            colunas[i].metric(label=rotulo, value=f'{valor}%' if valor is not None else '—')
+        with col_dados:
+            ## quebra os segmentos em linhas curtas: colunas largas o suficiente
+            ## para o valor caber sem reticências
+            for i in range(0, len(disponiveis), por_linha):
+                bloco = disponiveis[i:i + por_linha]
+                cols = st.columns(por_linha)
+                for col, (rotulo, nome_col) in zip(cols, bloco):
+                    valor = ultimo_valor_2026(dfx, nome_col)
+                    col.metric(label=rotulo,
+                               value='—' if valor is None else f'{valor}%')
+
         st.markdown('---')
 
 
