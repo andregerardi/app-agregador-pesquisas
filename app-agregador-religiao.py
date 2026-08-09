@@ -524,8 +524,8 @@ with st.container():
         expander5 = st.expander("Sobre nós")
         expander5.markdown("""
         <h6 style='text-align: center; color: #41AF50;'>
-        Projeto vinculado a<br>
-        "Religião como política: moralidades, ativismos e laicidades"<br>
+        Projeto Temático FAPESP <br>
+        "Religião como política: moralidades, ativismos e laicidades"<br><br>
         Processo FAPESP: 2022/16673-3<br><br>
         Laboratório de Antropologia da Religião (LAR/Unicamp)
         </h6>
