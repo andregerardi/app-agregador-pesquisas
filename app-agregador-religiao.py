@@ -280,9 +280,8 @@ h7[style]{
 }
 [data-testid="stMetricValue"],
 [data-testid="stMetricValue"] > div{
-  font-family:'Fraunces',serif !important;
+  font-family:'Arial',serif !important;
   font-weight:800 !important;
-  padding:14px 10px;
   font-size:1.6rem !important;
   color:var(--primary) !important;
   white-space:normal !important;
