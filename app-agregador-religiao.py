@@ -577,7 +577,9 @@ SEG_2026 = {
 IMG_2026 = {
     'lul': 'lula_perfil.jpg',
     'bol': 'flavio_perfil.jpg',
-    'caiado': 'caiado_perfil.jpg'
+    'caiado': 'caiado_perfil.jpg',
+     'zema': 'zema_perfil.jpg',
+     'renan': 'renan_perfil.jpg'
 }
 
 
