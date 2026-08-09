@@ -342,13 +342,9 @@ hr{ border:none !important; border-top:1px solid var(--border) !important; margi
 
 @media (prefers-color-scheme: dark) {
   :root{
-    --bg: #0E1117;
-    --surface: #1A1D24;
-    --ink: #E6E6E6;
-    --muted: #A0A0B2;
-    --primary: #E6E6E6;
-    --border: #2A2E39;
-  }
+  color-scheme: light only;
+  /* ...resto das variáveis... */
+     }
 }
 </style>
 """
