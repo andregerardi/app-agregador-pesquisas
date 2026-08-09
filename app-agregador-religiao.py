@@ -282,6 +282,7 @@ h7[style]{
 [data-testid="stMetricValue"] > div{
   font-family:'Fraunces',serif !important;
   font-weight:800 !important;
+  padding:14px 10px;
   font-size:1.6rem !important;
   color:var(--primary) !important;
   white-space:normal !important;
@@ -568,7 +569,7 @@ SEG_2026 = {
     'ev':      'Evangélicos',
     'espi':    'Espíritas',
     'umb_can': 'Umbanda/Candomblé',
-    'out':     'Outras religiosidades',
+    'out':     'Outros',
     'non':     'Sem religião',
     'ateu':    'Ateus',
 }
