@@ -635,7 +635,7 @@ def serie_2026(dfx, col):
     mask = y > 1
     return dfx.loc[mask, 'sigla'], y[mask]
 
-
+### essa função é ativada quando não temos pelo menos 7 valores na base.
 def mm_2026(y):
     """Média móvel de m_m pesquisas. min_periods=1 evita série vazia enquanto o banco é pequeno."""
     return y.rolling(m_m, min_periods=1).mean()
