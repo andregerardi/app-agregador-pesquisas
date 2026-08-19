@@ -740,7 +740,7 @@ def grafico_linhas_2026(dfx, sufixo, titulo, y_max=70, col_bra_nulo=None, nota_e
             marker=dict(size=6, color=y, colorscale=cfg['escala']), legendrank=rank + 1))
 
         fig.add_trace(go.Scatter(
-            x=x, y=media, mode='lines+markers', marker=dict(size=5), name=cfg['nome'],
+            x=x, y=media, mode='lines+markers', marker=dict(size=1), name=cfg['nome'],
             line=dict(color=cfg['cor'], width=2.5), legendrank=rank))
 
         fig.add_annotation(
@@ -755,7 +755,7 @@ def grafico_linhas_2026(dfx, sufixo, titulo, y_max=70, col_bra_nulo=None, nota_e
             x=x, y=y, mode='markers', name='Pesquisas - brancos, nulos, NS e NR',
             marker=dict(size=6, color=y, colorscale='Greys'), legendrank=rank + 1))
         fig.add_trace(go.Scatter(
-            x=x, y=mm_2026(y), mode='lines+markers', marker=dict(size=5), name='Brancos, nulos, NS e NR',
+            x=x, y=mm_2026(y), mode='lines+markers', marker=dict(size=1), name='Brancos, nulos, NS e NR',
             line=dict(color='grey', width=2.5), legendrank=rank))
 
     fig.update_layout(
@@ -800,12 +800,12 @@ def grafico_instituto_2026(dfx, instituto, seg, turno):
         plotou = True
         fig.add_trace(go.Scatter(
             x=fonte['sigla'], y=pd.to_numeric(fonte[col_rel], errors='coerce'),
-            mode='lines+markers', marker=dict(size=5), name=f"{cfg['nome']} - {rotulo.lower()}",
+            mode='lines+markers', marker=dict(size=1), name=f"{cfg['nome']} - {rotulo.lower()}",
             line=dict(color=cfg['cor'], width=2.5), legendrank=rank))
         if tem_dados_2026(fonte, col_ger):
             fig.add_trace(go.Scatter(
                 x=fonte['sigla'], y=pd.to_numeric(fonte[col_ger], errors='coerce'),
-                mode='lines+markers', marker=dict(size=5), name=f"{cfg['nome']} - geral",
+                mode='lines+markers', marker=dict(size=1), name=f"{cfg['nome']} - geral",
                 line=dict(color=cfg['cor'], width=1, dash='dot'), legendrank=rank + 1))
         rank += 2
 
@@ -2270,19 +2270,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -2338,19 +2338,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -2406,19 +2406,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -2474,19 +2474,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -2542,19 +2542,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=70, l=80, b=4, t=160),
@@ -2611,19 +2611,19 @@ if options_turn == 'Primeiro Turno':
 
             #     fig = go.Figure()
             #     ##lula
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
             #     ##bolsonaro
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
             #                             line=dict(color='royalblue', width=2.5),legendrank=2))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
             #     ##ciro gomes
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
             #                             line=dict(color='green', width=2.5),legendrank=3))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
             #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
@@ -2678,19 +2678,19 @@ if options_turn == 'Primeiro Turno':
 
             #     fig = go.Figure()
             #     ##lula
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
             #     ##bolsonaro
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
             #                             line=dict(color='royalblue', width=2.5),legendrank=2))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
             #     ##ciro gomes
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
             #                             line=dict(color='green', width=2.5),legendrank=3))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
             #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
@@ -3624,19 +3624,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -3692,19 +3692,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -3760,19 +3760,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -3828,19 +3828,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -3896,19 +3896,19 @@ if options_turn == 'Primeiro Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 ##ciro gomes
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
                                         line=dict(color='green', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
                                         line=dict(color='green', width=1, dash='dot')))
 
                 fig.update_layout(width = 800, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=70, l=80, b=4, t=160),
@@ -3965,19 +3965,19 @@ if options_turn == 'Primeiro Turno':
 
             #     fig = go.Figure()
             #     ##lula
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
             #     ##bolsonaro
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
             #                             line=dict(color='royalblue', width=2.5),legendrank=2))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
             #     ##ciro gomes
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
             #                             line=dict(color='green', width=2.5),legendrank=3))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
             #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
@@ -4032,19 +4032,19 @@ if options_turn == 'Primeiro Turno':
 
             #     fig = go.Figure()
             #     ##lula
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel}",
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
             #     ##bolsonaro
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel}",
             #                             line=dict(color='royalblue', width=2.5),legendrank=2))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
             #     ##ciro gomes
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - {rel}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'ciro_{religi_escolhida}_1t'], mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - {rel}",
             #                             line=dict(color='green', width=2.5),legendrank=3))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=5), name=f"Ciro Gomes - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['ciro_ger_1t'],mode='lines+markers', marker=dict(size=1), name=f"Ciro Gomes - geral", 
             #                             line=dict(color='green', width=1, dash='dot')))
 
             #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
@@ -5123,14 +5123,14 @@ if options_turn == 'Segundo Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel2}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel2}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -5187,14 +5187,14 @@ if options_turn == 'Segundo Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel2}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel2}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -5251,14 +5251,14 @@ if options_turn == 'Segundo Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel2}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel2}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -5315,14 +5315,14 @@ if options_turn == 'Segundo Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel2}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel2}",
                                         line=dict(color='royalblue', width=2.5),legendrank=2))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot')))
                 
                 fig.update_layout(width = 800, height = 700, template = 'plotly_white', margin=dict(r=80, l=80, b=4, t=150),
@@ -5379,14 +5379,14 @@ if options_turn == 'Segundo Turno':
 
                 fig = go.Figure()
                 ##lula
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel2}",
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
                                         line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot'),legendrank=2))
                 ##bolsonaro
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel2}",
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel2}",
                                         line=dict(color='royalblue', width=2.5),legendrank=3))
-                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+                fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
                                         line=dict(color='royalblue', width=1, dash='dot'),legendrank=4))
                 
                 fig.update_layout(width = 800, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=70, l=80, b=4, t=160),
@@ -5443,14 +5443,14 @@ if options_turn == 'Segundo Turno':
 
             #     fig = go.Figure()
             #     ##lula
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel2}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel2}",
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
             #     ##bolsonaro
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel2}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel2}",
             #                             line=dict(color='royalblue', width=2.5),legendrank=2))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
             #
             #     fig.update_layout(width = 1000, height = 800, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
@@ -5505,14 +5505,14 @@ if options_turn == 'Segundo Turno':
 
             #     fig = go.Figure()
             #     ##lula
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Lula - {rel2}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'lul_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Lula - {rel2}",
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=2.5),legendrank=1))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Lula - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['lul_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Lula - geral", 
             #                             line=dict(color='rgba(215, 0, 0, 0.8)', width=1, dash='dot')))
             #     ##bolsonaro
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - {rel2}",
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte[f'bol_{religi_escolhida}_2t'], mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - {rel2}",
             #                             line=dict(color='royalblue', width=2.5),legendrank=2))
-            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=5), name=f"Bolsonaro - geral", 
+            #     fig.add_trace(go.Scatter(x=fonte['sigla'], y=fonte['bol_ger_2t'],mode='lines+markers', marker=dict(size=1), name=f"Bolsonaro - geral", 
             #                             line=dict(color='royalblue', width=1, dash='dot')))
 
             #     fig.update_layout(width = 810, height = 700, template = 'plotly_white+xgridoff', margin=dict(r=80, l=80, b=4, t=150),
