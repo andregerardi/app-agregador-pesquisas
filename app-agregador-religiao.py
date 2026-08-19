@@ -567,7 +567,7 @@ INSTITUTOS_FORA_2026 = ['prpesquisas']
 ## Para alterar o nome exibido, a cor da linha ou a escala dos pontos, edite aqui.
 CAND_2026 = {
     'lul':    {'nome': 'Lula',           'cor': 'rgba(215, 0, 0, 0.8)', 'escala': 'peach'},
-    'bol':    {'nome': 'Bolsonaro',      'cor': 'royalblue',            'escala': 'ice'},
+    'bol':    {'nome': 'Flávio',         'cor': 'royalblue',            'escala': 'ice'},
     'caiado': {'nome': 'Ronaldo Caiado', 'cor': '#FF6B35',              'escala': 'Oranges'},
     'zema':   {'nome': 'Romeu Zema',     'cor': 'seagreen',             'escala': 'Greens'},
     'renan':  {'nome': 'Renan',          'cor': '#7B4FBF',              'escala': 'Purples'},
@@ -587,9 +587,9 @@ SEG_2026 = {
 
 ## imagens de perfil (opcionais). Basta acrescentar o arquivo na pasta e mapear aqui.
 IMG_2026 = {
-    'lul': 'lula_perfil.jpg',
-    'bol': 'flavio_perfil.jpg',
-    'caiado': 'caiado_perfil.jpg',
+     'lul': 'lula_perfil.jpg',
+     'bol': 'flavio_perfil.jpg',
+     'caiado': 'caiado_perfil.jpg',
      'zema': 'zema_perfil.jpg',
      'renan': 'renan_perfil.jpg'
 }
