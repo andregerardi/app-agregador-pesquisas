@@ -638,7 +638,7 @@ def serie_2026(dfx, col):
 ### essa função é ativada quando não temos pelo menos 7 valores na base.
 def mm_2026(y):
     """Média móvel de m_m pesquisas. min_periods=1 evita série vazia enquanto o banco é pequeno."""
-    return y.rolling(m_m, min_periods=7).mean()
+    return y.rolling(m_m, min_periods=1).mean()
 
 
 def ultimo_valor_2026(dfx, col):
